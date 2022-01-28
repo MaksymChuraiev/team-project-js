@@ -1,19 +1,55 @@
 .container {
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
 
-  @media screen and (max-width: 767px) {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: center;
+  @media screen and (min-width: 480px) {
     max-width: 480px;
   }
-
   @media screen and (min-width: 768px) {
-    width: 768px;
-    padding: 0 75px;
+    max-width: 768px;
+     padding: 0 75px;
   }
-
   @media screen and (min-width: 1024px) {
-    padding: 0 71px;
-    width: 1024px;
+    max-width: 1024px;
+     padding: 0 71px;
   }
 }
+
+
+
+.page {
+  background-color: var(--primary-white-color);
+  color: var(--primary-text-color);
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.list,
+.work-list,
+.team-list,
+.feature-list,
+.footer .address-list,
+.filter-list,
+.works-list {
+  font-style: normal;
+  list-style: none;
+  text-decoration: none;
+}
+
+.text {
+  color: var(--primary-text-color);
+}
+
+.link {
+  transition: var(--time-duration) var(--time-function);
+}
+
+
+}
+
