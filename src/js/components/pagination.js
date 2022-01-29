@@ -1,4 +1,4 @@
-export { markupPages, buttonDisabledTrue, buttonDisabledFalse, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn }
+export { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn,togglePainationAllButtons }
 
 import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
@@ -15,7 +15,8 @@ const refs = {
     nextPage: document.querySelector("[data-page='next']"),
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
-    pages: document.querySelector('.pages'),
+  pages: document.querySelector('.pages'),
+  paginationList:document.querySelector('.pagination'),
     
     
 }
@@ -23,17 +24,22 @@ console.log(refs);
 console.log(options);
 
 function markupPages(array) {
-  const  pagesBtnMarkup = `<li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
-          <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
-          <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a></li>`
+  const pagesBtnMarkup = `
+      <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
+              <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
+              <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
+              </li>`
+  
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
 }
 
-function buttonDisabledTrue() {
-  refs.btnLoadMore.setAttribute('disabled', true)
-}
-function buttonDisabledFalse() {
-  refs.btnLoadMore.removeAttribute('disabled')
+function togglePainationAllButtons(array) {
+  refs.paginationList.classList.remove('visually-hidden')
+  if (array.total_pages <= 1) {
+    refs.paginationList.classList.add('visually-hidden')
+    console.log(array.results.length)
+    console.log(refs.paginationList)
+  }
 }
 
 

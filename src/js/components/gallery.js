@@ -1,5 +1,5 @@
 import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie} from './fetchApi'
-import { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
+import { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn,togglePainationAllButtons } from './pagination'
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
@@ -19,6 +19,7 @@ const refs = {
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
   textError: document.querySelector('.js-header__text-error'),
+  paginationList:document.querySelector('.pagination'),
    
 }
 let currentFetch = 'tranding'
@@ -60,7 +61,8 @@ async function checkFetchLink(e) {
       console.log('search', ress)
       console.log('currentFetch ', currentFetch)
       console.log('oq ', options.query)
-      removeAllChekedGenres()
+    removeAllChekedGenres()
+    togglePainationAllButtons(ress)
     }
   // ===== chek genres ===== 
 
@@ -82,6 +84,7 @@ async function checkFetchLink(e) {
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
+    togglePainationAllButtons(ress)
     
     
   } catch (e) {
