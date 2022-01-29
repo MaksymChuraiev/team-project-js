@@ -41,6 +41,10 @@
   background: #ff6b08;
   color: #ffffff;
 }
+.btn_disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
 .btn_arrow {
   background: #f7f7f7;
 }
