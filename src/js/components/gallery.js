@@ -115,7 +115,7 @@ function galleryArrayMarkup(array) {
       return `<li class="gallery-list__item">
                 <div class="gallery-list__card">
                     <a class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <img src="https://image.tmdb.org/t/p/w200/${poster_path}" alt="${original_title}" width="280" height="402" />
+                        <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "298" height = "398"/>
                     </a>
                 </div>
                 <!-- <div class="gallery-list__description"> -->
