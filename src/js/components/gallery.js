@@ -18,7 +18,7 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-    
+    textError: document.querySelector('.js-header__text-error'),
     
 }
 let currentFetch = 'tranding'
@@ -50,7 +50,8 @@ async function checkFetchLink(e) {
   // ==== chech input ====
   if (e.currentTarget === refs.form) {
       if (options.query.trim() === '') {
-       return Notify.failure("Please enter film name")
+      //  return Notify.failure("Please enter film name")
+      refs.textError.classList.remove('is-hidden');
       }
     
       options.query = formInput.value
