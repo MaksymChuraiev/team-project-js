@@ -1,0 +1,252 @@
+export { markupPages, buttonDisabledTrue, buttonDisabledFalse, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn }
+
+import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
+
+import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi'
+
+import { options } from './fetchApi';
+
+const refs = {
+    form: document.querySelector('#search-form'),
+    gallery: document.querySelector('.gallery-list'),
+    btnLoadMore: document.querySelector('.load-more'),
+    genres: document.querySelector('.genres'),
+    prevPage: document.querySelector("[data-page='prev']"),
+    nextPage: document.querySelector("[data-page='next']"),
+    lessPage: document.querySelector("[data-page='less']"),
+    morePage: document.querySelector("[data-page='more']"),
+    pages: document.querySelector('.pages'),
+    
+    
+}
+console.log(refs);
+console.log(options);
+
+function markupPages(array) {
+  const  pagesBtnMarkup = `<li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
+          <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
+          <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a></li>`
+  refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
+}
+
+function buttonDisabledTrue() {
+  refs.btnLoadMore.setAttribute('disabled', true)
+}
+function buttonDisabledFalse() {
+  refs.btnLoadMore.removeAttribute('disabled')
+}
+
+
+function addTestPaginationListeners() {
+  refs.prevPage.addEventListener('click', onClickPrevPageBtn)
+  refs.nextPage.addEventListener('click', onClickNextPageBtn)
+  refs.morePage.addEventListener('click', onClickMorePageBtn)
+  refs.lessPage.addEventListener('click', onClickLessPageBtn)
+  refs.pages.addEventListener('click', onClickNumberPageBtn)
+}
+
+function togglePaginationBtn() {
+    refs.prevPage.parentNode.classList.remove('btn_disabled')
+    refs.lessPage.parentNode.classList.remove('btn_disabled')
+    refs.nextPage.parentNode.classList.remove('btn_disabled')
+    refs.morePage.parentNode.classList.remove('btn_disabled')
+
+  
+  if (options.pageNumber <= 1) {
+    refs.prevPage.parentNode.classList.add('btn_disabled')
+    refs.lessPage.parentNode.classList.add('btn_disabled')
+  }
+  if (options.pageNumber >= options.maxPage) {
+    refs.nextPage.parentNode.classList.add('btn_disabled')
+    refs.morePage.parentNode.classList.add('btn_disabled')
+  }
+}
+
+
+function hideFirstPageBtn() {
+  if (refs.pages.firstElementChild.firstElementChild.dataset.page === '0') {
+    refs.pages.firstElementChild.classList.add('visually-hidden')
+  }
+}
+
+function hideLastPageBtn() {
+  if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
+    refs.pages.lastElementChild.classList.add('visually-hidden')
+  }
+}
+
+// ============ descriptionButtonListener ============
+async function onClickNumberPageBtn(e) {
+  if (e.target.nodeName === 'UL' || e.target.nodeName === 'LI') {
+    return
+  }
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log(e.target)
+  console.log(e.target.dataset.page)
+  console.dir(refs.pages)
+  options.pageNumber = +e.target.dataset.page
+  console.log(refs.pages)
+  console.log(refs.pages.firstElementChild)
+
+  let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+  galleryArrayMarkup(response)
+  markupPages(response)
+  hideFirstPageBtn()
+  hideLastPageBtn()
+  togglePaginationBtn()
+  
+  
+}
+
+async function onClickPrevPageBtn(e) {
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('prev')
+  console.log(e.target)
+  refs.nextPage.parentNode.classList.remove('disabled')
+  
+  if (options.pageNumber > 1) {
+    options.pageNumber -= 1;
+    let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+    galleryArrayMarkup(response)
+    markupPages(response)
+    hideFirstPageBtn()
+    hideLastPageBtn()
+    togglePaginationBtn()    
+     
+  }
+}
+async function onClickNextPageBtn(e) {
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('next')
+  console.log(e.target)
+  console.log(options.maxPage,'maxPage')
+  console.log(options.pageNumber,'pageNumber')
+  
+  
+    if (options.pageNumber < options.maxPage) {
+      refs.prevPage.parentNode.classList.remove('disabled')
+      options.pageNumber += 1;     
+let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+      galleryArrayMarkup(response)
+      markupPages(response)
+      console.dir(refs.pages.lastElementChild.firstElementChild.dataset.page,'dataset')
+      hideFirstPageBtn()
+      hideLastPageBtn()
+      togglePaginationBtn()
+      
+    }
+}
+console.log('options.pageNumber:',options.pageNumber)
+console.log('options.maxPage:',options.maxPage)
+
+async function onClickMorePageBtn(e) {
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('more')
+  console.log(e.target)
+  console.log(options.pageNumber)
+  console.log(options.maxPage)
+  if (options.pageNumber <= options.maxPage) {
+    if (options.pageNumber+3 >= options.maxPage) {
+      options.pageNumber = options.maxPage
+    } else {
+      options.pageNumber += 3;
+    }
+let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+    galleryArrayMarkup(response)
+    markupPages(response)
+    hideFirstPageBtn()
+    hideLastPageBtn()
+    togglePaginationBtn()
+    
+  }
+}
+
+async function onClickLessPageBtn(e) {
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('less')
+  console.log(e.target)
+  if (options.pageNumber <= options.maxPage) {
+    if (options.pageNumber <= 3) {
+      options.pageNumber = 1
+    } else {
+      options.pageNumber -= 3;
+    }
+let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+    galleryArrayMarkup(response)
+    markupPages(response)
+    hideFirstPageBtn()
+    hideLastPageBtn()
+    togglePaginationBtn()
+    
+  }
+}
