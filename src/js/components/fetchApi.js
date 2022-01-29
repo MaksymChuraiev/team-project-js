@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const options = { query: '', pageNumber: 1, pageItemCount: 20, genresId: [], maxPage: 0 };
 
+
 async function fetchPhoto() {
     const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?`
     const params = {
@@ -20,7 +21,7 @@ async function fetchGenres() {
   try {
     const { data } = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=6dae1a863e182d2e5c972909bcd1e575&language=en-US`);
     return data
-
+  
   } catch (error) {
     console.log(error)
   }
@@ -29,6 +30,9 @@ async function fetchGenres() {
 async function fetchTrandingMovie() {
   try {
     const { data } = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=6dae1a863e182d2e5c972909bcd1e575&&page=${options.pageNumber}`);
+    // const ratings = document.querySelectorAll('.gallery-list__rating');
+    // ratings.classList.add('visually-hidden');
+    // console.log(ratings)
     return data
 
   } catch (error) {

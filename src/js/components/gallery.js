@@ -18,8 +18,8 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-    textError: document.querySelector('.js-header__text-error'),
-    
+  textError: document.querySelector('.js-header__text-error'),
+   
 }
 let currentFetch = 'tranding'
 let currentPage = 1
@@ -78,6 +78,7 @@ async function checkFetchLink(e) {
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
+    ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -95,13 +96,15 @@ async function onLoadTranding() {
   
   options.maxPage = resp.total_pages
     galleryArrayMarkup(resp)
+    ratingAddIshidden()
     markupPages(resp)
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
-  removeAllChekedGenres()
+    removeAllChekedGenres()
   options.pageNumber += 1
-  return await fetchTrandingMovie()
+  
+    return await fetchTrandingMovie()
 }
 
 //=========================== разметкa Галереи фильмов ====================
@@ -128,6 +131,13 @@ function galleryArrayMarkup(array) {
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup)
 }
 console.log('genresId', options.genresId)
+
+// =====================================Работаем с рейтингами ======================================================
+
+function ratingAddIshidden() {
+    const ratings = document.querySelectorAll('.gallery-list__rating');
+    ratings.forEach(rating => rating.classList.add('visually-hidden'))
+  }
 
 
 // ===================== пока не трогаем ==============
@@ -158,3 +168,13 @@ async function removeAllChekedGenres() {
 //     const allRenderGenresButton = [...refs.genres.children]
 //    return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('genresIsActive'))
 }
+
+
+const ratings = document.querySelector('.gallery-list');
+console.log(ratings)
+// // ratings.classList.add('visually-hidden')
+
+// const children = ratings.children;
+
+// console.log(children)
+
