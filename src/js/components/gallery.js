@@ -115,7 +115,7 @@ function galleryArrayMarkup(array) {
                 <!-- <div class="gallery-list__description"> -->
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
-                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${release_date}</span> </p>
+                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${new Date(release_date).getFullYear()}</span> </p>
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
                 <!-- </div> -->
