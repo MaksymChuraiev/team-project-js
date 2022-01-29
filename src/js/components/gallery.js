@@ -4,7 +4,7 @@ import { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirst
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
 
-export { refs, currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres }
+export { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres }
 
 
 
@@ -23,9 +23,10 @@ const refs = {
 }
 let currentFetch = 'tranding'
 let currentPage = 1
-
+console.log(refs.gallery)
 genresMarkup()
 const formInput = refs.form.elements.query;
+console.log(formInput)
 refs.form.addEventListener('submit', checkFetchLink)
 // refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
 
@@ -57,21 +58,22 @@ async function checkFetchLink(e) {
       ress =  await fetchPhoto()
       console.log('search', ress)
       console.log('currentFetch ', currentFetch)
+      console.log('oq ', options.query)
       removeAllChekedGenres()
     }
   // ===== chek genres ===== 
 
-  if (e.currentTarget === refs.genres) {
-      currentFetch = 'genres'
-      formInput.value = ''
-      e.target.classList.toggle('genresIsActive')
-      options.pageNumber = 1
-    toggleGenres(e.target.id)
+//   if (e.currentTarget === refs.genres) {
+//       currentFetch = 'genres'
+//       formInput.value = ''
+//       e.target.classList.toggle('genresIsActive')
+//       options.pageNumber = 1
+//     toggleGenres(e.target.id)
     
-      ress = await discoverGenres()
-      console.log('genres', ress)
-      console.log('currentFetch ',currentFetch)
-    }
+//       ress = await discoverGenres()
+//       console.log('genres', ress)
+//       console.log('currentFetch ',currentFetch)
+//     }
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)

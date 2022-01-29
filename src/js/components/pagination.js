@@ -1,10 +1,26 @@
 export { markupPages, buttonDisabledTrue, buttonDisabledFalse, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn }
 
-import { refs, currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
+import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
 import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
 import { options } from './fetchApi';
+
+const refs = {
+    form: document.querySelector('#search-form'),
+    gallery: document.querySelector('.gallery-list'),
+    btnLoadMore: document.querySelector('.load-more'),
+    genres: document.querySelector('.genres'),
+    prevPage: document.querySelector("[data-page='prev']"),
+    nextPage: document.querySelector("[data-page='next']"),
+    lessPage: document.querySelector("[data-page='less']"),
+    morePage: document.querySelector("[data-page='more']"),
+    pages: document.querySelector('.pages'),
+    
+    
+}
+console.log(refs);
+console.log(options);
 
 function markupPages(array) {
   const  pagesBtnMarkup = `<li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
@@ -30,32 +46,32 @@ function addTestPaginationListeners() {
 }
 
 function togglePaginationBtn() {
-    refs.prevPage.parentNode.classList.remove('disabled')
-    refs.lessPage.parentNode.classList.remove('disabled')
-    refs.nextPage.parentNode.classList.remove('disabled')
-    refs.morePage.parentNode.classList.remove('disabled')
+    refs.prevPage.parentNode.classList.remove('btn_disabled')
+    refs.lessPage.parentNode.classList.remove('btn_disabled')
+    refs.nextPage.parentNode.classList.remove('btn_disabled')
+    refs.morePage.parentNode.classList.remove('btn_disabled')
 
   
   if (options.pageNumber <= 1) {
-    refs.prevPage.parentNode.classList.add('disabled')
-    refs.lessPage.parentNode.classList.add('disabled')
+    refs.prevPage.parentNode.classList.add('btn_disabled')
+    refs.lessPage.parentNode.classList.add('btn_disabled')
   }
   if (options.pageNumber >= options.maxPage) {
-    refs.nextPage.parentNode.classList.add('disabled')
-    refs.morePage.parentNode.classList.add('disabled')
+    refs.nextPage.parentNode.classList.add('btn_disabled')
+    refs.morePage.parentNode.classList.add('btn_disabled')
   }
 }
 
 
 function hideFirstPageBtn() {
   if (refs.pages.firstElementChild.firstElementChild.dataset.page === '0') {
-    refs.pages.firstElementChild.classList.add('is-hidden')
+    refs.pages.firstElementChild.classList.add('visually-hidden')
   }
 }
 
 function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
-    refs.pages.lastElementChild.classList.add('is-hidden')
+    refs.pages.lastElementChild.classList.add('visually-hidden')
   }
 }
 
