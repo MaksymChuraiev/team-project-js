@@ -11,7 +11,7 @@ const Theme = {
 
 const { LIGHT, DARK } = Theme;
 
-checkboxBtn.addEventListener('change', changeTheme);
+// checkboxBtn.addEventListener('change', changeTheme);
 
 function changeTheme(e) {
   const theme = e.target.checked;
