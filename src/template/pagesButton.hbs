@@ -1,0 +1,12 @@
+{{#each this}}
+    <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page={{array.page - 1}}>{{array.page - 1}}</a>
+    </li>
+    <li class="page_item disabled">
+        <a href="#" class="page_link pagination_btn btn_active" data-page={{array.page}}>{{array.page}}</a>
+    </li>
+    <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page={{array.page + 1}}>{{array.page + 1}}</a>
+    </li>
+
+{{/each}}
