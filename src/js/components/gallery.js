@@ -5,6 +5,7 @@ import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
 
 export { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres }
+const throttle = require('lodash.throttle');
 
 
 
@@ -28,7 +29,7 @@ genresMarkup()
 const formInput = refs.form.elements.query;
 console.log(formInput)
 refs.form.addEventListener('submit', checkFetchLink)
-// refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
+refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
 
 
 let ress = ''
@@ -64,17 +65,41 @@ async function checkFetchLink(e) {
     }
   // ===== chek genres ===== 
 
-//   if (e.currentTarget === refs.genres) {
-//       currentFetch = 'genres'
-//       formInput.value = ''
-//       e.target.classList.toggle('genresIsActive')
-//       options.pageNumber = 1
-//     toggleGenres(e.target.id)
+    if (e.currentTarget === refs.genres) {
     
-//       ress = await discoverGenres()
-//       console.log('genres', ress)
-//       console.log('currentFetch ',currentFetch)
-//     }
+      currentFetch = 'genres'
+      formInput.value = ''
+      e.target.classList.toggle('btn_active')
+      options.pageNumber = 1
+      toggleGenres(e.target.id)    
+      ress = await discoverGenres()
+      console.log('genres', ress)
+      console.log('currentFetch ',currentFetch)
+
+    }
+    if (e.target.id === 'topDay') {
+      options.trand = 'day'
+      options.genresId = []
+      currentFetch = 'topDay'
+      console.log('topDay', options.trand)
+      removeAllChekedGenresAndDay()
+      
+      ress = await fetchTrandingMovie()
+      console.log('topDay', ress)
+      console.log('currentFetch ', currentFetch)
+      
+    }
+    if (e.target.id === 'topWeek') {
+      options.trand = 'week'
+      options.genresId = []
+      console.log('topWeek', options.trand)
+      currentFetch = 'topWeek'
+      removeAllChekedGenresAndWeek()
+      
+      ress = await fetchTrandingMovie()
+      console.log('topWeek', ress)
+      console.log('currentFetch ',currentFetch)
+    }
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
@@ -148,9 +173,9 @@ async function genresMarkup() {
   
   const genres = r.genres.map(({ id, name }) => {
     return `
-    <button class="genres-btn btn btn-info"  id="${id}">${name}</button>`
+    <button class="genres-btn btn"  id="${id}">${name}</button>`
   }).join("")
-//   refs.genres.insertAdjacentHTML('beforeend', genres)
+  refs.genres.insertAdjacentHTML('afterbegin', genres)
 }
 
 // ===================== выбор и удаление жанра со страницы, добавление в массив ======
@@ -165,9 +190,29 @@ function toggleGenres(id) {
 
 // ==================== удаление всех выбраных жанров ======================
 async function removeAllChekedGenres() {
-//     const allRenderGenresButton = [...refs.genres.children]
-//    return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('genresIsActive'))
+    const allRenderGenresButton = [...refs.genres.children]
+   return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('btn_active'))
 }
+async function removeAllChekedGenresAndDay() {
+  const allRenderGenresButton = [...refs.genres.children]
+  return allRenderGenresButton.forEach(eachBtn => {
+    if (eachBtn.id === 'topWeek') {
+      return 
+    }
+    eachBtn.classList.remove('btn_active')
+  })
+}
+async function removeAllChekedGenresAndWeek() {
+  const allRenderGenresButton = [...refs.genres.children]
+  return allRenderGenresButton.forEach(eachBtn => {
+    if (eachBtn.id === 'topDay') {
+      return
+    }
+    eachBtn.classList.remove('btn_active')
+  })
+}
+
+
 
 
 const ratings = document.querySelector('.gallery-list');
