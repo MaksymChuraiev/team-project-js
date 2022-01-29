@@ -1,3 +1,6 @@
+.header-container{
+  position: relative;
+}
 .header {
   padding-top: 48px;
   padding-bottom: 97px;
@@ -198,7 +201,7 @@
 }
 
 .header__error {
-  display: none;
+  // display: none;
   margin: 0 auto;
   margin-top: 20px;
   width: 100%;

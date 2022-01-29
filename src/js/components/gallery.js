@@ -18,8 +18,8 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-    
-    
+  textError: document.querySelector('.js-header__text-error'),
+   
 }
 let currentFetch = 'tranding'
 let currentPage = 1
@@ -50,7 +50,8 @@ async function checkFetchLink(e) {
   // ==== chech input ====
   if (e.currentTarget === refs.form) {
       if (options.query.trim() === '') {
-       return Notify.failure("Please enter film name")
+      //  return Notify.failure("Please enter film name")
+      refs.textError.classList.remove('is-hidden');
       }
     
       options.query = formInput.value
@@ -77,6 +78,7 @@ async function checkFetchLink(e) {
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
+    ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -94,13 +96,15 @@ async function onLoadTranding() {
   
   options.maxPage = resp.total_pages
     galleryArrayMarkup(resp)
+    ratingAddIshidden()
     markupPages(resp)
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
-  removeAllChekedGenres()
+    removeAllChekedGenres()
   options.pageNumber += 1
-  return await fetchTrandingMovie()
+  
+    return await fetchTrandingMovie()
 }
 
 //=========================== разметкa Галереи фильмов ====================
@@ -109,14 +113,18 @@ function galleryArrayMarkup(array) {
     {
       // console.log(largeImageURL)
       return `<li class="gallery-list__item">
-                <a class="gallery-list__card">
-                    <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <img src="https://image.tmdb.org/t/p/w200/${poster_path}" alt="${original_title}" width="280" height="402" />
-                    </div>
-                    <div class="gallery-list__description">
+
+
+                <div class="gallery-list__card">
+                    <a class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
+                        <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "298" height = "398"/>
+                    </a>
+                </div>
+                <!-- <div class="gallery-list__description"> -->
+
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
-                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${release_date}</span> </p>
+                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${new Date(release_date).getFullYear()}</span> </p>
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
                 </div>
@@ -127,6 +135,13 @@ function galleryArrayMarkup(array) {
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup)
 }
 console.log('genresId', options.genresId)
+
+// =====================================Работаем с рейтингами ======================================================
+
+function ratingAddIshidden() {
+    const ratings = document.querySelectorAll('.gallery-list__rating');
+    ratings.forEach(rating => rating.classList.add('visually-hidden'))
+  }
 
 
 // ===================== пока не трогаем ==============
@@ -159,4 +174,13 @@ async function removeAllChekedGenres() {
 }
 
 
-const card = document.querySelectorAll('.gallery-list__item');
+
+
+const ratings = document.querySelector('.gallery-list');
+console.log(ratings)
+// // ratings.classList.add('visually-hidden')
+
+// const children = ratings.children;
+
+// console.log(children)
+

@@ -1,4 +1,5 @@
 @import './base/reset';
+@import './components/backdrop';
 @import './utils/vars';
 @import './base/container';
 @import './utils/hidden';
@@ -7,5 +8,6 @@
 @import './layout/gallery';
 @import './layout/pagination';
 @import './layout/footer';
+@import './layout/switcher';
 
 @import './layout/scroll';

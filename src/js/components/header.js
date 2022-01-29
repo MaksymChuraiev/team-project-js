@@ -1,3 +1,4 @@
+
 const refs = {
   header: document.querySelector('.js-header'),
   home: document.querySelector('.js-home'),
@@ -6,12 +7,14 @@ const refs = {
   thumb: document.querySelector('.js-header-thumb'),
   watched: document.querySelector('.js-button-watched'),
   queue: document.querySelector('.js-button-queue'),
+  textError: document.querySelector('.js-header__text-error'),
 };
 
 refs.home.addEventListener('click', onHomeClick);
 refs.library.addEventListener('click', onLibraryClick);
 refs.watched.addEventListener('click', onWatchedClick);
 refs.queue.addEventListener('click', onQueueClick);
+
 
 function onHomeClick(e) {
   e.preventDefault();
