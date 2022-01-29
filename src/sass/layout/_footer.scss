@@ -2,8 +2,17 @@
   font-family: $primary-font;
   height: 77px;
   text-align: center;
-  background-color: $second-background;
+  background-color: currentColor;
 }
+.footer.light-theme {
+  background-color: $second-background;
+  color: $second-text-color;
+}
+.footer.dark-theme {
+  background-color: rgb(36, 31, 26);
+  color: $main-text-color;
+}
+
 .favorite-img {
   width: 14px;
   height: 13px;
@@ -11,16 +20,14 @@
   margin-right: 5px;
 }
 .footer__text {
-  color: $second-text-color;
+  color: currentColor;
   padding-top: 30px;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.19;
   display: flex;
   flex-wrap: wrap;
-
   justify-content: center;
-
   @media screen and (min-width: 768px) {
     flex-wrap: nowrap;
   }
