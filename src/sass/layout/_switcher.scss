@@ -1,100 +1,117 @@
-// .gallery.light-theme {
-//   background-color: #fff;
-// }
+.gallery.light-theme {
+  background-color: #fff;
+}
 
-// .gallery.dark-theme {
-//   background: rgb(121, 110, 107);
-//   // background: radial-gradient(circle, rgba(99, 39, 21, 1) 0%, rgba(3, 2, 1, 1) 38%);
-//   color: #fff;
-// }
-// .pagination-theme.light-theme {
-//   background-color: #fff;
-// }
-// .pagination-theme.dark-theme {
-//   background: rgb(121, 110, 107);
-//   // background: radial-gradient(circle, rgba(99, 39, 21, 1) 0%, rgba(3, 2, 1, 1) 38%);
-//   color: #fff;
-// }
-// .page_item.dark-theme {
-//   color: #000;
-// }
+.gallery.dark-theme {
+  background: rgb(94, 33, 15);
+  background: linear-gradient(
+    90deg,
+    rgba(94, 33, 15, 1) 0%,
+    rgba(28, 21, 14, 0.7598389697675946) 38%
+  );
+  color: #fff;
+}
+.pagination-theme.light-theme {
+  background-color: #fff;
+}
+.pagination-theme.dark-theme {
+  background: rgb(94, 33, 15);
+  background: linear-gradient(
+    90deg,
+    rgba(94, 33, 15, 1) 0%,
+    rgba(28, 21, 14, 0.7598389697675946) 38%
+  );
+  color: #fff;
+}
+.page_item.dark-theme {
+  color: #000;
+  background-color: rgb(138, 130, 130);
+}
 
-// .toolbar {
-//   position: absolute;
-//   left: 0px;
-//   right: 0px;
-//   top: 0px;
-//   display: flex;
-//   justify-content: flex-end;
-//   padding: 15px 15px;
-// }
+.toolbar {
+  position: absolute;
+  left: 0px;
+  right: 20px;
+  top: -30px;
+  display: flex;
+  justify-content: flex-end;
+  // padding: 15px 15px;
 
-// /* THEME SWITCH */
-// .theme-switch {
-//   display: flex;
-//   align-items: center;
-// }
+  @media screen and (min-width: 768px) {
+    right: 77px;
+    top: -22px;
+  }
+  @media screen and (min-width: 1024px) {
+    right: 72px;
+  }
+}
 
-// .theme-switch__control {
-//   display: flex;
-//   align-items: center;
-//   flex-shrink: 0;
-//   position: relative;
-//   width: 50px;
-//   height: 30px;
-//   border-radius: 50em;
-//   padding: 3px 0;
-// }
+/* THEME SWITCH */
+.theme-switch {
+  display: flex;
+  align-items: center;
+}
 
-// .theme-switch__toggle {
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   margin: 0;
-//   padding: 0;
-//   opacity: 0;
-//   height: 0;
-//   width: 0;
-//   pointer-events: none;
-// }
+.theme-switch__control {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  width: 25px;
+  height: 7px;
+  border-radius: 50em;
+  padding: 3px 0;
+}
 
-// .theme-switch__track {
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   color: transparent;
-//   user-select: none;
-//   background-color: $accent-color;
-//   border-radius: inherit;
-//   z-index: 1;
-//   cursor: pointer;
-// }
+.theme-switch__toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
 
-// .theme-switch__marker {
-//   position: relative;
-//   background-color: #fff;
-//   width: 25px;
-//   height: 25px;
-//   border-radius: 50%;
-//   z-index: 2;
-//   pointer-events: none;
+.theme-switch__track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  user-select: none;
+  background-color: $accent-color;
+  border-radius: inherit;
+  z-index: 1;
+  cursor: pointer;
+}
 
-//   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-//   transform: translateX(3px);
-//   transition: transform 250ms $timing-function;
-// }
+.theme-switch__marker {
+  position: relative;
+  background-color: #fff;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
 
-// .theme-switch__toggle:checked + .theme-switch__track {
-//   background-color: #d3d3d4;
-// }
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  transform: translateX(3px);
+  transition: transform 250ms $timing-function;
+}
 
-// .theme-switch__toggle:checked ~ .theme-switch__marker {
-//   transform: translateX(20px);
-// }
+.theme-switch__toggle:checked + .theme-switch__track {
+  background-color: #d3d3d4;
+}
 
-// .theme-switch__toggle:focus + .theme-switch__track,
-// .theme-switch__toggle:active + .theme-switch__track {
-//   box-shadow: 0 0 0 3px $accent-color;
-// }
+.theme-switch__toggle:checked ~ .theme-switch__marker {
+  transform: translateX(7px);
+}
+
+.theme-switch__toggle:focus + .theme-switch__track,
+.theme-switch__toggle:active + .theme-switch__track {
+  box-shadow: 0 0 0 3px $accent-color;
+}

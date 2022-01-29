@@ -1,5 +1,5 @@
 <header class="header header__home js-header">
-  <div class="container">
+  <div class="container header-container">
     <nav class="header__navigation">
       <a href="./index.html" class="">
         <div class="logo__thumb">
@@ -42,6 +42,23 @@
         Watched
       </button>
       <button type="submit" class="header__button js-button-queue">Queue</button>
+    </div>
+
+    <div class="toolbar">
+      <!-- Разметка переключателя темы -->
+      <div class="theme-switch">
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="Переключить между тёмной и светлой темой"
+          />
+          <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
