@@ -3,9 +3,20 @@
 }
 
 .gallery.dark-theme {
-  background: rgb(99, 39, 21);
-  background: radial-gradient(circle, rgba(99, 39, 21, 1) 0%, rgba(3, 2, 1, 1) 38%);
+  background: rgb(121, 110, 107);
+  // background: radial-gradient(circle, rgba(99, 39, 21, 1) 0%, rgba(3, 2, 1, 1) 38%);
   color: #fff;
+}
+.pagination-theme.light-theme {
+  background-color: #fff;
+}
+.pagination-theme.dark-theme {
+  background: rgb(121, 110, 107);
+  // background: radial-gradient(circle, rgba(99, 39, 21, 1) 0%, rgba(3, 2, 1, 1) 38%);
+  color: #fff;
+}
+.page_item.dark-theme {
+  color: #000;
 }
 
 .toolbar {
