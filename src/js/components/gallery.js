@@ -1,4 +1,10 @@
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi';
+import {
+  fetchPhoto,
+  fetchGenres,
+  discoverGenres,
+  fetchTrandingMovie,
+} from './fetchApi';
+
 import {
   markupPages,
   togglePainationAllButtons,
@@ -12,6 +18,8 @@ import {
   onClickLessPageBtn,
   onClickMorePageBtn,
 } from './pagination';
+
+import {genresMarkup,galleryGenresMarkup,toggleGenres,toggleYear,removeAllChekedGenres,toggleTrands} from './genres'
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
@@ -45,11 +53,10 @@ const refs = {
   textError: document.querySelector('.js-header__text-error'),
 };
 let currentFetch = 'tranding';
-let currentPage = 1;
-console.log(refs.gallery);
+
 genresMarkup();
 const formInput = refs.form.elements.query;
-console.log(formInput);
+
 refs.form.addEventListener('submit', checkFetchLink);
 refs.genres.addEventListener('click', throttle(checkFetchLink, 200));
 refs.topTrands.addEventListener('click', throttle(checkFetchLink, 200));
@@ -60,6 +67,7 @@ let ress = {
   total_pages: 0,
   total_results: 0,
 };
+
 onLoadTranding();
 addTestPaginationListeners();
 
@@ -77,101 +85,25 @@ async function checkFetchLink(e) {
     // ==== chech input ====
     if (e.currentTarget === refs.form) {
       removeAllChekedGenres();
-      if (options.query.trim() === '') {
-        refs.textError.classList.remove('is-hidden');
-        refs.paginationList.classList.add('visually-hidden');
-        return;
-      }
-
-      options.genresId = [];
-      options.query = formInput.value;
-      currentFetch = 'search';
-      ress = await fetchPhoto();
-      console.log('search', ress);
-      console.log('currentFetch ', currentFetch);
-      console.log('oq ', options.query);
+      await onClickSearchSubmit(e);
       togglePainationAllButtons(ress);
     }
     // ===== chek genres =====
-
     if (e.currentTarget === refs.genres) {
-      currentFetch = 'genres';
-      formInput.value = '';
-      e.target.classList.toggle('btn_active');
-      options.pageNumber = 1;
-      toggleGenres(e.target.id);
-      if (e.target.dataset.year) {
-        toggleYear(e.target.dataset.year);
-      }
-
-      ress = await discoverGenres();
-      console.log('genres', ress);
-      console.log('currentFetch ', currentFetch);
-      console.dir(e.target.dataset.year);
-      console.log(options.genresId);
-      console.log(options.yearId);
-    }
+      await onClickGenres(e)
+    }    
     //==============topTrands =================
     if (e.target.id === 'topDay') {
       removeAllChekedGenres();
-      e.target.classList.toggle('btn_active');
       toggleTrands(e.target.id);
-      options.trand = 'day';
-      options.genresId = [];
-      currentFetch = 'tranding';
-      console.log('topDay', options.trand);
-
-      ress = await fetchTrandingMovie();
-      console.log('topDay', ress);
-      console.log('currentFetch ', currentFetch);
+      await onClickTopDayTrands(e)
     }
+
     if (e.target.id === 'topWeek') {
       removeAllChekedGenres();
-      e.target.classList.toggle('btn_active');
-      options.trand = 'week';
-      console.log('topWeek', options.trand);
-      currentFetch = 'tranding';
-
-      ress = await fetchTrandingMovie();
-      console.log('topWeek', ress);
-      console.log('currentFetch ', currentFetch);
+      await onClickTopWeekTrands(e)
     }
-    //================ year =============== пока не трогать =============
-    // if (e.target.id == '2022') {
-    //   currentFetch = 'year'
-    //   removeAllChekedGenres()
-    //   e.target.classList.toggle('btn_active')
-    //   options.year = e.target.id
-    //   options.genresId = []
-    //   console.log('2022', options.year)
-
-    //   ress = await discoverYear()
-    //   console.log('2022', ress)
-    // }
-    // if (e.target.id == '2021') {
-    //   currentFetch = 'year'
-    //   removeAllChekedGenres()
-    //   e.target.classList.toggle('btn_active')
-    //   options.year = e.target.id
-    //   options.genresId = []
-    //   console.log('2021', options.year)
-
-    //   ress = await discoverYear()
-    //   console.log('2021', ress)
-    // }
-    // if (e.target.id == '2020') {
-    //   currentFetch = 'year'
-    //   removeAllChekedGenres()
-    //   e.target.classList.toggle('btn_active')
-    //   options.year = e.target.id
-    //   options.genresId = []
-    //   console.log('2020', options.year)
-
-    //   ress = await discoverYear()
-    //   console.log('2020', ress)
-    // }
-    // ================================= backUp years fetch ==================
-
+  
     options.maxPage = ress.total_pages;
     galleryArrayMarkup(ress);
     markupPages(ress);
@@ -183,6 +115,62 @@ async function checkFetchLink(e) {
   } catch (e) {
     console.log(e);
   }
+}
+
+async function onClickSearchSubmit(e) { 
+    if (options.query.trim() === '') {
+        refs.textError.classList.remove('is-hidden');
+        refs.paginationList.classList.add('visually-hidden');
+        return;
+      }
+
+      options.genresId = [];
+      options.query = formInput.value;
+      currentFetch = 'search';
+      ress = await fetchPhoto();
+      console.log('search', ress);
+      console.log('currentFetch ', currentFetch);
+      console.log('query ', options.query);
+  }
+async function onClickGenres(e) {
+  
+      currentFetch = 'genres';
+      formInput.value = '';
+      e.target.classList.toggle('btn_active');
+      options.pageNumber = 1;
+      toggleGenres(e.target.id);
+      if (e.target.dataset.year) {
+        toggleYear(e.target.dataset.year);
+      }
+        ress = await discoverGenres();
+        console.log('genres', ress);
+        console.log('currentFetch ', currentFetch);
+        console.dir(e.target.dataset.year);
+        console.log(options.genresId);
+        console.log(options.yearId);
+      }
+
+async function onClickTopDayTrands(e) {
+      e.target.classList.toggle('btn_active');
+      // toggleTrands(e.target.id);
+      options.trand = 'day';
+      options.genresId = [];
+      currentFetch = 'tranding';
+      console.log('topDay', options.trand);
+
+      ress = await fetchTrandingMovie();
+      console.log('topDay', ress);
+      console.log('currentFetch ', currentFetch);
+}
+async function onClickTopWeekTrands(e) {
+   e.target.classList.toggle('btn_active');
+      options.trand = 'week';
+      console.log('topWeek', options.trand);
+      currentFetch = 'tranding';
+
+      ress = await fetchTrandingMovie();
+      console.log('topWeek', ress);
+      console.log('currentFetch ', currentFetch);
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
@@ -208,13 +196,8 @@ function galleryArrayMarkup(array) {
 
   teaser(array);
  
-    
     const galleryMarkup = array.results.map(({poster_path,original_title,vote_average,release_date,genre_ids}) =>
     {
-      console.log(galleryGenresMarkup(genre_ids))
-
-
-      // console.log(largeImageURL)
       return `<li class="gallery-list__item">
 
 
@@ -252,67 +235,67 @@ function ratingAddIshidden() {
 // ===================== пока не трогаем ==============
 // ================ фетч всехЖанров с АПИ и маркап их ========================
 
-async function genresMarkup() {
+// async function genresMarkup() {
 
-  const r = await fetchGenres()
+//   const r = await fetchGenres()
   
-  const genres = r.genres.map(({ id, name }) => {
-    options.allGenresList.push({ id, name })
-    return `<button class="genres-btn btn"  id="${id}">${name}</button>`}).join("")
-  refs.genres.insertAdjacentHTML('afterbegin', genres)
+//   const genres = r.genres.map(({ id, name }) => {
+//     options.allGenresList.push({ id, name })
+//     return `<button class="genres-btn btn"  id="${id}">${name}</button>`}).join("")
+//   refs.genres.insertAdjacentHTML('afterbegin', genres)
 
-}
-// ========================= отрисовка имен жанров в галерее =================
-function galleryGenresMarkup(array) {
-  console.log(array)
-  let ress = array.map(elem => {
-    for (const el of options.allGenresList) {
-      if (elem === el.id) {
-        console.log('name ', el.name)
-        return el.name
-      }
-    }
-  })
-  if (ress.length > 3) {
-   const ressult = ress.slice(0,2)
-   ressult.push('Other')
-  return ressult.join(', ')
-  }
-  return ress.join(', ')
-}
+// }
+// // ========================= отрисовка имен жанров в галерее =================
+// function galleryGenresMarkup(array) {
+//   console.log(array)
+//   let ress = array.map(elem => {
+//     for (const el of options.allGenresList) {
+//       if (elem === el.id) {
+//         console.log('name ', el.name)
+//         return el.name
+//       }
+//     }
+//   })
+//   if (ress.length > 3) {
+//    const ressult = ress.slice(0,2)
+//    ressult.push('Other')
+//   return ressult.join(', ')
+//   }
+//   return ress.join(', ')
+// }
 
-// ===================== выбор и удаление жанра со страницы, добавление в массив ======
-function toggleGenres(id) {
-  if (options.genresId.includes(id)) {
-    const genresIdx = options.genresId.indexOf(id);
-    options.genresId.splice(genresIdx, 1);
-    return;
-  }
-  options.genresId.push(id);
-}
-function toggleYear(data) {
-  if (options.yearId.includes(data)) {
-    const yearIdx = options.yearId.indexOf(data);
-    options.yearId.splice(yearIdx, 1);
-    return;
-  }
-  options.yearId.push(data);
-}
+// // ===================== выбор и удаление жанра со страницы, добавление в массив ======
+// function toggleGenres(id) {
+//   if (options.genresId.includes(id)) {
+//     const genresIdx = options.genresId.indexOf(id);
+//     options.genresId.splice(genresIdx, 1);
+//     return;
+//   }
+//   options.genresId.push(id);
+// }
+// function toggleYear(data) {
+//   if (options.yearId.includes(data)) {
+//     const yearIdx = options.yearId.indexOf(data);
+//     options.yearId.splice(yearIdx, 1);
+//     return;
+//   }
+//   options.yearId.push(data);
+// }
 
-// ==================== удаление всех выбраных жанров ======================
-async function removeAllChekedGenres() {
-  const allRenderGenresButton = [...refs.genres.children];
-  return allRenderGenresButton.forEach(eachBtn => eachBtn.classList.remove('btn_active'));
-}
-async function toggleTrands(id) {
-  const allAnoterGenresButton = [...refs.topTrands.children];
-  for (const btn of allAnoterGenresButton) {
-    if (btn.id !== id) {
-      btn.classList.remove('btn_active');
-    }
-    continue;
-  }
-}
+// // ==================== удаление всех выбраных жанров ======================
+// async function removeAllChekedGenres() {
+//   const allRenderGenresButton = [...refs.genres.children];
+//   return allRenderGenresButton.forEach(eachBtn => eachBtn.classList.remove('btn_active'));
+// }
+// async function toggleTrands(id) {
+//   const allAnoterGenresButton = [...refs.topTrands.children];
+//   for (const btn of allAnoterGenresButton) {
+//     if (btn.id !== id) {
+//       btn.classList.remove('btn_active');
+//     }
+//     continue;
+//   }
+// }
 
 const ratings = document.querySelector('.gallery-list');
 console.log(ratings);
