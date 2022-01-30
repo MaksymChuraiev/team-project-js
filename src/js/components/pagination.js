@@ -1,4 +1,4 @@
-export { markupPages, buttonDisabledTrue, buttonDisabledFalse, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn }
+export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
 import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
@@ -16,6 +16,7 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
+    paginationList:document.querySelector('.pagination'),
     
     
 }
@@ -29,13 +30,14 @@ function markupPages(array) {
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
 }
 
-function buttonDisabledTrue() {
-  refs.btnLoadMore.setAttribute('disabled', true)
+async function togglePainationAllButtons(array) {
+  refs.paginationList.classList.remove('visually-hidden')
+  if (array.total_pages <= 1) {
+    refs.paginationList.classList.add('visually-hidden')
+    // console.log(array.results.length)
+    console.log(refs.paginationList)
+  }
 }
-function buttonDisabledFalse() {
-  refs.btnLoadMore.removeAttribute('disabled')
-}
-
 
 function addTestPaginationListeners() {
   refs.prevPage.addEventListener('click', onClickPrevPageBtn)

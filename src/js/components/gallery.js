@@ -1,5 +1,5 @@
 import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverAnotherGenres} from './fetchApi'
-import { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
+import { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
@@ -21,7 +21,8 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-  textError: document.querySelector('.js-header__text-error'),
+    paginationList:document.querySelector('.pagination'),
+    textError: document.querySelector('.js-header__text-error'),
    
 }
 let currentFetch = 'tranding'
@@ -35,7 +36,12 @@ refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
 refs.anotherGenres.addEventListener('click', throttle(checkFetchLink, 200))
 
 
-let ress = ''
+let ress = {
+  page: 0,
+  results: [],
+  total_pages: 0,
+  total_results: 0,
+}
 onLoadTranding()
 addTestPaginationListeners()
 
@@ -52,12 +58,14 @@ async function checkFetchLink(e) {
   try {
   toggleTrands(e.target.id)
   // ==== chech input ====
-  if (e.currentTarget === refs.form) {
-      if (options.query.trim() === '') {
-      //  return Notify.failure("Please enter film name")
-      refs.textError.classList.remove('is-hidden');
-    }
+    if (e.currentTarget === refs.form) {
       removeAllChekedGenres()
+    if (options.query.trim() === '') {
+      refs.textError.classList.remove('is-hidden');
+      refs.paginationList.classList.add('visually-hidden')
+      return  
+    }
+      
       options.genresId = []
       options.query = formInput.value
       currentFetch = 'search'
@@ -65,7 +73,7 @@ async function checkFetchLink(e) {
       console.log('search', ress)
       console.log('currentFetch ', currentFetch)
       console.log('oq ', options.query)
-      
+      togglePainationAllButtons(ress)
     }
   // ===== chek genres ===== 
 
@@ -146,27 +154,27 @@ async function checkFetchLink(e) {
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
+    togglePainationAllButtons(ress)
     
     
   } catch (e) {
-    
+    console.log(e)
   }
   
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
-  ress = await fetchTrandingMovie()
-  const resp = await fetchTrandingMovie()
-  
-  options.maxPage = resp.total_pages
-    galleryArrayMarkup(resp)
+  ress = await fetchTrandingMovie()  
+  options.maxPage = ress.total_pages
+    galleryArrayMarkup(ress)
     ratingAddIshidden()
-    markupPages(resp)
+    markupPages(ress)
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
     removeAllChekedGenres()
-  options.pageNumber += 1
+    togglePainationAllButtons(ress)
+    options.pageNumber += 1
   
     return await fetchTrandingMovie()
 }
