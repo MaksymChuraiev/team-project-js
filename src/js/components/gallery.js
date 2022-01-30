@@ -1,11 +1,14 @@
-import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie} from './fetchApi'
-import { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn,togglePainationAllButtons } from './pagination'
+import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverYear} from './fetchApi'
+import { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
+
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
+import { cloneDeep } from 'lodash';
 
 export { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres }
-
+const throttle = require('lodash.throttle');
+let searchYears = []
 
 
 const refs = {
@@ -13,14 +16,14 @@ const refs = {
     gallery: document.querySelector('.gallery-list'),
     btnLoadMore: document.querySelector('.load-more'),
     genres: document.querySelector('.genres'),
+    anotherGenres: document.querySelector('.anotherGenres'),
     prevPage: document.querySelector("[data-page='prev']"),
     nextPage: document.querySelector("[data-page='next']"),
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-  textError: document.querySelector('.js-header__text-error'),
-  paginationList:document.querySelector('.pagination'),
-   
+    paginationList:document.querySelector('.pagination'),
+    textError: document.querySelector('.js-header__text-error'),
 }
 let currentFetch = 'tranding'
 let currentPage = 1
@@ -29,10 +32,16 @@ genresMarkup()
 const formInput = refs.form.elements.query;
 console.log(formInput)
 refs.form.addEventListener('submit', checkFetchLink)
-// refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
+refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
+refs.anotherGenres.addEventListener('click', throttle(checkFetchLink, 200))
 
 
-let ress = ''
+let ress = {
+  page: 0,
+  results: [],
+  total_pages: 0,
+  total_results: 0,
+}
 onLoadTranding()
 addTestPaginationListeners()
 
@@ -47,36 +56,103 @@ async function checkFetchLink(e) {
   options.pageNumber = 1;
   options.query = formInput.value
   try {
-    
+  toggleTrands(e.target.id)
   // ==== chech input ====
-  if (e.currentTarget === refs.form) {
-      if (options.query.trim() === '') {
-      //  return Notify.failure("Please enter film name")
+    if (e.currentTarget === refs.form) {
+      removeAllChekedGenres()
+    if (options.query.trim() === '') {
       refs.textError.classList.remove('is-hidden');
-      }
-    
+      refs.paginationList.classList.add('visually-hidden')
+      return  
+    }
+      
+      options.genresId = []
       options.query = formInput.value
       currentFetch = 'search'
       ress =  await fetchPhoto()
       console.log('search', ress)
       console.log('currentFetch ', currentFetch)
       console.log('oq ', options.query)
-    removeAllChekedGenres()
-    togglePainationAllButtons(ress)
+      togglePainationAllButtons(ress)
+
     }
   // ===== chek genres ===== 
 
-//   if (e.currentTarget === refs.genres) {
-//       currentFetch = 'genres'
-//       formInput.value = ''
-//       e.target.classList.toggle('genresIsActive')
-//       options.pageNumber = 1
-//     toggleGenres(e.target.id)
+    if (e.currentTarget === refs.genres) {
+      
+      currentFetch = 'genres'
+      formInput.value = ''
+      e.target.classList.toggle('btn_active')
+      options.pageNumber = 1
+      toggleGenres(e.target.id)    
+      ress = await discoverGenres()
+      console.log('genres', ress)
+      console.log('currentFetch ',currentFetch)
+
+    }
+    //==============anotherGenres =================
+    if (e.target.id === 'topDay') {
+      removeAllChekedGenres()
+      e.target.classList.toggle('btn_active')
+      toggleTrands(e.target.id)
+      options.trand = 'day'
+      options.genresId = []
+      currentFetch = 'tranding'
+      console.log('topDay', options.trand)
+      
+      
+      ress = await fetchTrandingMovie()
+      console.log('topDay', ress)
+      console.log('currentFetch ', currentFetch)
+      
+    }
+    if (e.target.id === 'topWeek') {
+      removeAllChekedGenres()
+      e.target.classList.toggle('btn_active')
+      options.trand = 'week'
+      console.log('topWeek', options.trand)
+      currentFetch = 'tranding'
+
+      ress = await fetchTrandingMovie()
+      console.log('topWeek', ress)
+      console.log('currentFetch ',currentFetch)
+    }
+    //================ year =============== пока не трогать =============
+    if (e.target.id == '2022') {
+      currentFetch = 'year'
+      removeAllChekedGenres()
+      e.target.classList.toggle('btn_active')
+      options.year = e.target.id
+      options.genresId = []
+      console.log('2022', options.year)
+
+      ress = await discoverYear()
+      console.log('2022', ress)
+    }
+    if (e.target.id == '2021') {
+      currentFetch = 'year'
+      removeAllChekedGenres()
+      e.target.classList.toggle('btn_active')
+      options.year = e.target.id
+      options.genresId = []
+      console.log('2021', options.year)
+      
+      ress = await discoverYear()
+      console.log('2021', ress)
+    }
+    if (e.target.id == '2020') {
+      currentFetch = 'year'
+      removeAllChekedGenres() 
+      e.target.classList.toggle('btn_active')
+      options.year = e.target.id
+      options.genresId = []
+      console.log('2020', options.year)
+      
+      ress = await discoverYear()
+      console.log('2020', ress)
+    }
     
-//       ress = await discoverGenres()
-//       console.log('genres', ress)
-//       console.log('currentFetch ',currentFetch)
-//     }
+    
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
@@ -88,24 +164,23 @@ async function checkFetchLink(e) {
     
     
   } catch (e) {
-    
+    console.log(e)
   }
   
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
-  ress = await fetchTrandingMovie()
-  const resp = await fetchTrandingMovie()
-  
-  options.maxPage = resp.total_pages
-    galleryArrayMarkup(resp)
+  ress = await fetchTrandingMovie()  
+  options.maxPage = ress.total_pages
+    galleryArrayMarkup(ress)
     ratingAddIshidden()
-    markupPages(resp)
+    markupPages(ress)
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
     removeAllChekedGenres()
-  options.pageNumber += 1
+    togglePainationAllButtons(ress)
+    options.pageNumber += 1
   
     return await fetchTrandingMovie()
 }
@@ -153,9 +228,9 @@ async function genresMarkup() {
   
   const genres = r.genres.map(({ id, name }) => {
     return `
-    <button class="genres-btn btn btn-info"  id="${id}">${name}</button>`
+    <button class="genres-btn btn"  id="${id}">${name}</button>`
   }).join("")
-//   refs.genres.insertAdjacentHTML('beforeend', genres)
+  refs.genres.insertAdjacentHTML('afterbegin', genres)
 }
 
 // ===================== выбор и удаление жанра со страницы, добавление в массив ======
@@ -170,9 +245,20 @@ function toggleGenres(id) {
 
 // ==================== удаление всех выбраных жанров ======================
 async function removeAllChekedGenres() {
-//     const allRenderGenresButton = [...refs.genres.children]
-//    return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('genresIsActive'))
+    const allRenderGenresButton = [...refs.genres.children]
+   return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('btn_active'))
 }
+async function toggleTrands(id) {
+  const allAnoterGenresButton = [...refs.anotherGenres.children]
+  for (const btn of allAnoterGenresButton) {
+    if (btn.id !== id) {
+      btn.classList.remove('btn_active')
+    }
+    continue
+  }
+}
+
+
 
 
 

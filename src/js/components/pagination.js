@@ -1,8 +1,10 @@
-export { markupPages, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn,togglePainationAllButtons }
+
+export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
+
 
 import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi'
+import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
 import { options } from './fetchApi';
 
@@ -15,10 +17,8 @@ const refs = {
     nextPage: document.querySelector("[data-page='next']"),
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
-  pages: document.querySelector('.pages'),
-  paginationList:document.querySelector('.pagination'),
-    
-    
+    pages: document.querySelector('.pages'),
+    paginationList:document.querySelector('.pagination'), 
 }
 console.log(refs);
 console.log(options);
@@ -33,15 +33,15 @@ function markupPages(array) {
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
 }
 
-function togglePainationAllButtons(array) {
+
+async function togglePainationAllButtons(array) {
   refs.paginationList.classList.remove('visually-hidden')
   if (array.total_pages <= 1) {
     refs.paginationList.classList.add('visually-hidden')
-    console.log(array.results.length)
+    // console.log(array.results.length)
     console.log(refs.paginationList)
   }
 }
-
 
 function addTestPaginationListeners() {
   refs.prevPage.addEventListener('click', onClickPrevPageBtn)
@@ -109,6 +109,10 @@ async function onClickNumberPageBtn(e) {
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }  
   galleryArrayMarkup(response)
   markupPages(response)
   hideFirstPageBtn()
@@ -141,6 +145,10 @@ async function onClickPrevPageBtn(e) {
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }  
     galleryArrayMarkup(response)
     markupPages(response)
     hideFirstPageBtn()
@@ -173,6 +181,10 @@ let response
   }
   if (currentFetch === 'genres') {
     response = await discoverGenres()
+    console.log('genres',response)
+      }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
     console.log('genres',response)
   }
       galleryArrayMarkup(response)
@@ -214,6 +226,10 @@ let response
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }
     galleryArrayMarkup(response)
     markupPages(response)
     hideFirstPageBtn()
@@ -246,6 +262,10 @@ let response
   }
   if (currentFetch === 'genres') {
     response = await discoverGenres()
+    console.log('genres',response)
+  }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
     console.log('genres',response)
   }
     galleryArrayMarkup(response)
