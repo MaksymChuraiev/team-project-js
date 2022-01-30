@@ -13,3 +13,5 @@ import './js/components/pagination';
 import './js/components/modal';
 
 import './js/components/teaser';
+
+import './js/components/team-modal';
