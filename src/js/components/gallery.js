@@ -186,14 +186,17 @@ async function onLoadTranding() {
     removeAllChekedGenres()
     togglePainationAllButtons(ress)
     options.pageNumber += 1
-  
+    console.log(options.allGenresList);
     return await fetchTrandingMovie()
 }
 
 //=========================== разметкa Галереи фильмов ====================
 function galleryArrayMarkup(array) {
+    
     const galleryMarkup = array.results.map(({poster_path,original_title,vote_average,release_date,genre_ids}) =>
     {
+      console.log(galleryGenresMarkup(genre_ids))
+
       // console.log(largeImageURL)
       return `<li class="gallery-list__item">
 
@@ -205,7 +208,7 @@ function galleryArrayMarkup(array) {
                     <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
-                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${new Date(release_date).getFullYear()}</span> </p>
+                        <p class="gallery-list__text">${galleryGenresMarkup(genre_ids)} | <span class="gallery-list__text-aftertext">${new Date(release_date).getFullYear()}</span> </p>
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
                 </div>
@@ -232,10 +235,27 @@ async function genresMarkup() {
   const r = await fetchGenres()
   
   const genres = r.genres.map(({ id, name }) => {
-    return `
-    <button class="genres-btn btn"  id="${id}">${name}</button>`
-  }).join("")
+    options.allGenresList.push({ id, name })
+    return `<button class="genres-btn btn"  id="${id}">${name}</button>`}).join("")
   refs.genres.insertAdjacentHTML('afterbegin', genres)
+}
+// ========================= отрисовка имен жанров в галерее =================
+function galleryGenresMarkup(array) {
+  console.log(array)
+  let ress = array.map(elem => {
+    for (const el of options.allGenresList) {
+      if (elem === el.id) {
+        console.log('name ', el.name)
+        return el.name
+      }
+    }
+  })
+  if (ress.length > 3) {
+   const ressult = ress.slice(0,2)
+   ressult.push('Other')
+  return ressult.join(', ')
+  }
+  return ress.join(', ')
 }
 
 // ===================== выбор и удаление жанра со страницы, добавление в массив ======
