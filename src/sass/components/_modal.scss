@@ -1,0 +1,221 @@
+.modal-film-card {
+  width: 100%;
+  position: absolute;
+  top: 64%;
+  left: 50%;
+  padding: 48px 20px 41px 20px;
+
+  background-color: white;
+  width: 280px;
+
+  transform: translate(-50%, -50%);
+  //   min-height: 609px;
+  background-color: white;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    top: 65%;
+    width: 618px;
+    padding: 42px 30px 40px 28px;
+  }
+  @media screen and (min-width: 1024px) {
+    top: 47%;
+    width: 882px;
+    height: 568px;
+    padding: 50px 30px 40px 30px;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal__film-titel {
+  margin-bottom: 20px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  color: black;
+  @media screen and (min-width: 1024px) {
+    font-size: 30px;
+    line-height: 1.17;
+  }
+}
+
+.modal__wrapper {
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    display: flex;
+  }
+}
+
+.modal__info-wrapper {
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    max-width: 264px;
+    margin-left: 32px;
+  }
+  @media screen and (min-width: 1024px) {
+    max-width: 396px;
+  }
+}
+.modal__image {
+  @media screen and (min-width: 1024px) {
+    width: 396px;
+    height: 478px;
+  }
+}
+
+.modal__image-wrapper {
+  margin-bottom: 20px;
+  @media screen and (min-width: 768px) {
+    margin: 0;
+  }
+}
+
+tbody {
+  display: block;
+  margin-bottom: 20px;
+}
+
+tr {
+  display: flex;
+  margin-bottom: 10px;
+}
+.modal__param-titel {
+  width: 105px;
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+  }
+}
+.modal__param-value {
+  width: 135px;
+  @media screen and (min-width: 1024px) {
+    width: 246px;
+  }
+}
+
+.modal {
+  &__param {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    color: #8c8c8c;
+
+    &-value {
+      display: flex;
+      color: black;
+    }
+    &-titel {
+      //   margin-right: 35px;
+      //   display: block;
+    }
+  }
+  &__film-votes {
+    display: flex;
+  }
+  &__film-owervier {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    color: black;
+    &-text {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.67;
+    }
+  }
+}
+
+.film__owervier {
+  margin-bottom: 20px;
+}
+.param {
+  &__value-vote {
+    margin-right: 3px;
+    border-radius: 5px;
+    width: 36px;
+    height: 16px;
+    line-height: 1.17;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    background: #ff6b01;
+    color: #ffffff;
+  }
+  &__value-votes {
+    margin-left: 3px;
+    border-radius: 5px;
+    width: 36px;
+    height: 16px;
+    line-height: 1.17;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    background: #f7f7f7;
+    color: black;
+  }
+}
+.modal__buttons {
+  display: flex;
+}
+
+.modal__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 113px;
+  height: 41px;
+  padding: 14px 7px 12px 7px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  border-radius: 5px;
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 125px;
+    height: 44px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 136px;
+  }
+
+  &.watched {
+    color: white;
+    background-color: #ff6b01;
+    border: 1px solid #ff6b01;
+  }
+  &.queue {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}

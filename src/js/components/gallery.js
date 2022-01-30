@@ -35,6 +35,8 @@ export {
   genresMarkup,
   toggleGenres,
   removeAllChekedGenres,
+  ratingAddIshidden,
+  modalOpenOnClick,
 };
 const throttle = require('lodash.throttle');
 
@@ -171,6 +173,19 @@ async function onClickTopWeekTrands(e) {
       ress = await fetchTrandingMovie();
       console.log('topWeek', ress);
       console.log('currentFetch ', currentFetch);
+    }
+    options.maxPage = ress.total_pages;
+    galleryArrayMarkup(ress);
+    markupPages(ress);
+    ratingAddIshidden();
+    modalOpenOnClick();
+    hideFirstPageBtn();
+    hideLastPageBtn();
+    togglePaginationBtn();
+    togglePainationAllButtons(ress);
+  } catch (e) {
+    console.log(e);
+  }
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
@@ -178,8 +193,9 @@ async function onLoadTranding() {
   ress = await fetchTrandingMovie()  
   options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
-    ratingAddIshidden()
     markupPages(ress)
+    ratingAddIshidden()
+    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -232,70 +248,28 @@ function ratingAddIshidden() {
   ratings.forEach(rating => rating.classList.add('visually-hidden'));
 }
 
-// ===================== пока не трогаем ==============
-// ================ фетч всехЖанров с АПИ и маркап их ========================
 
-// async function genresMarkup() {
+//=====================================Запуск модалки===============================================================
 
-//   const r = await fetchGenres()
+function modalOpenOnClick() {
+  const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
+  clickedMovieCard.forEach(button => button.addEventListener("click", onClick));
+
+  const modalCloseBtn = document.querySelector('[data-modal-close]');
+  modalCloseBtn.addEventListener('click', onClick)
+
+  function onClick(event) {
+    event.preventDefault()
+
+    console.log(event.currentTarget);
+    
+    const modal = document.querySelector('[data-modal]');
+    modal.classList.toggle('is-hidden');
   
-//   const genres = r.genres.map(({ id, name }) => {
-//     options.allGenresList.push({ id, name })
-//     return `<button class="genres-btn btn"  id="${id}">${name}</button>`}).join("")
-//   refs.genres.insertAdjacentHTML('afterbegin', genres)
+  }
+}
 
-// }
-// // ========================= отрисовка имен жанров в галерее =================
-// function galleryGenresMarkup(array) {
-//   console.log(array)
-//   let ress = array.map(elem => {
-//     for (const el of options.allGenresList) {
-//       if (elem === el.id) {
-//         console.log('name ', el.name)
-//         return el.name
-//       }
-//     }
-//   })
-//   if (ress.length > 3) {
-//    const ressult = ress.slice(0,2)
-//    ressult.push('Other')
-//   return ressult.join(', ')
-//   }
-//   return ress.join(', ')
-// }
-
-// // ===================== выбор и удаление жанра со страницы, добавление в массив ======
-// function toggleGenres(id) {
-//   if (options.genresId.includes(id)) {
-//     const genresIdx = options.genresId.indexOf(id);
-//     options.genresId.splice(genresIdx, 1);
-//     return;
-//   }
-//   options.genresId.push(id);
-// }
-// function toggleYear(data) {
-//   if (options.yearId.includes(data)) {
-//     const yearIdx = options.yearId.indexOf(data);
-//     options.yearId.splice(yearIdx, 1);
-//     return;
-//   }
-//   options.yearId.push(data);
-// }
-
-// // ==================== удаление всех выбраных жанров ======================
-// async function removeAllChekedGenres() {
-//   const allRenderGenresButton = [...refs.genres.children];
-//   return allRenderGenresButton.forEach(eachBtn => eachBtn.classList.remove('btn_active'));
-// }
-// async function toggleTrands(id) {
-//   const allAnoterGenresButton = [...refs.topTrands.children];
-//   for (const btn of allAnoterGenresButton) {
-//     if (btn.id !== id) {
-//       btn.classList.remove('btn_active');
-//     }
-//     continue;
-//   }
-// }
+//=========================================================================================================
 
 const ratings = document.querySelector('.gallery-list');
 console.log(ratings);
