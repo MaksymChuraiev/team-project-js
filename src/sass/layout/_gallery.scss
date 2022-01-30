@@ -44,8 +44,21 @@
     line-height: 1.33;
     color: #ff6b08;
   }
+
   &__card {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    display: block;
+    transform: scale(1);
+    transition: transform 500ms;
+  }
+  &__poster {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  &__description {
+    padding-top: 10px;
   }
   &__statics {
     display: flex;
@@ -71,4 +84,9 @@
 
     color: #ffffff;
   }
+}
+.gallery-list__card:hover,
+:focus {
+  cursor: pointer;
+  transform: scale(0.98);
 }

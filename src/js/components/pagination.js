@@ -1,4 +1,6 @@
+
 export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
+
 
 import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
@@ -16,19 +18,21 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-    paginationList:document.querySelector('.pagination'),
-    
-    
+    paginationList:document.querySelector('.pagination'), 
 }
 console.log(refs);
 console.log(options);
 
 function markupPages(array) {
-  const  pagesBtnMarkup = `<li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
-          <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
-          <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a></li>`
+  const pagesBtnMarkup = `
+      <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
+              <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
+              <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
+              </li>`
+  
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
 }
+
 
 async function togglePainationAllButtons(array) {
   refs.paginationList.classList.remove('visually-hidden')

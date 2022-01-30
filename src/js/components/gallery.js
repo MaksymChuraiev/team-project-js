@@ -1,6 +1,7 @@
 import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverYear} from './fetchApi'
 import { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
 
+
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
 import { cloneDeep } from 'lodash';
@@ -23,7 +24,6 @@ const refs = {
     pages: document.querySelector('.pages'),
     paginationList:document.querySelector('.pagination'),
     textError: document.querySelector('.js-header__text-error'),
-   
 }
 let currentFetch = 'tranding'
 let currentPage = 1
@@ -74,6 +74,7 @@ async function checkFetchLink(e) {
       console.log('currentFetch ', currentFetch)
       console.log('oq ', options.query)
       togglePainationAllButtons(ress)
+
     }
   // ===== chek genres ===== 
 
@@ -190,18 +191,20 @@ function galleryArrayMarkup(array) {
     {
       // console.log(largeImageURL)
       return `<li class="gallery-list__item">
-                <div class="gallery-list__card">
-                    <a class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
+
+
+                <a class="gallery-list__card">
+                    <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
                         <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "298" height = "398"/>
-                    </a>
-                </div>
-                <!-- <div class="gallery-list__description"> -->
+                    </div>
+                    <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
                         <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${new Date(release_date).getFullYear()}</span> </p>
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
-                <!-- </div> -->
+                </div>
+                </a>
             </li>
 `
     }).join("")
@@ -254,6 +257,8 @@ async function toggleTrands(id) {
     continue
   }
 }
+
+
 
 
 
