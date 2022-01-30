@@ -1,4 +1,4 @@
-import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverYear} from './fetchApi'
+import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie,} from './fetchApi'
 import { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
 
 
@@ -8,7 +8,6 @@ import { cloneDeep } from 'lodash';
 
 export { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres }
 const throttle = require('lodash.throttle');
-let searchYears = []
 
 
 const refs = {
@@ -16,7 +15,7 @@ const refs = {
     gallery: document.querySelector('.gallery-list'),
     btnLoadMore: document.querySelector('.load-more'),
     genres: document.querySelector('.genres'),
-    anotherGenres: document.querySelector('.anotherGenres'),
+    topTrands: document.querySelector('.top-trands'),
     prevPage: document.querySelector("[data-page='prev']"),
     nextPage: document.querySelector("[data-page='next']"),
     lessPage: document.querySelector("[data-page='less']"),
@@ -33,7 +32,7 @@ const formInput = refs.form.elements.query;
 console.log(formInput)
 refs.form.addEventListener('submit', checkFetchLink)
 refs.genres.addEventListener('click', throttle(checkFetchLink, 200))
-refs.anotherGenres.addEventListener('click', throttle(checkFetchLink, 200))
+refs.topTrands.addEventListener('click', throttle(checkFetchLink, 200))
 
 
 let ress = {
@@ -84,13 +83,19 @@ async function checkFetchLink(e) {
       formInput.value = ''
       e.target.classList.toggle('btn_active')
       options.pageNumber = 1
-      toggleGenres(e.target.id)    
+      toggleGenres(e.target.id)
+      if (e.target.dataset.year) {
+        toggleYear(e.target.dataset.year)
+      }
+      
       ress = await discoverGenres()
       console.log('genres', ress)
-      console.log('currentFetch ',currentFetch)
-
+      console.log('currentFetch ', currentFetch)
+      console.dir(e.target.dataset.year);
+      console.log(options.genresId);
+      console.log(options.yearId);
     }
-    //==============anotherGenres =================
+    //==============topTrands =================
     if (e.target.id === 'topDay') {
       removeAllChekedGenres()
       e.target.classList.toggle('btn_active')
@@ -117,41 +122,41 @@ async function checkFetchLink(e) {
       console.log('topWeek', ress)
       console.log('currentFetch ',currentFetch)
     }
-    //================ year =============== пока не трогать =============
-    if (e.target.id == '2022') {
-      currentFetch = 'year'
-      removeAllChekedGenres()
-      e.target.classList.toggle('btn_active')
-      options.year = e.target.id
-      options.genresId = []
-      console.log('2022', options.year)
+//================ year =============== пока не трогать =============
+    // if (e.target.id == '2022') {
+    //   currentFetch = 'year'
+    //   removeAllChekedGenres()
+    //   e.target.classList.toggle('btn_active')
+    //   options.year = e.target.id
+    //   options.genresId = []
+    //   console.log('2022', options.year)
 
-      ress = await discoverYear()
-      console.log('2022', ress)
-    }
-    if (e.target.id == '2021') {
-      currentFetch = 'year'
-      removeAllChekedGenres()
-      e.target.classList.toggle('btn_active')
-      options.year = e.target.id
-      options.genresId = []
-      console.log('2021', options.year)
+    //   ress = await discoverYear()
+    //   console.log('2022', ress)
+    // }
+    // if (e.target.id == '2021') {
+    //   currentFetch = 'year'
+    //   removeAllChekedGenres()
+    //   e.target.classList.toggle('btn_active')
+    //   options.year = e.target.id
+    //   options.genresId = []
+    //   console.log('2021', options.year)
       
-      ress = await discoverYear()
-      console.log('2021', ress)
-    }
-    if (e.target.id == '2020') {
-      currentFetch = 'year'
-      removeAllChekedGenres() 
-      e.target.classList.toggle('btn_active')
-      options.year = e.target.id
-      options.genresId = []
-      console.log('2020', options.year)
+    //   ress = await discoverYear()
+    //   console.log('2021', ress)
+    // }
+    // if (e.target.id == '2020') {
+    //   currentFetch = 'year'
+    //   removeAllChekedGenres() 
+    //   e.target.classList.toggle('btn_active')
+    //   options.year = e.target.id
+    //   options.genresId = []
+    //   console.log('2020', options.year)
       
-      ress = await discoverYear()
-      console.log('2020', ress)
-    }
-    
+    //   ress = await discoverYear()
+    //   console.log('2020', ress)
+    // }
+// ================================= backUp years fetch ==================
     
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
@@ -240,7 +245,15 @@ function toggleGenres(id) {
     options.genresId.splice(genresIdx, 1)
     return
   }
-  options.genresId.push(id)
+    options.genresId.push(id)
+}
+function toggleYear(data) {
+  if (options.yearId.includes(data)) {
+    const yearIdx = options.yearId.indexOf(data)
+    options.yearId.splice(yearIdx, 1)
+    return
+  }
+    options.yearId.push(data)
 }
 
 // ==================== удаление всех выбраных жанров ======================
@@ -249,7 +262,7 @@ async function removeAllChekedGenres() {
    return allRenderGenresButton.forEach(eachBtn=>eachBtn.classList.remove('btn_active'))
 }
 async function toggleTrands(id) {
-  const allAnoterGenresButton = [...refs.anotherGenres.children]
+  const allAnoterGenresButton = [...refs.topTrands.children]
   for (const btn of allAnoterGenresButton) {
     if (btn.id !== id) {
       btn.classList.remove('btn_active')
