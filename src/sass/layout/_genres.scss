@@ -7,6 +7,10 @@
 //   background-color: #fff;
 // }
 
+.section-genres {
+  margin-top: 4px;
+}
+
 .genres {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +33,7 @@
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  box-shadow: 0px 6px 8px 1px rgb(163 163 163 / 58%);
+  box-shadow: 0px 6px 8px 1px rgb(0 0 0 / 24%);
 }
 
 .top-trands {
