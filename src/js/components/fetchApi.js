@@ -1,12 +1,10 @@
-
-import axios from "axios";
-
-
+import axios from 'axios';
 
 export const options = {
   query: '',
   pageNumber: 1,
   pageItemCount: 20,
+  allGenresList: [],
   genresId: [],
   yearId: [],
   maxPage: 0,
