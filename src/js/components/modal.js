@@ -13,25 +13,25 @@ export {modalOpenOnClick}
 function modalOpenOnClick() {
     const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
     const modalCloseBtn = document.querySelector('[data-modal-close]');
+    const modal = document.querySelector('[data-modal]');
   
     clickedMovieCard.forEach(button => button.addEventListener("click", onClickMovieCard));
-    modalCloseBtn.addEventListener('click', onClickCloseModal)
 
     function onClickMovieCard(event) {
-    event.preventDefault()
+    // event.preventDefault()
     modalCloseBtn.addEventListener('click', onClickCloseModal)
     console.log(event.currentTarget);
     
-    const modal = document.querySelector('[data-modal]');
+    // const modal = document.querySelector('[data-modal]');
     modal.classList.toggle('is-hidden');
   
     }   
     function onClickCloseModal(event) {
-    event.preventDefault()
+    // event.preventDefault()
 
     console.log(event.currentTarget);
     
-    const modal = document.querySelector('[data-modal]');
+    
         modal.classList.toggle('is-hidden');
         modalCloseBtn.removeEventListener('click', onClickCloseModal)
   
