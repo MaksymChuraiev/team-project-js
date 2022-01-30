@@ -77,12 +77,13 @@ async function checkFetchLink(e) {
       console.log('currentFetch ',currentFetch)
 
     }
-    if (e.target.id === 'topDay') {
+    //==============anotherGenres =================
+    if (e.target.id === 'topDay' ) {
       options.trand = 'day'
       options.genresId = []
       currentFetch = 'topDay'
       console.log('topDay', options.trand)
-      removeAllChekedGenresAndDay()
+      
       
       ress = await fetchTrandingMovie()
       console.log('topDay', ress)
@@ -94,12 +95,44 @@ async function checkFetchLink(e) {
       options.genresId = []
       console.log('topWeek', options.trand)
       currentFetch = 'topWeek'
-      removeAllChekedGenresAndWeek()
+      
       
       ress = await fetchTrandingMovie()
       console.log('topWeek', ress)
       console.log('currentFetch ',currentFetch)
     }
+    if (e.target.id == '2022') {
+      options.genresId = []
+      console.log('topWeek', options.trand)
+      currentFetch = 'topWeek'
+      
+      
+      ress = await fetchTrandingMovie()
+      console.log('topWeek', ress)
+      console.log('currentFetch ',currentFetch)
+    }
+    if (e.target.id == '2021') {
+      options.genresId = []
+      console.log('topWeek', options.trand)
+      currentFetch = 'topWeek'
+      
+      
+      ress = await fetchTrandingMovie()
+      console.log('topWeek', ress)
+      console.log('currentFetch ',currentFetch)
+    }
+    if (e.target.id == '2020') {
+      options.genresId = []
+      console.log('topWeek', options.trand)
+      currentFetch = 'topWeek'
+      
+      
+      ress = await fetchTrandingMovie()
+      console.log('topWeek', ress)
+      console.log('currentFetch ',currentFetch)
+    }
+    
+    
     options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
