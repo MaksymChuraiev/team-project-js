@@ -1,8 +1,9 @@
 
 export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
+import {modalOpenOnClick,addListenersOnEachGalleryCard} from './modal'
 
-import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres, modalOpenOnClick, ratingAddIshidden } from './gallery'
+import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres, ratingAddIshidden } from './gallery'
 
 import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
@@ -29,8 +30,9 @@ function markupPages(array) {
               <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
               <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
               </li>`
-  
+ 
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
+  
 }
 
 
@@ -49,6 +51,7 @@ function addTestPaginationListeners() {
   refs.morePage.addEventListener('click', onClickMorePageBtn)
   refs.lessPage.addEventListener('click', onClickLessPageBtn)
   refs.pages.addEventListener('click', onClickNumberPageBtn)
+  
 }
 
 function togglePaginationBtn() {
@@ -113,6 +116,8 @@ async function onClickNumberPageBtn(e) {
     response = await discoverYear()
     console.log('genres',response)
   }  
+
+  localStorage.setItem('MoviesOnPage', JSON.stringify(response));
   galleryArrayMarkup(response)
   markupPages(response)
   ratingAddIshidden()
@@ -120,6 +125,7 @@ async function onClickNumberPageBtn(e) {
   hideFirstPageBtn()
   hideLastPageBtn()
   togglePaginationBtn()
+  
   
   
 }
@@ -150,7 +156,9 @@ async function onClickPrevPageBtn(e) {
   if (currentFetch === 'year') {
     response = await discoverYear()
     console.log('genres',response)
-  }  
+    }  
+    
+    localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
     ratingAddIshidden()
@@ -190,7 +198,9 @@ let response
   if (currentFetch === 'year') {
     response = await discoverYear()
     console.log('genres',response)
-  }
+      }
+      
+      localStorage.setItem('MoviesOnPage', JSON.stringify(response));
       galleryArrayMarkup(response)
       markupPages(response)
       ratingAddIshidden()
@@ -235,7 +245,9 @@ let response
   if (currentFetch === 'year') {
     response = await discoverYear()
     console.log('genres',response)
-  }
+    }
+    
+    localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
     ratingAddIshidden()
@@ -275,7 +287,9 @@ let response
   if (currentFetch === 'year') {
     response = await discoverYear()
     console.log('genres',response)
-  }
+    }
+    
+    localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
     ratingAddIshidden()
