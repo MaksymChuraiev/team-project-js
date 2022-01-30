@@ -19,7 +19,9 @@ import {
   onClickMorePageBtn,
 } from './pagination';
 
-import {genresMarkup,galleryGenresMarkup,toggleGenres,toggleYear,removeAllChekedGenres,toggleTrands} from './genres'
+import { genresMarkup,galleryGenresMarkup,toggleGenres,toggleYear,removeAllChekedGenres,toggleTrands } from './genres'
+
+import {modalOpenOnClick} from './modal'
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
@@ -36,7 +38,7 @@ export {
   toggleGenres,
   removeAllChekedGenres,
   ratingAddIshidden,
-  modalOpenOnClick,
+  
 };
 const throttle = require('lodash.throttle');
 
@@ -52,6 +54,9 @@ const refs = {
   morePage: document.querySelector("[data-page='more']"),
   pages: document.querySelector('.pages'),
   paginationList: document.querySelector('.pagination'),
+  clickedMovieCard: document.querySelectorAll(".gallery-list__item"),
+  modalCloseBtn: document.querySelector('[data-modal-close]'),
+  modal: document.querySelector('[data-modal]'),
   textError: document.querySelector('.js-header__text-error'),
 };
 let currentFetch = 'tranding';
@@ -71,6 +76,7 @@ let ress = {
 };
 
 onLoadTranding();
+
 addTestPaginationListeners();
 
 async function checkFetchLink(e) {
@@ -107,6 +113,7 @@ async function checkFetchLink(e) {
     }
   
     options.maxPage = ress.total_pages;
+    localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
     galleryArrayMarkup(ress);
     markupPages(ress);
     ratingAddIshidden();
@@ -114,6 +121,8 @@ async function checkFetchLink(e) {
     hideLastPageBtn();
     togglePaginationBtn();
     togglePainationAllButtons(ress);
+    
+    modalOpenOnClick()
   } catch (e) {
     console.log(e);
   }
@@ -182,12 +191,14 @@ async function onLoadTranding() {
     galleryArrayMarkup(ress)
     markupPages(ress)
     ratingAddIshidden()
-    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
     removeAllChekedGenres()
+    modalOpenOnClick()
     togglePainationAllButtons(ress)
+    localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+
     options.pageNumber += 1
     console.log(options.allGenresList);
     return await fetchTrandingMovie()
@@ -198,7 +209,7 @@ async function onLoadTranding() {
 function galleryArrayMarkup(array) {
 
   teaser(array);
- 
+
     const galleryMarkup = array.results.map(({poster_path,original_title,vote_average,release_date,genre_ids}) =>
     {
       return `<li class="gallery-list__item">
@@ -238,25 +249,25 @@ function ratingAddIshidden() {
 
 //=====================================Запуск модалки===============================================================
 
-function modalOpenOnClick() {
-  const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
-  clickedMovieCard.forEach(button => button.addEventListener("click", onClick));
+// function modalOpenOnClick() {
+//   const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
+//   clickedMovieCard.forEach(button => button.addEventListener("click", onClick));
 
-  const modalCloseBtn = document.querySelector('[data-modal-close]');
-  modalCloseBtn.addEventListener('click', onClick)
+//   const modalCloseBtn = document.querySelector('[data-modal-close]');
+//   modalCloseBtn.addEventListener('click', onClick)
 
-  function onClick(event) {
-    event.preventDefault()
+//   function onClick(event) {
+//     event.preventDefault()
 
-    console.log(event.currentTarget);
+//     console.log(event.currentTarget);
     
-    const modal = document.querySelector('[data-modal]');
-    modal.classList.toggle('is-hidden');
+//     const modal = document.querySelector('[data-modal]');
+//     modal.classList.toggle('is-hidden');
   
-  }
-}
+//   }
+// }
 
-//=========================================================================================================
+// =========================================================================================================
 
 const ratings = document.querySelector('.gallery-list');
 console.log(ratings);
