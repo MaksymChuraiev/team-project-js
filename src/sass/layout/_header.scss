@@ -1,4 +1,4 @@
-.header-container{
+.header-container {
   position: relative;
 }
 .header {
@@ -6,15 +6,15 @@
   padding-bottom: 97px;
   background-color: rgba(0, 0, 0, 0.8);
 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 230px;
+
   &__home {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url('../images/mobile/rectangle-mobile.png');
-
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100vw;
-    height: 230px;
 
     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
@@ -45,12 +45,6 @@
   &__library {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url('../images/mobile/2rectangle-mobile.png');
-
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100vw;
-    height: 230px;
 
     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
@@ -115,7 +109,7 @@
 .header__logo {
   display: none;
 
-  font-family: Roboto;
+  font-family: $primary-font;
 
   font-weight: 500;
   font-size: 30px;
@@ -156,7 +150,7 @@
 }
 
 .header__link {
-  font-family: Roboto;
+  font-family: $primary-font;
   text-align: center;
   font-weight: 500;
   font-size: 12px;
@@ -176,7 +170,7 @@
   border: none;
   padding: 5px 0px;
 
-  font-family: Roboto;
+  font-family: $primary-font;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
@@ -206,7 +200,7 @@
   margin-top: 20px;
   width: 100%;
   max-width: 393px;
-  font-family: Roboto;
+  font-family: $primary-font;
 
   font-weight: 400;
   font-size: 14px;
@@ -225,7 +219,7 @@
   width: 130px;
   height: 44px;
   padding: 14px;
-  font-family: Roboto;
+  font-family: $primary-font;
 
   font-weight: 500;
   font-size: 12px;
