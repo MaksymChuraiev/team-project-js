@@ -226,7 +226,7 @@ function galleryArrayMarkup(array) {
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
 
-                        <p class="gallery-list__text">${genre_ids} | <span class="gallery-list__text-aftertext">${new Date(
+                        <p class="gallery-list__text">${galleryGenresMarkup(genre_ids)} | <span class="gallery-list__text-aftertext">${new Date(
         release_date,
       ).getFullYear()}</span> </p>
 
