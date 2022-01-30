@@ -22,9 +22,11 @@ async function fetchPhoto() {
       query: options.query,
       page: options.pageNumber,
     },
+
   };
   const { data } = await axios.get(SEARCH_URL, params);
   return data;
+
 }
 
 async function fetchGenres() {
