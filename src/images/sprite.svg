@@ -25,5 +25,10 @@
 <path d="M22 2l-10 10h-6l-6 8c0 0 6.357-1.77 10.065-0.94l-10.065 12.94 13.184-10.255c1.839 4.208-1.184 10.255-1.184 10.255l8-6v-6l10-10 2-10-10 2z"></path>
 </symbol>
 
+<symbol id="icon-close-btn" viewBox="0 0 32 32">
+<path fill="none" stroke="#000000" style="stroke: var(--color1, #000000)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2" d="M2.519 2l26.963 28"></path>
+<path fill="none" stroke="#000000" style="stroke: var(--color1, #000000)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2" d="M2 29.481l28-26.963"></path>
+</symbol>
+
 </defs>
 </svg>
