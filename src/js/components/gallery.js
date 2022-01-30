@@ -1,4 +1,4 @@
-import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverAnotherGenres} from './fetchApi'
+import { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverYear} from './fetchApi'
 import { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickNumberPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickLessPageBtn, onClickMorePageBtn } from './pagination'
 
 import { options } from './fetchApi';
@@ -96,7 +96,7 @@ async function checkFetchLink(e) {
       toggleTrands(e.target.id)
       options.trand = 'day'
       options.genresId = []
-      currentFetch = 'topDay'
+      currentFetch = 'tranding'
       console.log('topDay', options.trand)
       
       
@@ -110,7 +110,7 @@ async function checkFetchLink(e) {
       e.target.classList.toggle('btn_active')
       options.trand = 'week'
       console.log('topWeek', options.trand)
-      currentFetch = 'topWeek'
+      currentFetch = 'tranding'
 
       ress = await fetchTrandingMovie()
       console.log('topWeek', ress)
@@ -118,31 +118,36 @@ async function checkFetchLink(e) {
     }
     //================ year =============== пока не трогать =============
     if (e.target.id == '2022') {
+      currentFetch = 'year'
+      removeAllChekedGenres()
       e.target.classList.toggle('btn_active')
       options.year = e.target.id
       options.genresId = []
       console.log('2022', options.year)
 
-      ress = await discoverAnotherGenres()
+      ress = await discoverYear()
       console.log('2022', ress)
     }
     if (e.target.id == '2021') {
+      currentFetch = 'year'
+      removeAllChekedGenres()
       e.target.classList.toggle('btn_active')
       options.year = e.target.id
       options.genresId = []
       console.log('2021', options.year)
       
-      ress = await discoverAnotherGenres()
+      ress = await discoverYear()
       console.log('2021', ress)
     }
     if (e.target.id == '2020') {
-
+      currentFetch = 'year'
+      removeAllChekedGenres() 
       e.target.classList.toggle('btn_active')
       options.year = e.target.id
       options.genresId = []
       console.log('2020', options.year)
       
-      ress = await discoverAnotherGenres()
+      ress = await discoverYear()
       console.log('2020', ress)
     }
     

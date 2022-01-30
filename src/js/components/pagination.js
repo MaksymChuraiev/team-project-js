@@ -2,7 +2,7 @@ export { markupPages, togglePainationAllButtons, addTestPaginationListeners, tog
 
 import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
 
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi'
+import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
 import { options } from './fetchApi';
 
@@ -105,6 +105,10 @@ async function onClickNumberPageBtn(e) {
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }  
   galleryArrayMarkup(response)
   markupPages(response)
   hideFirstPageBtn()
@@ -137,6 +141,10 @@ async function onClickPrevPageBtn(e) {
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }  
     galleryArrayMarkup(response)
     markupPages(response)
     hideFirstPageBtn()
@@ -169,6 +177,10 @@ let response
   }
   if (currentFetch === 'genres') {
     response = await discoverGenres()
+    console.log('genres',response)
+      }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
     console.log('genres',response)
   }
       galleryArrayMarkup(response)
@@ -210,6 +222,10 @@ let response
     response = await discoverGenres()
     console.log('genres',response)
   }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+  }
     galleryArrayMarkup(response)
     markupPages(response)
     hideFirstPageBtn()
@@ -242,6 +258,10 @@ let response
   }
   if (currentFetch === 'genres') {
     response = await discoverGenres()
+    console.log('genres',response)
+  }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
     console.log('genres',response)
   }
     galleryArrayMarkup(response)

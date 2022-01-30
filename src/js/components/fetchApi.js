@@ -46,9 +46,9 @@ async function discoverGenres() {
   }
 }
 
-async function discoverAnotherGenres() {
+async function discoverYear() {
   try {
-    const { data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=6dae1a863e182d2e5c972909bcd1e575&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${options.pageNumber}&primary_release_year=${options.year}&release_date.gte=${options.year}&with_genres=${options.genresId}&with_watch_monetization_types=flatrate`)
+    const { data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=6dae1a863e182d2e5c972909bcd1e575&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${options.pageNumber}&primary_release_year=${options.year}&with_genres=${options.genresId}&with_watch_monetization_types=flatrate`)
     return data
   } catch (e) {
     console.log(e)
@@ -56,4 +56,4 @@ async function discoverAnotherGenres() {
 }
 
 
-export { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverAnotherGenres}
+export { fetchPhoto, fetchGenres,discoverGenres, fetchTrandingMovie, discoverYear}
