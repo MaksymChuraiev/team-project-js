@@ -163,7 +163,7 @@ async function onClickTopDayTrands(e) {
       ress = await fetchTrandingMovie();
       console.log('topDay', ress);
       console.log('currentFetch ', currentFetch);
-}
+    }
 async function onClickTopWeekTrands(e) {
    e.target.classList.toggle('btn_active');
       options.trand = 'week';
@@ -174,19 +174,6 @@ async function onClickTopWeekTrands(e) {
       console.log('topWeek', ress);
       console.log('currentFetch ', currentFetch);
     }
-    options.maxPage = ress.total_pages;
-    galleryArrayMarkup(ress);
-    markupPages(ress);
-    ratingAddIshidden();
-    modalOpenOnClick();
-    hideFirstPageBtn();
-    hideLastPageBtn();
-    togglePaginationBtn();
-    togglePainationAllButtons(ress);
-  } catch (e) {
-    console.log(e);
-  }
-}
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
 
