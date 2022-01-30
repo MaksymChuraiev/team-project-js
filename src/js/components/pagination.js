@@ -2,7 +2,7 @@
 export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
 
-import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres } from './gallery'
+import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup, genresMarkup, toggleGenres, removeAllChekedGenres, modalOpenOnClick, ratingAddIshidden } from './gallery'
 
 import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
@@ -115,6 +115,8 @@ async function onClickNumberPageBtn(e) {
   }  
   galleryArrayMarkup(response)
   markupPages(response)
+  ratingAddIshidden()
+  modalOpenOnClick()
   hideFirstPageBtn()
   hideLastPageBtn()
   togglePaginationBtn()
@@ -151,6 +153,8 @@ async function onClickPrevPageBtn(e) {
   }  
     galleryArrayMarkup(response)
     markupPages(response)
+    ratingAddIshidden()
+    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()    
@@ -189,6 +193,8 @@ let response
   }
       galleryArrayMarkup(response)
       markupPages(response)
+      ratingAddIshidden()
+      modalOpenOnClick()
       console.dir(refs.pages.lastElementChild.firstElementChild.dataset.page,'dataset')
       hideFirstPageBtn()
       hideLastPageBtn()
@@ -232,6 +238,8 @@ let response
   }
     galleryArrayMarkup(response)
     markupPages(response)
+    ratingAddIshidden()
+    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -270,6 +278,8 @@ let response
   }
     galleryArrayMarkup(response)
     markupPages(response)
+    ratingAddIshidden()
+    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()

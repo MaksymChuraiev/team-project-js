@@ -27,6 +27,8 @@ export {
   genresMarkup,
   toggleGenres,
   removeAllChekedGenres,
+  ratingAddIshidden,
+  modalOpenOnClick,
 };
 const throttle = require('lodash.throttle');
 
@@ -176,6 +178,7 @@ async function checkFetchLink(e) {
     galleryArrayMarkup(ress);
     markupPages(ress);
     ratingAddIshidden();
+    modalOpenOnClick();
     hideFirstPageBtn();
     hideLastPageBtn();
     togglePaginationBtn();
@@ -190,8 +193,9 @@ async function onLoadTranding() {
   ress = await fetchTrandingMovie()  
   options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
-    ratingAddIshidden()
     markupPages(ress)
+    ratingAddIshidden()
+    modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -248,6 +252,29 @@ function ratingAddIshidden() {
   const ratings = document.querySelectorAll('.gallery-list__rating');
   ratings.forEach(rating => rating.classList.add('visually-hidden'));
 }
+
+
+//=====================================Запуск модалки===============================================================
+
+function modalOpenOnClick() {
+  const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
+  clickedMovieCard.forEach(button => button.addEventListener("click", onClick));
+
+  const modalCloseBtn = document.querySelector('[data-modal-close]');
+  modalCloseBtn.addEventListener('click', onClick)
+
+  function onClick(event) {
+    event.preventDefault()
+
+    console.log(event.currentTarget);
+    
+    const modal = document.querySelector('[data-modal]');
+    modal.classList.toggle('is-hidden');
+  
+  }
+}
+
+//=========================================================================================================
 
 // ===================== пока не трогаем ==============
 // ================ фетч всехЖанров с АПИ и маркап их ========================
@@ -313,11 +340,3 @@ async function toggleTrands(id) {
     continue;
   }
 }
-
-const ratings = document.querySelector('.gallery-list');
-console.log(ratings);
-// // ratings.classList.add('visually-hidden')
-
-// const children = ratings.children;
-
-// console.log(children)
