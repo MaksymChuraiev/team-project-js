@@ -239,25 +239,25 @@ async function genresMarkup() {
     return `<button class="genres-btn btn"  id="${id}">${name}</button>`}).join("")
   refs.genres.insertAdjacentHTML('afterbegin', genres)
 }
+// ========================= отрисовка имен жанров в галерее =================
 function galleryGenresMarkup(array) {
   console.log(array)
-  const t = array.map(elem => {
-    // console.log('elem',elem)
+  let ress = array.map(elem => {
     for (const el of options.allGenresList) {
-      // console.log('el',el)
       if (elem === el.id) {
         console.log('name ', el.name)
         return el.name
       }
     }
   })
-  console.log('2 el.name', t)
-  // if (t.length >= 3) {
-  //   t.slice(2)
-  // }
-  t.slice(1)
-  return t.join(',')
+  if (ress.length > 3) {
+   const ressult = ress.slice(0,2)
+   ressult.push('Other')
+  return ressult.join(', ')
+  }
+  return ress.join(', ')
 }
+
 // ===================== выбор и удаление жанра со страницы, добавление в массив ======
 function toggleGenres(id) {
   if (options.genresId.includes(id)) {
