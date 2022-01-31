@@ -1,3 +1,5 @@
+import { libraryMarkup } from './library';
+import { homeMarkup } from './home';
 
 const refs = {
   header: document.querySelector('.js-header'),
@@ -12,9 +14,6 @@ const refs = {
 
 refs.home.addEventListener('click', onHomeClick);
 refs.library.addEventListener('click', onLibraryClick);
-refs.watched.addEventListener('click', onWatchedClick);
-refs.queue.addEventListener('click', onQueueClick);
-
 
 function onHomeClick(e) {
   e.preventDefault();
@@ -24,6 +23,7 @@ function onHomeClick(e) {
   refs.header.classList.remove('header__library');
   refs.form.style.display = 'flex';
   refs.thumb.style.display = 'none';
+  homeMarkup();
 }
 
 function onLibraryClick(e) {
@@ -34,19 +34,5 @@ function onLibraryClick(e) {
   refs.header.classList.remove('header__home');
   refs.form.style.display = 'none';
   refs.thumb.style.display = 'flex';
+  libraryMarkup();
 }
-
-function onWatchedClick(e) {
-  e.preventDefault();
-  refs.watched.classList.add('header__button--active');
-  refs.queue.classList.remove('header__button--active');
-}
-
-function onQueueClick(e) {
-  e.preventDefault();
-  refs.queue.classList.add('header__button--active');
-  refs.watched.classList.remove('header__button--active');
-}
-
-
-
