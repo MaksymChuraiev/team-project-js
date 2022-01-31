@@ -120,8 +120,8 @@ async function onClickNumberPageBtn(e) {
   localStorage.setItem('MoviesOnPage', JSON.stringify(response));
   galleryArrayMarkup(response)
   markupPages(response)
-  ratingAddIshidden()
   modalOpenOnClick()
+  ratingAddIshidden()
   hideFirstPageBtn()
   hideLastPageBtn()
   togglePaginationBtn()
@@ -161,8 +161,8 @@ async function onClickPrevPageBtn(e) {
     localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
-    ratingAddIshidden()
     modalOpenOnClick()
+    ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()    
@@ -203,8 +203,8 @@ let response
       localStorage.setItem('MoviesOnPage', JSON.stringify(response));
       galleryArrayMarkup(response)
       markupPages(response)
-      ratingAddIshidden()
       modalOpenOnClick()
+      ratingAddIshidden()
       console.dir(refs.pages.lastElementChild.firstElementChild.dataset.page,'dataset')
       hideFirstPageBtn()
       hideLastPageBtn()
@@ -250,8 +250,8 @@ let response
     localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
-    ratingAddIshidden()
     modalOpenOnClick()
+    ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
@@ -292,8 +292,8 @@ let response
     localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
-    ratingAddIshidden()
     modalOpenOnClick()
+    ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()

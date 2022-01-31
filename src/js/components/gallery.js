@@ -83,6 +83,9 @@ async function checkFetchLink(e) {
   if (e.target === refs.genres) {
     return;
   }
+  if (e.target === refs.topTrands) {
+    return;
+  }
   e.preventDefault();
   refs.gallery.innerHTML = '';
   refs.pages.innerHTML = '';
@@ -121,8 +124,8 @@ async function checkFetchLink(e) {
     hideLastPageBtn();
     togglePaginationBtn();
     togglePainationAllButtons(ress);
-    
     modalOpenOnClick()
+    
   } catch (e) {
     console.log(e);
   }
@@ -194,8 +197,9 @@ async function onLoadTranding() {
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
-    removeAllChekedGenres()
-    modalOpenOnClick()
+  removeAllChekedGenres()
+  
+    
     togglePainationAllButtons(ress)
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
 
@@ -236,6 +240,7 @@ function galleryArrayMarkup(array) {
     })
     .join('');
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+  
 }
 console.log('genresId', options.genresId);
 
