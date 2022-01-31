@@ -6,15 +6,16 @@ const refs = {
     };
     refs.footerLink.addEventListener('click', openModal);
 
-
 function closeModal(e){
   modalAddHidden()
     refs.closeModalBtn.removeEventListener('click', closeModal);
     refs.modal.removeEventListener('click', onBackdropClick);
     refs.body.removeEventListener('keydown' ,onEscClick);
+    scroll()
 } 
 function openModal (){
 modalRemoveHidden ()
+scroll()
 refs.modal.addEventListener('click', onBackdropClick);
 refs.body.addEventListener('keydown', onEscClick);
 refs.closeModalBtn.addEventListener('click', closeModal);
@@ -39,4 +40,12 @@ function modalRemoveHidden (){
 }
 function modalAddHidden (){
   refs.modal.classList.add('visually-hidden');
+}
+//===================================================================блокировка скрола
+function scroll (){
+  const modalIsClose = refs.modal.classList.contains('visually-hidden')
+  const scrollLockMethod = !modalIsClose
+  ? 'disableBodyScroll'
+  : 'enableBodyScroll';
+  bodyScrollLock[scrollLockMethod](document.body);
 }
