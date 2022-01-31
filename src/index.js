@@ -15,3 +15,6 @@ import './js/components/modal';
 import './js/components/teaser';
 
 import './js/components/team-modal';
+
+import './js/components/library';
+import './js/components/home';
