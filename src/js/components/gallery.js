@@ -193,7 +193,8 @@ async function onLoadTranding() {
   options.maxPage = ress.total_pages
     galleryArrayMarkup(ress)
     markupPages(ress)
-    ratingAddIshidden()
+  ratingAddIshidden()
+  modalOpenOnClick()
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()

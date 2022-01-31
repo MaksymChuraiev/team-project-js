@@ -38,7 +38,14 @@
   width: 30px;
   height: 30px;
   background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  // border: 1px solid rgba(0, 0, 0, 0.1);
+  &:hover,
+  &:focus {
+    fill: #ff6b01;
+  }
+  // &__icon {
+  //   transition: fill var(--time-duration) var(--time-function);
+  // }
 }
 
 .modal__film-titel {
@@ -56,8 +63,8 @@
 }
 
 .modal__wrapper {
-  display: flex;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
+  // display: flex;
+  @media screen and (min-width: 768px) {
     display: flex;
   }
 }
