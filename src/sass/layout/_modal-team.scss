@@ -1,3 +1,30 @@
+// .body.show-modal .backdrop {
+//   opacity: 1;
+//   visibility: visible;
+//   pointer-events: initial;
+// }
+
+// .body.show-modal .modal-team {
+//   transform: scale(1);
+// }
+
+// .backdrop-team {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vw;
+//   background-color: rgba(0, 0, 0, 0.2);
+//   z-index: 10;
+
+//   pointer-events: none;
+//   opacity: 0;
+//   visibility: hidden;
+//   transform: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+// }
 .modal-container {
   display: flex;
   justify-content: center;
