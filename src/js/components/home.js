@@ -1,4 +1,5 @@
 import { galleryArrayMarkup, ratingAddIshidden } from './gallery';
+import { modalOpenOnClick } from './modal'
 
 import {
   markupPages,
@@ -26,6 +27,7 @@ function homeMarkup() {
   refs.topTrands.style.display = 'flex';
   try {
     const ress = JSON.parse(localStorage.getItem('MoviesOnPage'));
+    console.log(ress)
     galleryArrayMarkup(ress);
     markupPages(ress);
     ratingAddIshidden();
@@ -33,6 +35,7 @@ function homeMarkup() {
     hideLastPageBtn();
     togglePaginationBtn();
     togglePainationAllButtons(ress);
+    modalOpenOnClick()
   } catch (e) {
     console.log(e);
   }
