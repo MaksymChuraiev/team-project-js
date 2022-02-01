@@ -42,7 +42,8 @@ function modalOpenOnClick() {
     // console.log(event.key)
     
     // const modal = document.querySelector('[data-modal]');
-    modal.classList.toggle('is-hidden');
+        modal.classList.toggle('is-hidden');
+        bodyScroll()
   
     }   
     function onClickCloseModal(event) {
@@ -54,6 +55,7 @@ function modalOpenOnClick() {
         modal.classList.toggle('is-hidden');
         modalCloseBtn.removeEventListener('click', onClickCloseModal)
         mainBody.removeEventListener('keydown', onEscapeBtnClick)
+        bodyScroll()
   
     }
 
@@ -63,6 +65,15 @@ function modalOpenOnClick() {
         }
         console.log(event.key)
     }
+
+    function bodyScroll() {
+        const modalClose = modal.classList.contains('is-hidden')
+        const scrollLockMethod = !modalClose
+            ? 'disableBodyScroll'
+            : 'enableBodyScroll';
+        bodyScrollLock[scrollLockMethod](document.body);
+    }
+
 }
 
 
