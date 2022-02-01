@@ -1,5 +1,6 @@
 import { galleryArrayMarkup } from './gallery';
 import jpg from '../../images/desktop/nothing_find.jpg';
+import { modalOpenOnClick } from './modal';
 
 const refs = {
   gallery: document.querySelector('.gallery-list'),
@@ -13,12 +14,13 @@ const refs = {
 
 let data = {
   page: 1,
-  results: [{}],
+  results: [],
 };
-
+console.log(data.results)
 let queueKey;
 let watchedKey;
 let isActiveKey;
+
 
 refs.watched.addEventListener('click', onWatchedClick);
 refs.queue.addEventListener('click', onQueueClick);
@@ -59,7 +61,7 @@ function libraryMarkup() {
   refs.paginationList.style.display = 'none';
   refs.genres.style.display = 'none';
   refs.topTrands.style.display = 'none';
-
+  localStorage.setItem('isActive', 'watched');
   isActiveKey = localStorage.getItem('isActive');
 
   if (isActiveKey) {
@@ -104,20 +106,25 @@ function libraryMarkup() {
 
 function markup(data) {
   refs.gallery.innerHTML = '';
-  if (data.results.length > 1) {
-    galleryArrayMarkup(data);
-  } else {
-    refs.gallery.insertAdjacentHTML(
-      'beforeend',
-      ` <div class="gallery-list__poster" href="#">
-        <img
-          src=${jpg}
-          alt="Ничего не найдено"
-     
-        />
-      </div>`,
-    );
+  if (data.results.length === 0) {
+    return
   }
+  if (data.results.length > 0) {
+    galleryArrayMarkup(data);
+    modalOpenOnClick()
+  }
+  // else {
+  //   refs.gallery.insertAdjacentHTML(
+  //     'beforeend',
+  //     ` <div class="gallery-list__poster" href="#">
+  //       <img
+  //         src=${jpg}
+  //         alt="Ничего не найдено"
+     
+  //       />
+  //     </div>`,
+  //   );
+  // }
 }
 
-export { libraryMarkup };
+export { libraryMarkup,markup };

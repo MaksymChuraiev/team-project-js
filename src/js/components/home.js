@@ -36,6 +36,8 @@ function homeMarkup() {
     togglePaginationBtn();
     togglePainationAllButtons(ress);
     modalOpenOnClick()
+    localStorage.setItem('isActive', 'home');
+
   } catch (e) {
     console.log(e);
   }

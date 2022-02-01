@@ -1,7 +1,7 @@
 export { modalWindowMarkup }
 
 import { galleryGenresMarkup } from './genres'
-
+import { wText } from './fn_searchGalleryTargetInLS'
 
 
 
@@ -9,13 +9,15 @@ import { galleryGenresMarkup } from './genres'
 const refs = {
     gallery: document.querySelector('.gallery-list'),
     modal: document.querySelector('.modal__wrapper'),
+
 }
 
 
 
 
 
-function modalWindowMarkup({ poster_path,original_title,vote_average,vote_count,popularity,genre_ids,overview}) {
+function modalWindowMarkup({ poster_path, original_title, vote_average, vote_count, popularity, genre_ids, overview }) {
+    
     const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="" href="">
@@ -53,10 +55,9 @@ function modalWindowMarkup({ poster_path,original_title,vote_average,vote_count,
                 </div>
 
                 <div class="modal__buttons">
-                    <button type="submit" class="modal__button watched js-button-add-watched"><span
-                            class="add-button-watched-text">ADD TO WATCHED</span></button>
+                    <button type="submit" class="modal__button watched js-button-add-watched"><span class="add-button-watched-text"></span></button>
                     <button type="submit" class="modal__button queue js-button-add-queue"><span
-                            class="add-button-queue-text">ADD TO QUEUE</span></button>
+                            class="add-button-queue-text"></span></button>
                 </div>
             </div>
         </div>`
