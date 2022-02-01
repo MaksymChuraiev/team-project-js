@@ -33,6 +33,13 @@ body.dark-theme {
   color: #fff;
 }
 
+.modal-container.light-theme {
+  background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4));
+}
+.modal-container.dark-theme {
+  background-image: linear-gradient(rgba(41, 41, 41, 0.8), rgba(41, 41, 41, 0.8));
+}
+
 .page_item.dark-theme {
   color: #000;
   background-color: rgb(109, 109, 109);
