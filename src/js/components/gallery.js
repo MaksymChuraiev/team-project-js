@@ -79,6 +79,13 @@ let ress = {
   total_pages: 0,
   total_results: 0,
 };
+let data = {
+  page: 1,
+  results: [],
+};
+localStorage.setItem('isActive', 'home');
+localStorage.setItem('watched',JSON.stringify(data));
+localStorage.setItem('queue',JSON.stringify(data));
 
 onLoadTranding();
 
@@ -261,38 +268,13 @@ console.log('genresId', options.genresId);
 
 // =====================================Работаем с рейтингами ======================================================
 
+
 function ratingAddIshidden() {
   const ratings = document.querySelectorAll('.gallery-list__rating');
   ratings.forEach(rating => rating.classList.add('visually-hidden'));
 }
 
 
-//=====================================Запуск модалки===============================================================
-
-// function modalOpenOnClick() {
-//   const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
-//   clickedMovieCard.forEach(button => button.addEventListener("click", onClick));
-
-//   const modalCloseBtn = document.querySelector('[data-modal-close]');
-//   modalCloseBtn.addEventListener('click', onClick)
-
-//   function onClick(event) {
-//     event.preventDefault()
-
-//     console.log(event.currentTarget);
-    
-//     const modal = document.querySelector('[data-modal]');
-//     modal.classList.toggle('is-hidden');
-  
-//   }
-// }
-
-// =========================================================================================================
 
 const ratings = document.querySelector('.gallery-list');
 console.log(ratings);
-// // ratings.classList.add('visually-hidden')
-
-// const children = ratings.children;
-
-// console.log(children)
