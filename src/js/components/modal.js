@@ -55,7 +55,7 @@ function modalOpenOnClick() {
         
         
         
-    // =========================================================================
+        // =========================================================================
         
         const modalButtons = document.querySelectorAll('.modal__button')
         const modalButtonWatched = document.querySelector('.js-button-add-watched')
@@ -173,7 +173,6 @@ function modalOpenOnClick() {
     // console.log(event.key)
     
     // const modal = document.querySelector('[data-modal]');
-        modal.classList.toggle('is-hidden');
         bodyScroll()
   
     }   

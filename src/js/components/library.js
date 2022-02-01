@@ -128,19 +128,16 @@ function markup(data) {
     modalOpenOnClick()
     
     
+  }else {
+    refs.gallery.insertAdjacentHTML(
+      'beforeend',
+      ` <div class='gallery__text-wrapper'>
+       <p class='error js-gallery__error-text' >
+          Your Library is empty.
+      </p>
+      </div>`,
+    );
   }
-  // else {
-  //   refs.gallery.insertAdjacentHTML(
-  //     'beforeend',
-  //     ` <div class="gallery-list__poster" href="#">
-  //       <img
-  //         src=${jpg}
-  //         alt="Ничего не найдено"
-     
-  //       />
-  //     </div>`,
-  //   );
-  // }
 }
 
 export { libraryMarkup,markup };
