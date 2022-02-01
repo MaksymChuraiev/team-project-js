@@ -7,9 +7,10 @@ body.light-theme {
 }
 
 body.dark-theme {
-  background-image: url('../images/dark-bg2.jpg');
-  background-size: contain;
-  background-repeat: repeat;
+  background-color: #000;
+  // background-image: url('../images/dark-bg2.jpg');
+  // background-size: contain;
+  // background-repeat: repeat;
 
   // background: rgb(94, 33, 15);
   // background: linear-gradient(
@@ -37,7 +38,7 @@ body.dark-theme {
   background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4));
 }
 .modal-container.dark-theme {
-  background-image: linear-gradient(rgba(41, 41, 41, 0.8), rgba(41, 41, 41, 0.8));
+  background-image: linear-gradient(rgba(27,27,27, 0.7), rgba(27, 27, 27, 0.7));
 }
 
 .page_item.dark-theme {
