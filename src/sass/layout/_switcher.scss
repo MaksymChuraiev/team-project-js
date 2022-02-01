@@ -1,8 +1,15 @@
 body.light-theme {
   background-color: #fff;
+  background-image: url('../images/white-bg.jpg');
+  background-size: contain;
+  background-repeat: repeat;
 }
 
 body.dark-theme {
+  background-image: url('../images/dark-bg2.jpg');
+  background-size: contain;
+  background-repeat: repeat;
+
   // background: rgb(94, 33, 15);
   // background: linear-gradient(
   //   90deg,
@@ -16,12 +23,12 @@ body.dark-theme {
   //   rgba(61, 21, 9, 1) 18%,
   //   rgba(11, 6, 0, 0.7598389697675946) 71%
   // );
-  background: rgb(61, 21, 9);
-  background: linear-gradient(
-    90deg,
-    rgba(61, 21, 9, 1) 18%,
-    rgba(11, 6, 0, 0.7598389697675946) 71%
-  );
+  // background: rgb(61, 21, 9);
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(61, 21, 9, 1) 18%,
+  //   rgba(11, 6, 0, 0.7598389697675946) 71%
+  // );
   color: #fff;
 }
 
