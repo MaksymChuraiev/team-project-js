@@ -1,8 +1,16 @@
 .footer {
+  // position: sticky;
+  // width: 100%;
+  // bottom: 0;
+  // left: 0;
   font-family: $primary-font;
   height: 77px;
   text-align: center;
   background-color: currentColor;
+}
+// отодвинуть футер
+.content {
+  min-height: 700px;
 }
 .footer.light-theme {
   background-color: $second-background;

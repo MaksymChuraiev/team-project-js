@@ -2,6 +2,8 @@ import { galleryArrayMarkup } from './gallery';
 import jpg from '../../images/desktop/nothing_find.jpg';
 import { modalOpenOnClick } from './modal';
 
+import { hideErrorText, showErrorText } from './errorText';
+
 const refs = {
   gallery: document.querySelector('.gallery-list'),
   genres: document.querySelector('.genres'),
@@ -10,8 +12,17 @@ const refs = {
 
   watched: document.querySelector('.js-button-watched'),
   queue: document.querySelector('.js-button-queue'),
+
+  libraryLink: document.querySelector('.js-library'),
 };
 
+refs.libraryLink.addEventListener('click', onLibraryLinkClick)
+function onLibraryLinkClick (e) {
+  const libraryIsActiv =e.currentTarget;
+  if (libraryIsActiv) {
+    hideErrorText();
+  }
+}
 let data = {
   page: 1,
   results: [],
@@ -26,6 +37,7 @@ refs.watched.addEventListener('click', onWatchedClick);
 refs.queue.addEventListener('click', onQueueClick);
 
 function onWatchedClick(e) {
+
   e.preventDefault();
   refs.watched.classList.add('header__button--active');
   refs.queue.classList.remove('header__button--active');
@@ -110,8 +122,12 @@ function markup(data) {
     return
   }
   if (data.results.length > 0) {
+    
+    
     galleryArrayMarkup(data);
     modalOpenOnClick()
+    
+    
   }
   // else {
   //   refs.gallery.insertAdjacentHTML(

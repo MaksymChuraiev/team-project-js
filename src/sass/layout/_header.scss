@@ -194,7 +194,7 @@
   width: 20px;
 }
 
-.header__error {
+.error {
   // display: none;
   margin: 0 auto;
   margin-top: 20px;
@@ -237,4 +237,39 @@
 .header__button--active {
   background: $accent-button-color;
   border: none;
+}
+
+.menu a {
+  background: grey;
+  opacity: 0.6;
+  color: $second-text-color;
+  padding: 10px;
+  display: block;
+  font-family: $primary-font;
+  font-size: 12px;
+  border-bottom: 1px solid $second-text-color;
+  transition: 0.5s all;
+  border-radius: 4px;
+}
+.horizontal-menu {
+  width: 95px;
+  margin: 5px;
+}
+.menu a:hover {
+  background: rgb(250, 172, 54);
+  padding: 10px 10px 10px 15px;
+}
+.menu__list {
+  position: relative;
+}
+.menu__drop {
+  position: absolute;
+  width: 100%;
+  left: 100%;
+  opacity: 0;
+  top: -9999em;
+}
+.menu__list:hover .menu__list {
+  opacity: 1;
+  top: 0;
 }

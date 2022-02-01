@@ -16,6 +16,7 @@
   display: flex;
   list-style: none;
   padding: 0;
+  margin-right: 4px;
 }
 
 .page_link {
@@ -30,13 +31,15 @@
   line-height: 16px;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background-color: #f7f7f7;
+  opacity: 0.8;
   cursor: pointer;
   text-align: center;
   border-radius: 5px;
   // transform: matrix(-1, 0, 0, 1, 0, 0);
   transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s,
     border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  color: $accent-color;
 }
 
 .btn_active {

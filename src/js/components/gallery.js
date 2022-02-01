@@ -28,6 +28,10 @@ import galleryTpl from '../../template/gallery.hbs';
 import { cloneDeep } from 'lodash';
 import teaser from './teaser';
 
+import { showErrorText, hideErrorText } from './errorText';
+import { hidePagination, showPagination } from './hidePagination';
+import { hideEndCollectionText } from './pagination';
+
 export {
   currentFetch,
   ress,
@@ -58,6 +62,7 @@ const refs = {
   modalCloseBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   textError: document.querySelector('.js-header__text-error'),
+  endCollectionText: document.querySelector('.end-collection-text'),
 };
 let currentFetch = 'tranding';
 
@@ -139,9 +144,13 @@ async function checkFetchLink(e) {
 }
 
 async function onClickSearchSubmit(e) { 
+  hideEndCollectionText ();
+  hideErrorText();
     if (options.query.trim() === '') {
-        refs.textError.classList.remove('is-hidden');
-        refs.paginationList.classList.add('visually-hidden');
+      // скрыть теск ошибки refs.textError.classList.remove('is-hidden');
+      // refs.paginationList.classList.add('visually-hidden');
+        showErrorText();
+        hidePagination();
         return;
       }
 
@@ -149,6 +158,11 @@ async function onClickSearchSubmit(e) {
       options.query = formInput.value;
       currentFetch = 'search';
       ress = await fetchPhoto();
+      // проверка корректного ввода, текстовые уведомления
+      if (ress.results.length === 0) {
+      refs.textError.classList.remove('is-hidden');
+      refs.endCollectionText.classList.add('is-hidden');
+      };
       console.log('search', ress);
       console.log('currentFetch ', currentFetch);
       console.log('query ', options.query);
