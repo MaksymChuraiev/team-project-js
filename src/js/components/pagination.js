@@ -1,5 +1,5 @@
 
-export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
+export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, hideEndCollectionText }
 
 import {modalOpenOnClick,addListenersOnEachGalleryCard} from './modal'
 
@@ -19,7 +19,8 @@ const refs = {
     lessPage: document.querySelector("[data-page='less']"),
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
-    paginationList:document.querySelector('.pagination'), 
+    paginationList: document.querySelector('.pagination'), 
+    endCollectionText: document.querySelector('.end-collection-text'),
 }
 console.log(refs);
 console.log(options);
@@ -74,14 +75,23 @@ function togglePaginationBtn() {
 
 function hideFirstPageBtn() {
   if (refs.pages.firstElementChild.firstElementChild.dataset.page === '0') {
-    refs.pages.firstElementChild.classList.add('visually-hidden')
+    refs.pages.firstElementChild.classList.add('visually-hidden');
   }
 }
 
 function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
-    refs.pages.lastElementChild.classList.add('visually-hidden')
+    refs.pages.lastElementChild.classList.add('visually-hidden');
+    if(options.maxPage > 0){
+      showEndCollectionText ()
+    }
   }
+}
+function hideEndCollectionText (){
+  refs.endCollectionText.classList.add('is-hidden');
+}
+function showEndCollectionText (){
+  refs.endCollectionText.classList.remove('is-hidden');
 }
 
 // ============ descriptionButtonListener ============

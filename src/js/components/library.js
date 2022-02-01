@@ -1,6 +1,8 @@
 import { galleryArrayMarkup } from './gallery';
 import jpg from '../../images/desktop/nothing_find.jpg';
 
+import { hideErrorText, showErrorText } from './errorText';
+
 const refs = {
   gallery: document.querySelector('.gallery-list'),
   genres: document.querySelector('.genres'),
@@ -9,8 +11,17 @@ const refs = {
 
   watched: document.querySelector('.js-button-watched'),
   queue: document.querySelector('.js-button-queue'),
+
+  libraryLink: document.querySelector('.js-library'),
 };
 
+refs.libraryLink.addEventListener('click', onLibraryLinkClick)
+function onLibraryLinkClick (e) {
+  const libraryIsActiv =e.currentTarget;
+  if (libraryIsActiv) {
+    hideErrorText();
+  }
+}
 let data = {
   page: 1,
   results: [{}],
@@ -24,6 +35,7 @@ refs.watched.addEventListener('click', onWatchedClick);
 refs.queue.addEventListener('click', onQueueClick);
 
 function onWatchedClick(e) {
+
   e.preventDefault();
   refs.watched.classList.add('header__button--active');
   refs.queue.classList.remove('header__button--active');
@@ -109,12 +121,10 @@ function markup(data) {
   } else {
     refs.gallery.insertAdjacentHTML(
       'beforeend',
-      ` <div class="gallery-list__poster" href="#">
-        <img
-          src=${jpg}
-          alt="Ничего не найдено"
-     
-        />
+      ` <div class='gallery__text-wrapper'>
+       <p class='error js-gallery__error-text' >
+          Your Library is empty.
+      </p>
       </div>`,
     );
   }

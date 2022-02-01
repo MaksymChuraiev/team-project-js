@@ -1,7 +1,7 @@
 const refs = {
       footerLink: document.querySelector('.footer__link'),
       closeModalBtn: document.querySelector('.btn-modal-close'),
-      modal: document.querySelector('.modal-team '),
+      modal: document.querySelector('.modal-team'),
       body: document.querySelector('body'),
     };
     refs.footerLink.addEventListener('click', openModal);
