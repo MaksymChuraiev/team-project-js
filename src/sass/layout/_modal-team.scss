@@ -25,7 +25,7 @@
     }
   
     @media screen and (min-width: 768px) {
-      width: 618px;
+      width: 620px;
       top: 50%;
       padding-left: 40px;
       padding-right: 40px;
@@ -33,10 +33,10 @@
     }
   
     @media screen and (min-width: 1024px) {
-      width: 800px;
-      height: 760px;
+      // width: 800px;
+      // height: 760px;
       top: 50%;
-      padding: 30px;
+      padding: 28px;
       transform: translate(-50%, -50%) scale(0.8);
     }
   }
@@ -78,7 +78,7 @@ font-size: 33px;
     }
     @media screen and (min-width: 1024px) {
       font-size: 45px;
-      margin-bottom: 35px;
+      // margin-bottom: 35px;
         }
   }
 .team__img{

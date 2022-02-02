@@ -1,5 +1,5 @@
 
-export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, hideEndCollectionText }
+export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
 import {modalOpenOnClick,addListenersOnEachGalleryCard} from './modal'
 
@@ -8,6 +8,8 @@ import { currentFetch, ress, checkFetchLink, onLoadTranding, galleryArrayMarkup,
 import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './fetchApi'
 
 import { options } from './fetchApi';
+
+import  { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
     form: document.querySelector('#search-form'),
@@ -24,6 +26,7 @@ const refs = {
 }
 console.log(refs);
 console.log(options);
+console.log(refs.endCollectionText);
 
 function markupPages(array) {
   const pagesBtnMarkup = `
@@ -83,15 +86,16 @@ function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
     // ===================================== скрываю текст конец коллекции
-      showEndCollectionText ()
+      // showEndCollectionText ()
+      Notify.info('End of the film collection')
   }
 }
-function hideEndCollectionText (){
-  refs.endCollectionText.classList.add('is-hidden');
-}
-function showEndCollectionText (){
-  refs.endCollectionText.classList.remove('is-hidden');
-}
+// function hideEndCollectionText (){
+//   refs.endCollectionText.classList.add('is-hidden');
+// }
+// function showEndCollectionText (){
+//   refs.endCollectionText.classList.remove('is-hidden');
+// }
 
 // ============ descriptionButtonListener ============
 async function onClickNumberPageBtn(e) {

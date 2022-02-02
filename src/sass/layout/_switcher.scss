@@ -1,16 +1,17 @@
 body.light-theme {
   background-color: #fff;
-  background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4));
-    // url('../images/white-bg4.jpg');
-  background-size: contain;
-  background-repeat: repeat;
+  background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4)),
+    url('../images/white-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #000;
 }
 
 body.dark-theme {
-  background-color: #000;
-  // background-image: url('../images/dark-bg2.jpg');
-  // background-size: contain;
-  // background-repeat: repeat;
+  background-color: rgba(0, 0, 0, 0.952);
+  // background-image: url('../images/dark-bg.jpg');
+  // background-size: cover;
+  // background-repeat: no-repeat;
 
   // background: rgb(94, 33, 15);
   // background: linear-gradient(
@@ -35,11 +36,21 @@ body.dark-theme {
 }
 
 .modal-container.light-theme {
+  // color: #000;
   background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4));
 }
 .modal-container.dark-theme {
-  background-image: linear-gradient(rgba(27,27,27, 0.7), rgba(27, 27, 27, 0.7));
+  // color: #fff;
+  background-image: linear-gradient(rgba(46, 46, 46, 0.9), rgb(0, 0, 0, 0.9));
 }
+
+// .modal__film-owervier-text.light-theme {
+//   color: #000;
+// }
+// .modal__film-owervier-text.dark-theme {
+//   color: rgb(255, 255, 255);
+// }
+
 
 .page_item.dark-theme {
   color: #000;
