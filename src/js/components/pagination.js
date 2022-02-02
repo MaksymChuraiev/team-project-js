@@ -86,8 +86,7 @@ function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
     // ===================================== скрываю текст конец коллекции
-      // showEndCollectionText ()
-      Notify.info('End of the film collection')
+      Notify.failure('End of the film collection');
   }
 }
 // function hideEndCollectionText (){

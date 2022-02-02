@@ -30,6 +30,7 @@ import teaser from './teaser';
 
 import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import { hideEndCollectionText } from './pagination';
 
 export {
@@ -144,6 +145,7 @@ async function onClickSearchSubmit(e) {
       // refs.paginationList.classList.add('visually-hidden');
         showErrorText();
         hidePagination();
+        // Notify.failure('Search result not successful. Enter the correct movie name.');
         return;
       }
 
