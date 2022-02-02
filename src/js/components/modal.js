@@ -233,7 +233,7 @@ function modalOpenOnClick() {
     }
 
     function bodyScroll() {
-        const modalClose = modal.classList.contains('visually-hidden ')
+        const modalClose = modal.classList.contains('visually-hidden')
         const scrollLockMethod = !modalClose
             ? 'disableBodyScroll'
             : 'enableBodyScroll';
