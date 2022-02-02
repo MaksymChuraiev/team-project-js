@@ -82,9 +82,8 @@ function hideFirstPageBtn() {
 function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
-    if(options.maxPage > 0){
+    // ===================================== скрываю текст конец коллекции
       showEndCollectionText ()
-    }
   }
 }
 function hideEndCollectionText (){
