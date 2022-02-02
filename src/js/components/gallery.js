@@ -169,7 +169,7 @@ async function onClickSearchSubmit(e) {
   // проверка корректного ввода, текстовые уведомления
   if (ress.results.length === 0) {
     showErrorText();
-    refs.endCollectionText.classList.add('visually-hidden ');
+    refs.endCollectionText.classList.add('visually-hidden');
     const data = JSON.parse(localStorage.getItem('MoviesOnPage'));
     galleryArrayMarkup(data);
     markupPages(data);
