@@ -112,7 +112,6 @@ async function checkFetchLink(e) {
     toggleTrands(e.target.id);
     // ==== chech input ====
     if (e.currentTarget === refs.form) {
-      removeAllChekedGenres();
       await onClickSearchSubmit(e);
       togglePainationAllButtons(ress);
     }
@@ -133,7 +132,9 @@ async function checkFetchLink(e) {
     }
 
     options.maxPage = ress.total_pages;
-    localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+    if (ress.results.length !== 0) {
+      localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+    }
     galleryArrayMarkup(ress);
     markupPages(ress);
     ratingAddIshidden();
@@ -164,14 +165,26 @@ async function onClickSearchSubmit(e) {
   ress = await fetchPhoto();
   // проверка корректного ввода, текстовые уведомления
   if (ress.results.length === 0) {
-    refs.textError.classList.remove('is-hidden');
+    showErrorText();
     refs.endCollectionText.classList.add('is-hidden');
+    const data = JSON.parse(localStorage.getItem('MoviesOnPage'));
+    galleryArrayMarkup(data);
+    markupPages(data);
+    ratingAddIshidden();
+    hideFirstPageBtn();
+    hideLastPageBtn();
+    togglePaginationBtn();
+    togglePainationAllButtons(data);
+    modalOpenOnClick();
+  } else {
+    removeAllChekedGenres();
   }
   console.log('search', ress);
   console.log('currentFetch ', currentFetch);
   console.log('query ', options.query);
 }
 async function onClickGenres(e) {
+  hideErrorText();
   currentFetch = 'genres';
   formInput.value = '';
   e.target.classList.toggle('btn_active');
@@ -224,7 +237,9 @@ async function onLoadTranding() {
   removeAllChekedGenres();
 
   togglePainationAllButtons(ress);
-  localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+  if (ress.results.length !== 0) {
+    localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+  }
 
   options.pageNumber += 1;
   console.log(options.allGenresList);
@@ -233,8 +248,6 @@ async function onLoadTranding() {
 
 //=========================== разметкa Галереи фильмов ====================
 function galleryArrayMarkup(array) {
-  teaser(array);
-
   const galleryMarkup = array.results
     .map(({ poster_path, original_title, vote_average, release_date, genre_ids }) => {
       return `<li class="gallery-list__item">
