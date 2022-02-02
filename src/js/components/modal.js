@@ -19,7 +19,10 @@ import { onClickMovieCard } from './fn_dataMovietoModal'
 
 const refs = {
     gallery: document.querySelector('.gallery-list'),
+
 }
+
+console.log(refs.modal)
 
 console.log(refs.gallery)
 console.dir(refs.gallery)
@@ -60,6 +63,7 @@ function modalOpenOnClick() {
         const modalButtons = document.querySelectorAll('.modal__button')
         const modalButtonWatched = document.querySelector('.js-button-add-watched')
         const modalButtonQueue = document.querySelector('.js-button-add-queue')
+        modal.addEventListener('click', onClickBacrdropModalClose)
         modalButtons.forEach(eachButton => {
         eachButton.addEventListener('click',onClickDataMovieAddLibrary )           
         });
@@ -72,60 +76,78 @@ function modalOpenOnClick() {
             if (watchedArray.results.length === 0) {
                 modalButtonWatched.textContent = 'ADD TO WATCHED' 
                 
-            }
+            };
             const indexWatchedMovieOnLS = watchedArray.results.findIndex(movieWatched => {
                 if (movieWatched.id === currentFilm.id) {
 
                     console.log('renderFromLibrary estb');
                     modalButtonWatched.textContent = 'DELETE FROM WATCHED'
-
+                    modalButtonQueue.textContent = 'ADD TO WATCHED'
+                    modalButtonWatched.classList.add('cheked')
                     return movieWatched
-                }
+                };
                 modalButtonWatched.textContent = 'ADD TO WATCHED'
 
-            })
+            });
             return indexWatchedMovieOnLS
-        }
+        };
         function renderFromLibraryQueue() {
             if (queueArray.results.length === 0) {
                 modalButtonQueue.textContent = 'ADD TO QUEUE';
-            }
-           const indexQueueMovieOnLS =  queueArray.results.findIndex(movieQueue => {
+            };
+            const indexQueueMovieOnLS = queueArray.results.findIndex(movieQueue => {
                 if (movieQueue.id === currentFilm.id) {
                     console.log('renderFromLibrary estb');
                     modalButtonQueue.textContent = 'DELETE FROM QUEUE'
-                    
+                    modalButtonWatched.textContent = 'ADD TO WATCHED'
+                    modalButtonQueue.classList.add('cheked')
                     return movieQueue
-               }
-               modalButtonQueue.textContent = 'ADD TO QUEUE'
-            //    modalButtonQueue.classList.remove('cheked')
-            })
-            return indexQueueMovieOnLS
+                };
+                modalButtonQueue.textContent = 'ADD TO QUEUE'
+               
+            });
+            return indexQueueMovieOnLS;
         }
         
         function onClickDataMovieAddLibrary(e) {
             
 
-                const watchedIdx= renderFromLibraryWatched()
+            const watchedIdx= renderFromLibraryWatched()
             const queueIdx = renderFromLibraryQueue()
             const lsKey = localStorage.getItem('isActive')
-                console.log('watchedIdx',watchedIdx)
-                console.log('queueIdx',queueIdx)
+            console.log('watchedIdx', watchedIdx);
+            console.log('queueIdx', queueIdx);
     
             if (e.currentTarget === modalButtonWatched) {
                 
                 if (watchedIdx !== -1 && watchedIdx !== undefined) {
                     // console.log('не пушим', www);
-                    modalButtonWatched.textContent = 'ADD TO WATCHED'
-                    modalButtonWatched.classList.remove('cheked')
-                    deleteFromWatchW(currentFilm)
-                    console.log('удалили Wtched', watchedArray.results)
-                    localStorage.setItem('watched', JSON.stringify(watchedArray))
+                    modalButtonWatched.textContent = 'ADD TO WATCHED';
+                    modalButtonWatched.classList.remove('cheked');
+                    deleteFromWatchW(currentFilm);
+                    console.log('удалили Wtched', watchedArray.results);
+                    localStorage.setItem('watched', JSON.stringify(watchedArray));
                     console.log(lsKey);
+                    
                     if (lsKey === 'watched') {
                         markup(watchedArray)
-                    }
+                    };
+                    if (lsKey === 'queue') {
+                        markup(queueArray)
+                    };
                     return 
+                };
+
+                
+                if (queueIdx !== -1 && queueIdx !== undefined) {
+                    
+                    modalButtonQueue.textContent = 'ADD TO QUEUE'
+                    modalButtonQueue.classList.remove('cheked')
+                    deleteFromWatchQ(currentFilm)
+                    console.log('удалили Queue', queueArray.results)
+                    localStorage.setItem('queue', JSON.stringify(queueArray))
+                    console.log(lsKey);
+
                 };
                 modalButtonWatched.textContent = 'DELETE FROM WATCHED'
                 modalButtonWatched.classList.add('cheked')
@@ -136,7 +158,10 @@ function modalOpenOnClick() {
                 localStorage.setItem('watched', JSON.stringify(watchedArray))
                 if (lsKey === 'watched') {
                         markup(watchedArray)
-                    }
+                };
+                if (lsKey === 'queue') {
+                        markup(queueArray)
+                };
               
             };
             if (e.currentTarget === modalButtonQueue) {
@@ -150,19 +175,37 @@ function modalOpenOnClick() {
                     console.log(lsKey);
                     if (lsKey === 'queue') {
                         markup(queueArray)
-                    }
+                    };
+                    if (lsKey === 'watched') {
+                        markup(watchedArray)
+                    };
                     return 
-                    }
+                };
+                
                 modalButtonQueue.textContent = 'DELETE FROM QUEUE'
                 modalButtonQueue.classList.add('cheked')
                     console.log('queueIdx ',queueIdx);
                     console.log('мы пушим Queue');
                     queueArray.results.push(currentFilm)
                     console.log('queueArray.results', queueArray.results);
-                localStorage.setItem('queue', JSON.stringify(queueArray))   
+                localStorage.setItem('queue', JSON.stringify(queueArray))  
+                if (watchedIdx !== -1 && watchedIdx !== undefined) {
+                    // console.log('не пушим', www);
+                    modalButtonWatched.textContent = 'ADD TO WATCHED'
+                    modalButtonWatched.classList.remove('cheked')
+                    deleteFromWatchW(currentFilm)
+                    console.log('удалили Wtched', watchedArray.results)
+                    localStorage.setItem('watched', JSON.stringify(watchedArray))
+                    console.log(lsKey);
+
+                };
+                
                 if (lsKey === 'queue') {
                         markup(queueArray)
-                    }
+                };
+                if (lsKey === 'watched') {
+                        markup(watchedArray)
+                };
                             
             };
             
@@ -170,12 +213,11 @@ function modalOpenOnClick() {
     
         mainBody.addEventListener('keydown', onEscapeBtnClick)
 
-    // console.log(event.key)
-    
-    // const modal = document.querySelector('[data-modal]');
+
         bodyScroll()
   
-    }   
+    };
+    
 
     function deleteFromWatchW(currentFilm) {
         watchedArray.results.forEach(elem => {
@@ -185,10 +227,10 @@ function modalOpenOnClick() {
                 const idx = watchedArray.results.indexOf(elem)
                 console.log(idx)
                 watchedArray.results.splice(idx, 1);
-            return;
-            }
-        })
-    }
+                return;
+            };
+        });
+    };
     function deleteFromWatchQ(currentFilm) {
         queueArray.results.forEach(elem => {
             // console.log(elem.id)
@@ -197,40 +239,52 @@ function modalOpenOnClick() {
                 const idx = queueArray.results.indexOf(elem)
                 console.log(idx)
                 queueArray.results.splice(idx, 1);
-            return;
-            }
-        })
-    }
+                return;
+            };
+        });
+    };
     
 
 
     console.log(watchedArray)
     
 
-
+    
 
     // ==========================================================
     function onClickCloseModal(event) {
-    // event.preventDefault()
-
-    // console.log(event.currentTarget);
+    
     
     
         modal.classList.toggle('visually-hidden');
         modalCloseBtn.removeEventListener('click', onClickCloseModal)
         mainBody.removeEventListener('keydown', onEscapeBtnClick)
-        bodyScroll()
+        modal.removeEventListener('click', onClickBacrdropModalClose)
+
+        bodyScroll();
   
-    }
+    };
 
 
 
     function onEscapeBtnClick(event) {
         if (event.key === 'Escape') {
             onClickCloseModal();
-        }
+        };
         console.log(event.key)
-    }
+    };
+
+
+    
+
+    function onClickBacrdropModalClose(e) {
+   
+          if (e.target === e.currentTarget) {
+            onClickCloseModal();
+        };
+    };
+    
+    
 
     function bodyScroll() {
         const modalClose = modal.classList.contains('visually-hidden')
@@ -238,9 +292,13 @@ function modalOpenOnClick() {
             ? 'disableBodyScroll'
             : 'enableBodyScroll';
         bodyScrollLock[scrollLockMethod](document.body);
-    }
+    };
+
+    
+
+};
 
 
-}
+
 
 
