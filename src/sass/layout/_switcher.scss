@@ -65,13 +65,16 @@ body.dark-theme {
 
 .toolbar {
   position: absolute;
-  left: 0px;
+  // left: 0px;
+  left: 20px;
   right: 20px;
   top: 130px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  // justify-content: flex-end;
 
   @media screen and (min-width: 768px) {
+    left: 79px;
     right: 77px;
     top: 140px;
   }

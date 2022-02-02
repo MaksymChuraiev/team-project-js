@@ -7,8 +7,11 @@
   overflow: hidden;
   border: 0;
   clip: rect(0 0 0 0);
+  opacity: 0;
+  // transition-duration: 500ms;
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.is-hidden {
-  display: none;
-}
+// .is-hidden {
+//   display: none;
+// }
