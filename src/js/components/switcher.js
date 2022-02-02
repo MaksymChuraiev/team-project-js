@@ -3,6 +3,7 @@ console.log(checkboxBtn);
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal-container');
 const footer = document.querySelector('.footer');
+// const aboutText = document.querySelector('.modal__film-owervier-text');
 
 const Theme = {
   LIGHT: 'light-theme',
@@ -18,20 +19,24 @@ function changeTheme(e) {
   if (theme) {
     body.classList.add(DARK);
     modal.classList.add(DARK);
+    // aboutText.classList.add(DARK);
     footer.classList.add(DARK);
 
     body.classList.remove(LIGHT);
     modal.classList.remove(LIGHT);
+    // aboutText.classList.add(LIGHT);
     footer.classList.remove(LIGHT);
 
     localStorage.setItem('theme', DARK);
   } else {
     body.classList.add(LIGHT);
     modal.classList.add(LIGHT);
+    // aboutText.classList.add(LIGHT);
     footer.classList.add(LIGHT);
 
     body.classList.remove(DARK);
     modal.classList.remove(DARK);
+    // aboutText.classList.remove(DARK);
     footer.classList.remove(DARK);
 
     localStorage.setItem('theme', LIGHT);

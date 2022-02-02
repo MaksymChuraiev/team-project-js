@@ -32,7 +32,7 @@ import teaser from './teaser';
 
 import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
-import { hideEndCollectionText } from './pagination';
+// import { hideEndCollectionText } from './pagination';
 
 export {
   currentFetch,
@@ -148,8 +148,10 @@ async function checkFetchLink(e) {
   }
 }
 
-async function onClickSearchSubmit(e) {
-  hideEndCollectionText();
+
+async function onClickSearchSubmit(e) { 
+  // hideEndCollectionText ();
+
   hideErrorText();
   if (options.query.trim() === '') {
     // скрыть теск ошибки refs.textError.classList.remove('is-hidden');
