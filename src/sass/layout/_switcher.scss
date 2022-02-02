@@ -32,16 +32,23 @@ body.dark-theme {
   //   rgba(61, 21, 9, 1) 18%,
   //   rgba(11, 6, 0, 0.7598389697675946) 71%
   // );
-  color: #8c8c8c;
+
+  color: #121212;
+
 }
 
 .modal-container.light-theme {
-  // color: #000;
+
   background-image: linear-gradient(rgba(190, 190, 194, 0.4), rgba(140, 141, 146, 0.4));
 }
 .modal-container.dark-theme {
-  // color: #fff;
-  background-image: linear-gradient(rgba(46, 46, 46, 0.9), rgb(0, 0, 0, 0.9));
+  background-color: #8c8c8c;
+
+  // background-image: linear-gradient(rgba(46, 46, 46, 0.9), rgb(0, 0, 0, 0.9));
+}
+
+.modal-film-card.dark-theme {
+    background-color: #8c8c8c;
 }
 
 // .modal__film-owervier-text.light-theme {

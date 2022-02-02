@@ -32,6 +32,7 @@ import teaser from './teaser';
 
 import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import { hideEndCollectionText } from './pagination';
 
 export {
@@ -180,6 +181,7 @@ async function onClickSearchSubmit(e) {
     modalOpenOnClick();
   } else {
     removeAllChekedGenres();
+
   }
   console.log('search', ress);
   console.log('currentFetch ', currentFetch);
