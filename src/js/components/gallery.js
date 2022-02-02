@@ -34,6 +34,7 @@ import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import { hideEndCollectionText } from './pagination';
+import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 
 export {
   currentFetch,
@@ -98,6 +99,7 @@ onLoadTranding();
 addTestPaginationListeners();
 
 async function checkFetchLink(e) {
+  
   if (e.target === refs.genres) {
     return;
   }
@@ -113,21 +115,26 @@ async function checkFetchLink(e) {
     toggleTrands(e.target.id);
     // ==== chech input ====
     if (e.currentTarget === refs.form) {
+      await showFetchLoader()
       await onClickSearchSubmit(e);
       togglePainationAllButtons(ress);
+      
     }
     // ===== chek genres =====
     if (e.currentTarget === refs.genres) {
+      await showFetchLoader()
       await onClickGenres(e);
     }
     //==============topTrands =================
     if (e.target.id === 'topDay') {
+      await showFetchLoader()
       removeAllChekedGenres();
       toggleTrands(e.target.id);
       await onClickTopDayTrands(e);
     }
 
     if (e.target.id === 'topWeek') {
+      await showFetchLoader()
       removeAllChekedGenres();
       await onClickTopWeekTrands(e);
     }
@@ -144,6 +151,7 @@ async function checkFetchLink(e) {
     togglePaginationBtn();
     togglePainationAllButtons(ress);
     modalOpenOnClick();
+    await hideFetchLoader()
   } catch (e) {
     console.log(e);
   }
@@ -229,6 +237,7 @@ async function onClickTopWeekTrands(e) {
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
+  showFetchLoader()
   ress = await fetchTrandingMovie();
   options.maxPage = ress.total_pages;
   galleryArrayMarkup(ress);
@@ -247,6 +256,7 @@ async function onLoadTranding() {
 
   options.pageNumber += 1;
   console.log(options.allGenresList);
+  await hideFetchLoader()
   return await fetchTrandingMovie();
 }
 
