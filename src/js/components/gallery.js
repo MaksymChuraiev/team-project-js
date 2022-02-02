@@ -1,9 +1,4 @@
-import {
-  fetchPhoto,
-  fetchGenres,
-  discoverGenres,
-  fetchTrandingMovie,
-} from './fetchApi';
+import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi';
 
 import {
   markupPages,
@@ -19,9 +14,16 @@ import {
   onClickMorePageBtn,
 } from './pagination';
 
-import { genresMarkup,galleryGenresMarkup,toggleGenres,toggleYear,removeAllChekedGenres,toggleTrands } from './genres'
+import {
+  genresMarkup,
+  galleryGenresMarkup,
+  toggleGenres,
+  toggleYear,
+  removeAllChekedGenres,
+  toggleTrands,
+} from './genres';
 
-import {modalOpenOnClick} from './modal'
+import { modalOpenOnClick } from './modal';
 
 import { options } from './fetchApi';
 import galleryTpl from '../../template/gallery.hbs';
@@ -42,7 +44,6 @@ export {
   toggleGenres,
   removeAllChekedGenres,
   ratingAddIshidden,
-  
 };
 const throttle = require('lodash.throttle');
 
@@ -58,7 +59,7 @@ const refs = {
   morePage: document.querySelector("[data-page='more']"),
   pages: document.querySelector('.pages'),
   paginationList: document.querySelector('.pagination'),
-  clickedMovieCard: document.querySelectorAll(".gallery-list__item"),
+  clickedMovieCard: document.querySelectorAll('.gallery-list__item'),
   modalCloseBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   textError: document.querySelector('.js-header__text-error'),
@@ -84,8 +85,12 @@ let data = {
   results: [],
 };
 localStorage.setItem('isActive', 'home');
-localStorage.setItem('watched',JSON.stringify(data));
-localStorage.setItem('queue',JSON.stringify(data));
+if (!localStorage.getItem('watched')) {
+  localStorage.setItem('watched', JSON.stringify(data));
+}
+if (!localStorage.getItem('queue')) {
+  localStorage.setItem('queue', JSON.stringify(data));
+}
 
 onLoadTranding();
 
@@ -113,20 +118,20 @@ async function checkFetchLink(e) {
     }
     // ===== chek genres =====
     if (e.currentTarget === refs.genres) {
-      await onClickGenres(e)
-    }    
+      await onClickGenres(e);
+    }
     //==============topTrands =================
     if (e.target.id === 'topDay') {
       removeAllChekedGenres();
       toggleTrands(e.target.id);
-      await onClickTopDayTrands(e)
+      await onClickTopDayTrands(e);
     }
 
     if (e.target.id === 'topWeek') {
       removeAllChekedGenres();
-      await onClickTopWeekTrands(e)
+      await onClickTopWeekTrands(e);
     }
-  
+
     options.maxPage = ress.total_pages;
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
     galleryArrayMarkup(ress);
@@ -136,108 +141,102 @@ async function checkFetchLink(e) {
     hideLastPageBtn();
     togglePaginationBtn();
     togglePainationAllButtons(ress);
-    modalOpenOnClick()
-    
+    modalOpenOnClick();
   } catch (e) {
     console.log(e);
   }
 }
 
-async function onClickSearchSubmit(e) { 
-  hideEndCollectionText ();
+async function onClickSearchSubmit(e) {
+  hideEndCollectionText();
   hideErrorText();
-    if (options.query.trim() === '') {
-      // скрыть теск ошибки refs.textError.classList.remove('is-hidden');
-      // refs.paginationList.classList.add('visually-hidden');
-        showErrorText();
-        hidePagination();
-        return;
-      }
-
-      options.genresId = [];
-      options.query = formInput.value;
-      currentFetch = 'search';
-      ress = await fetchPhoto();
-      // проверка корректного ввода, текстовые уведомления
-      if (ress.results.length === 0) {
-      refs.textError.classList.remove('is-hidden');
-      refs.endCollectionText.classList.add('is-hidden');
-      };
-      console.log('search', ress);
-      console.log('currentFetch ', currentFetch);
-      console.log('query ', options.query);
+  if (options.query.trim() === '') {
+    // скрыть теск ошибки refs.textError.classList.remove('is-hidden');
+    // refs.paginationList.classList.add('visually-hidden');
+    showErrorText();
+    hidePagination();
+    return;
   }
+
+  options.genresId = [];
+  options.query = formInput.value;
+  currentFetch = 'search';
+  ress = await fetchPhoto();
+  // проверка корректного ввода, текстовые уведомления
+  if (ress.results.length === 0) {
+    refs.textError.classList.remove('is-hidden');
+    refs.endCollectionText.classList.add('is-hidden');
+  }
+  console.log('search', ress);
+  console.log('currentFetch ', currentFetch);
+  console.log('query ', options.query);
+}
 async function onClickGenres(e) {
-  
-      currentFetch = 'genres';
-      formInput.value = '';
-      e.target.classList.toggle('btn_active');
-      options.pageNumber = 1;
-      toggleGenres(e.target.id);
-      if (e.target.dataset.year) {
-        toggleYear(e.target.dataset.year);
-      }
-        ress = await discoverGenres();
-        console.log('genres', ress);
-        console.log('currentFetch ', currentFetch);
-        console.dir(e.target.dataset.year);
-        console.log(options.genresId);
-        console.log(options.yearId);
-      }
+  currentFetch = 'genres';
+  formInput.value = '';
+  e.target.classList.toggle('btn_active');
+  options.pageNumber = 1;
+  toggleGenres(e.target.id);
+  if (e.target.dataset.year) {
+    toggleYear(e.target.dataset.year);
+  }
+  ress = await discoverGenres();
+  console.log('genres', ress);
+  console.log('currentFetch ', currentFetch);
+  console.dir(e.target.dataset.year);
+  console.log(options.genresId);
+  console.log(options.yearId);
+}
 
 async function onClickTopDayTrands(e) {
-      e.target.classList.toggle('btn_active');
-      // toggleTrands(e.target.id);
-      options.trand = 'day';
-      options.genresId = [];
-      currentFetch = 'tranding';
-      console.log('topDay', options.trand);
+  e.target.classList.toggle('btn_active');
+  // toggleTrands(e.target.id);
+  options.trand = 'day';
+  options.genresId = [];
+  currentFetch = 'tranding';
+  console.log('topDay', options.trand);
 
-      ress = await fetchTrandingMovie();
-      console.log('topDay', ress);
-      console.log('currentFetch ', currentFetch);
-    }
+  ress = await fetchTrandingMovie();
+  console.log('topDay', ress);
+  console.log('currentFetch ', currentFetch);
+}
 async function onClickTopWeekTrands(e) {
-   e.target.classList.toggle('btn_active');
-      options.trand = 'week';
-      console.log('topWeek', options.trand);
-      currentFetch = 'tranding';
+  e.target.classList.toggle('btn_active');
+  options.trand = 'week';
+  console.log('topWeek', options.trand);
+  currentFetch = 'tranding';
 
-      ress = await fetchTrandingMovie();
-      console.log('topWeek', ress);
-      console.log('currentFetch ', currentFetch);
-    }
+  ress = await fetchTrandingMovie();
+  console.log('topWeek', ress);
+  console.log('currentFetch ', currentFetch);
+}
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
+  ress = await fetchTrandingMovie();
+  options.maxPage = ress.total_pages;
+  galleryArrayMarkup(ress);
+  markupPages(ress);
+  ratingAddIshidden();
+  modalOpenOnClick();
+  hideFirstPageBtn();
+  hideLastPageBtn();
+  togglePaginationBtn();
+  removeAllChekedGenres();
 
-  ress = await fetchTrandingMovie()  
-  options.maxPage = ress.total_pages
-    galleryArrayMarkup(ress)
-    markupPages(ress)
-  ratingAddIshidden()
-  modalOpenOnClick()
-    hideFirstPageBtn()
-    hideLastPageBtn()
-    togglePaginationBtn()
-  removeAllChekedGenres()
-  
-    
-    togglePainationAllButtons(ress)
-    localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
+  togglePainationAllButtons(ress);
+  localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
 
-    options.pageNumber += 1
-    console.log(options.allGenresList);
-    return await fetchTrandingMovie()
-
+  options.pageNumber += 1;
+  console.log(options.allGenresList);
+  return await fetchTrandingMovie();
 }
 
 //=========================== разметкa Галереи фильмов ====================
 function galleryArrayMarkup(array) {
-
   teaser(array);
 
-    const galleryMarkup = array.results.map(({poster_path,original_title,vote_average,release_date,genre_ids}) =>
-    {
+  const galleryMarkup = array.results
+    .map(({ poster_path, original_title, vote_average, release_date, genre_ids }) => {
       return `<li class="gallery-list__item">
 
 
@@ -249,7 +248,9 @@ function galleryArrayMarkup(array) {
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
 
-                        <p class="gallery-list__text">${galleryGenresMarkup(genre_ids)} | <span class="gallery-list__text-aftertext">${new Date(
+                        <p class="gallery-list__text">${galleryGenresMarkup(
+                          genre_ids,
+                        )} | <span class="gallery-list__text-aftertext">${new Date(
         release_date,
       ).getFullYear()}</span> </p>
 
@@ -262,19 +263,15 @@ function galleryArrayMarkup(array) {
     })
     .join('');
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-  
 }
 console.log('genresId', options.genresId);
 
 // =====================================Работаем с рейтингами ======================================================
 
-
 function ratingAddIshidden() {
   const ratings = document.querySelectorAll('.gallery-list__rating');
   ratings.forEach(rating => rating.classList.add('visually-hidden'));
 }
-
-
 
 const ratings = document.querySelector('.gallery-list');
 console.log(ratings);

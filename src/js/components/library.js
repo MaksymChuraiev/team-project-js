@@ -16,9 +16,9 @@ const refs = {
   libraryLink: document.querySelector('.js-library'),
 };
 
-refs.libraryLink.addEventListener('click', onLibraryLinkClick)
-function onLibraryLinkClick (e) {
-  const libraryIsActiv =e.currentTarget;
+refs.libraryLink.addEventListener('click', onLibraryLinkClick);
+function onLibraryLinkClick(e) {
+  const libraryIsActiv = e.currentTarget;
   if (libraryIsActiv) {
     hideErrorText();
   }
@@ -27,17 +27,15 @@ let data = {
   page: 1,
   results: [],
 };
-console.log(data.results)
+console.log(data.results);
 let queueKey;
 let watchedKey;
 let isActiveKey;
-
 
 refs.watched.addEventListener('click', onWatchedClick);
 refs.queue.addEventListener('click', onQueueClick);
 
 function onWatchedClick(e) {
-
   e.preventDefault();
   refs.watched.classList.add('header__button--active');
   refs.queue.classList.remove('header__button--active');
@@ -118,17 +116,13 @@ function libraryMarkup() {
 
 function markup(data) {
   refs.gallery.innerHTML = '';
-  if (data.results.length === 0) {
-    return
-  }
+  // if (data.results.length === 0) {
+  //   return;
+  // }
   if (data.results.length > 0) {
-    
-    
     galleryArrayMarkup(data);
-    modalOpenOnClick()
-    
-    
-  }else {
+    modalOpenOnClick();
+  } else {
     refs.gallery.insertAdjacentHTML(
       'beforeend',
       ` <div class='gallery__text-wrapper'>
@@ -140,4 +134,4 @@ function markup(data) {
   }
 }
 
-export { libraryMarkup,markup };
+export { libraryMarkup, markup };
