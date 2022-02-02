@@ -18,3 +18,5 @@ import './js/components/team-modal';
 
 import './js/components/library';
 import './js/components/home';
+
+import './js/components/filterBtn';
