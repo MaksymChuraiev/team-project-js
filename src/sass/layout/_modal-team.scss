@@ -20,7 +20,7 @@
     // фон модального окна при темнеой теме
     // background-image: url(../images/team/bursting-energy-particles-made-of-golden-dust.jpg);
     // background-size: contain;
-    .backdrop .backdrop.is-hidden & {
+    .backdrop .backdrop.visually-hidden  & {
       transform: translate(-50%, -50%);
     }
   

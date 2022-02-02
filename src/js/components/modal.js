@@ -51,7 +51,7 @@ function modalOpenOnClick() {
         console.log(event.currentTarget);
         console.dir(event.currentTarget);
         
-    modal.classList.toggle('is-hidden');
+    modal.classList.toggle('visually-hidden');
         
         
         
@@ -216,7 +216,7 @@ function modalOpenOnClick() {
     // console.log(event.currentTarget);
     
     
-        modal.classList.toggle('is-hidden');
+        modal.classList.toggle('visually-hidden');
         modalCloseBtn.removeEventListener('click', onClickCloseModal)
         mainBody.removeEventListener('keydown', onEscapeBtnClick)
         bodyScroll()
@@ -233,7 +233,7 @@ function modalOpenOnClick() {
     }
 
     function bodyScroll() {
-        const modalClose = modal.classList.contains('is-hidden')
+        const modalClose = modal.classList.contains('visually-hidden ')
         const scrollLockMethod = !modalClose
             ? 'disableBodyScroll'
             : 'enableBodyScroll';
