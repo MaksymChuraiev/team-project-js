@@ -222,13 +222,25 @@ tr {
     background-color: #ff6b01;
     border: 1px solid #ff6b01;
   }
+
   &.queue {
     color: black;
     background-color: white;
     border: 1px solid black;
   }
 
+  &.cheked {
+    color: #000000;
+    background-color: #f7f7f7;
+    border: 1px solid #000000;
+  }
+
   &:not(:last-child) {
     margin-right: 20px;
   }
+}
+
+.modal_btn-siActive {
+  background-color: #f7f7f7;
+  color: #000000;
 }
