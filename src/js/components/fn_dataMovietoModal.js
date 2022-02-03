@@ -21,8 +21,7 @@ function modalWindowMarkup({ poster_path, original_title, vote_average, vote_cou
     const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="" href="">
-                    <img class="modal__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="original_title" width="280"
-                        height="357"/>
+                    <img class="modal__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="original_title" width="394"/>
                 </a>
             </div>
             <div class="modal__info-wrapper">
