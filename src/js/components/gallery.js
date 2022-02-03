@@ -198,7 +198,7 @@ async function onClickSearchSubmit(e) {
   hideErrorText();
   //проверка отправка респонса с тестовым значением инпута
   const ressTest = await fetchPhotoTest();
-  console.log('resstest,', ressTest);
+  // console.log('resstest,', ressTest);
   
   //проверка респонса на длинну массива
   if (ressTest.results.length === 0) {
@@ -211,8 +211,8 @@ async function onClickSearchSubmit(e) {
       formInput.value = ''
       console.log('options.query',options.query)
       console.log('options.queryTest',options.queryTest)
-      console.log()
-      // options.query
+      // options.query === ''
+      // console.log(options.query === '')
     //проверка респонса на длинну массива с пустым инпутом
       if (options.query === '') {
         console.log('query pysto aaaaaa')
@@ -227,10 +227,24 @@ async function onClickSearchSubmit(e) {
         if (currentFetch === 'year') {
           ress= await discoverYear()
         }
-        return
+      
+      } else {
+        if (currentFetch === 'search') {
+          ress = await fetchPhoto()
+        }
+        // ress = await fetchPhoto()
+        if (currentFetch === 'genres') {
+          ress= await discoverGenres()
+        }
+        if (currentFetch === 'tranding') {
+          ress= await fetchTrandingMovie()
+        }
+        if (currentFetch === 'year') {
+          ress= await discoverYear()
+        }
+        // options.queryTest = ''
       }
-      ress = await fetchPhoto()
-    options.queryTest = ''
+     
     
   } else {
     // если все ок то записываем значение queryTest в query 
