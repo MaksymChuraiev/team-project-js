@@ -25,7 +25,7 @@ function onLibraryLinkClick(e) {
   if (libraryIsActiv) {
     hideErrorText();
 
-    refs.endCollectionText.classList.add('visually-hidden');
+    // refs.endCollectionText.classList.add('visually-hidden');
     refs.filterEl.classList.add('hidden')
     
   }
