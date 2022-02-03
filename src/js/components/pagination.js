@@ -64,7 +64,7 @@ function togglePaginationBtn() {
     refs.lessPage.parentNode.classList.remove('btn_disabled')
     refs.nextPage.parentNode.classList.remove('btn_disabled')
     refs.morePage.parentNode.classList.remove('btn_disabled')
-    refs.endCollectionText.classList.add('visually-hidden');
+    // refs.endCollectionText.classList.add('visually-hidden');
 
   
   if (options.pageNumber <= 1) {
