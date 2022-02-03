@@ -22,12 +22,12 @@ const refs = {
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
     paginationList: document.querySelector('.pagination'), 
-    endCollectionText: document.querySelector('.end-collection-text'),
+    // endCollectionText: document.querySelector('.end-collection-text'),
     
 }
 console.log(refs);
 console.log(options);
-console.log(refs.endCollectionText);
+// console.log(refs.endCollectionText);
 
 function markupPages(array) {
   const pagesBtnMarkup = `
@@ -64,7 +64,7 @@ function togglePaginationBtn() {
     refs.lessPage.parentNode.classList.remove('btn_disabled')
     refs.nextPage.parentNode.classList.remove('btn_disabled')
     refs.morePage.parentNode.classList.remove('btn_disabled')
-    refs.endCollectionText.classList.add('visually-hidden');
+    // refs.endCollectionText.classList.add('visually-hidden');
 
   
   if (options.pageNumber <= 1) {
@@ -74,7 +74,7 @@ function togglePaginationBtn() {
   if (options.pageNumber >= options.maxPage) {
     refs.nextPage.parentNode.classList.add('btn_disabled')
     refs.morePage.parentNode.classList.add('btn_disabled')
-    refs.endCollectionText.classList.remove('visually-hidden');
+    // refs.endCollectionText.classList.remove('visually-hidden');
   }
 }
 
@@ -89,7 +89,7 @@ function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
     // ===================================== скрываю текст конец коллекции
-      refs.endCollectionText.classList.remove('visually-hidden');
+      // refs.endCollectionText.classList.remove('visually-hidden');
   }
 }
 // function hideEndCollectionText (){
