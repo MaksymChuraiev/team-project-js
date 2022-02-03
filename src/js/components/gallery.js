@@ -343,7 +343,7 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <<img src="${ggg(poster_path)}" alt="${original_title}" width = "396" />
+                        <<img src="${posterFolder(poster_path)}" alt="${original_title}" width = "396" />
                     </div>
                     </div>
                     <div class="gallery-list__description">
@@ -370,7 +370,7 @@ console.log('genresId', options.genresId);
 
 console.log('genresId', options.genresId);
 {/* <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "396" onError="this.src='../../images/folder.jpg'/> */}
-function ggg(poster) {
+function posterFolder(poster) {
   if (poster === null) {
     return `https://via.placeholder.com/550`
     // return `https://via.placeholder.com/550`
