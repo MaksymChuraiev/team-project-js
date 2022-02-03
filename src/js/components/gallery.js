@@ -343,7 +343,8 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "394"/>
+                        <<img src="${ggg(poster_path)}" alt="${original_title}" width = "396" />
+                    </div>
                     </div>
                     <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
@@ -367,6 +368,16 @@ function galleryArrayMarkup(array) {
 }
 console.log('genresId', options.genresId);
 
+console.log('genresId', options.genresId);
+{/* <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "396" onError="this.src='../../images/folder.jpg'/> */}
+function ggg(poster) {
+  if (poster === null) {
+    return `https://via.placeholder.com/550`
+    // return `https://via.placeholder.com/550`
+    // return `https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg`
+  }
+  return `https://image.tmdb.org/t/p/w500${poster}`
+}
 // =====================================Работаем с рейтингами ======================================================
 
 function ratingAddIshidden() {
