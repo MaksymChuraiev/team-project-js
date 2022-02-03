@@ -4,19 +4,20 @@
   justify-content: center;
   padding-top: 50px;
   padding-bottom: 60px;
+  gap: 4px;
   color: #000;
 }
 .pages {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   padding-left: 0;
 }
 .page_item {
   display: flex;
   list-style: none;
   padding: 0;
-  margin-right: 4px;
 }
 
 .page_link {
@@ -48,7 +49,7 @@
 }
 .btn_disabled {
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 0.75;
 }
 .btn_arrow {
   background: $second-background;
