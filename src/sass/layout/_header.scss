@@ -195,6 +195,9 @@
 }
 
 .error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   // display: none;
   margin: 0 auto;
   margin-top: 20px;

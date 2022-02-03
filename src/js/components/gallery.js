@@ -329,7 +329,7 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "298" height = "398"/>
+                        <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "396"/>
                     </div>
                     <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
