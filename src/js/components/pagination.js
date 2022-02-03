@@ -23,6 +23,7 @@ const refs = {
     pages: document.querySelector('.pages'),
     paginationList: document.querySelector('.pagination'), 
     endCollectionText: document.querySelector('.end-collection-text'),
+    
 }
 console.log(refs);
 console.log(options);
@@ -31,7 +32,7 @@ console.log(refs.endCollectionText);
 function markupPages(array) {
   const pagesBtnMarkup = `
       <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
-              <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active" data-page=${array.page}>${array.page}</a></li>
+              <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a></li>
               <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
               </li>`
  
@@ -49,13 +50,12 @@ async function togglePainationAllButtons(array) {
   }
 }
 
-function addTestPaginationListeners() {
+async function addTestPaginationListeners() {
   refs.prevPage.addEventListener('click', onClickPrevPageBtn)
   refs.nextPage.addEventListener('click', onClickNextPageBtn)
   refs.morePage.addEventListener('click', onClickMorePageBtn)
   refs.lessPage.addEventListener('click', onClickLessPageBtn)
   refs.pages.addEventListener('click', onClickNumberPageBtn)
-  
 }
 
 function togglePaginationBtn() {
@@ -98,6 +98,7 @@ function hideLastPageBtn() {
 
 // ============ descriptionButtonListener ============
 async function onClickNumberPageBtn(e) {
+
   if (e.target.nodeName === 'UL' || e.target.nodeName === 'LI') {
     return
   }
@@ -137,7 +138,8 @@ async function onClickNumberPageBtn(e) {
   hideFirstPageBtn()
   hideLastPageBtn()
   togglePaginationBtn()
-  
+  scrollUp(e)
+  console.log(e.target)
   
   
 }
@@ -177,8 +179,9 @@ async function onClickPrevPageBtn(e) {
     ratingAddIshidden()
     hideFirstPageBtn()
     hideLastPageBtn()
-    togglePaginationBtn()    
-     
+    togglePaginationBtn()  
+    scrollUp(e)
+
   }
 }
 async function onClickNextPageBtn(e) {
@@ -187,6 +190,7 @@ async function onClickNextPageBtn(e) {
   e.preventDefault();
   console.log('next')
   console.log(e.target)
+  console.log(e.currentTarget)
   console.log(options.maxPage,'maxPage')
   console.log(options.pageNumber,'pageNumber')
   
@@ -221,7 +225,8 @@ let response
       hideFirstPageBtn()
       hideLastPageBtn()
       togglePaginationBtn()
-      
+      scrollUp(e)
+
     }
 }
 console.log('options.pageNumber:',options.pageNumber)
@@ -267,7 +272,8 @@ let response
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
-    
+    scrollUp(e)
+
   }
 }
 
@@ -309,6 +315,12 @@ let response
     hideFirstPageBtn()
     hideLastPageBtn()
     togglePaginationBtn()
-    
+    scrollUp(e)
+
   }
 }
+
+function scrollUp(e) {
+    e.preventDefault();
+    window.scroll(0, 0)
+  }
