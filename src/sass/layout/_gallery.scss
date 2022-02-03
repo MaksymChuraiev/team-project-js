@@ -58,6 +58,11 @@
     border-radius: 5px;
     overflow: hidden;
   }
+  &__img {
+    display: block;
+    width: 100%;
+    height: 398px;
+  }
   &__description {
     padding-top: 10px;
   }
