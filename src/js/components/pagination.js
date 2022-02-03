@@ -56,6 +56,7 @@ async function addTestPaginationListeners() {
   refs.morePage.addEventListener('click', onClickMorePageBtn)
   refs.lessPage.addEventListener('click', onClickLessPageBtn)
   refs.pages.addEventListener('click', onClickNumberPageBtn)
+ 
 }
 
 function togglePaginationBtn() {
@@ -63,6 +64,7 @@ function togglePaginationBtn() {
     refs.lessPage.parentNode.classList.remove('btn_disabled')
     refs.nextPage.parentNode.classList.remove('btn_disabled')
     refs.morePage.parentNode.classList.remove('btn_disabled')
+    refs.endCollectionText.classList.add('visually-hidden');
 
   
   if (options.pageNumber <= 1) {
@@ -72,6 +74,7 @@ function togglePaginationBtn() {
   if (options.pageNumber >= options.maxPage) {
     refs.nextPage.parentNode.classList.add('btn_disabled')
     refs.morePage.parentNode.classList.add('btn_disabled')
+    refs.endCollectionText.classList.remove('visually-hidden');
   }
 }
 
@@ -86,7 +89,7 @@ function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
     // ===================================== скрываю текст конец коллекции
-      Notify.failure('End of the film collection');
+      refs.endCollectionText.classList.remove('visually-hidden');
   }
 }
 // function hideEndCollectionText (){
