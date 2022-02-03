@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 50px;
   padding-bottom: 60px;
   gap: 4px;
   color: #000;
@@ -53,4 +52,19 @@
 }
 .btn_arrow {
   background: $second-background;
+}
+
+.error-end-collection {
+  margin: 0 auto;
+  padding-top: 30px;
+  // padding-bottom: 60px;
+  width: 100%;
+  max-width: 393px;
+  font-family: $primary-font;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  color: $error-color;
 }

@@ -1,4 +1,4 @@
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie } from './fetchApi';
+import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie,fetchPhotoTest } from './fetchApi';
 
 import {
   markupPages,
@@ -68,7 +68,8 @@ const refs = {
   endCollectionText: document.querySelector('.end-collection-text'),
 };
 let currentFetch = 'tranding';
-
+let currentFetchTest = 'tranding';
+// let previousFetch = JSON.parse(localStorage.getItem('MoviesOnPage'));
 genresMarkup();
 const formInput = refs.form.elements.query;
 
@@ -109,36 +110,70 @@ async function checkFetchLink(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   refs.pages.innerHTML = '';
-  options.pageNumber = 1;
-  options.query = formInput.value;
+  // options.pageNumber = 1;
+  
   try {
-    toggleTrands(e.target.id);
+    // toggleTrands(e.target.id);
     // ==== chech input ====
+    await showFetchLoader()
     if (e.currentTarget === refs.form) {
-      await showFetchLoader()
-      await onClickSearchSubmit(e);
-      togglePainationAllButtons(ress);
+      if (formInput.value.trim() === '') {
+        console.log('options.pageNumber',options.pageNumber);
+        console.log('options.pageNumberTest',options.pageNumberTest);
+        options.pageNumber = options.pageNumberTest
+        console.log(options.genresId);
+        console.log('после options.pageNumber',options.pageNumber);
+        console.log('после options.pageNumberTest',options.pageNumberTest);
+        showErrorText();
+        console.log(('пусто'));
+        setTimeout(hideErrorText, 2000)
+        if (currentFetch === 'genres') {
+        ress= await discoverGenres()
+        }
+        if (currentFetch === 'tranding') {
+        ress= await fetchTrandingMovie()
+        }
+        if (currentFetch === 'year') {
+        ress= await discoverYear()
+        }
+        
+      } else {
+       
+        options.queryTest = formInput.value;
+        options.pageNumber = 1
       
+      await onClickSearchSubmit(e);
+      // togglePainationAllButtons(ress);
+      }
+    
     }
     // ===== chek genres =====
     if (e.currentTarget === refs.genres) {
-      await showFetchLoader()
+      options.pageNumber = 1;
+      options.pageNumberTest = 1
+      // await showFetchLoader();
+      toggleTrands(e.target.id);
       await onClickGenres(e);
     }
     //==============topTrands =================
     if (e.target.id === 'topDay') {
-      await showFetchLoader()
+      options.pageNumber = 1;
+      options.pageNumberTest = 1
+      // await showFetchLoader()
       removeAllChekedGenres();
       toggleTrands(e.target.id);
       await onClickTopDayTrands(e);
     }
 
     if (e.target.id === 'topWeek') {
-      await showFetchLoader()
+      options.pageNumber = 1;
+      options.pageNumberTest = 1;
+      // await showFetchLoader()
       removeAllChekedGenres();
+      toggleTrands(e.target.id);
       await onClickTopWeekTrands(e);
     }
-
+    
     options.maxPage = ress.total_pages;
     if (ress.results.length !== 0) {
       localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
@@ -159,42 +194,66 @@ async function checkFetchLink(e) {
 
 
 async function onClickSearchSubmit(e) { 
-  // hideEndCollectionText ();
 
   hideErrorText();
-  if (options.query.trim() === '') {
-    // скрыть теск ошибки refs.textError.classList.remove('is-hidden');
-    // refs.paginationList.classList.add('visually-hidden');
-    showErrorText();
-    hidePagination();
-    return;
-  }
-
-  options.genresId = [];
-  options.query = formInput.value;
-  currentFetch = 'search';
-  ress = await fetchPhoto();
-  // проверка корректного ввода, текстовые уведомления
-  if (ress.results.length === 0) {
-    showErrorText();
-    refs.endCollectionText.classList.add('visually-hidden');
-    const data = JSON.parse(localStorage.getItem('MoviesOnPage'));
-    galleryArrayMarkup(data);
-    markupPages(data);
-    ratingAddIshidden();
-    hideFirstPageBtn();
-    hideLastPageBtn();
-    togglePaginationBtn();
-    togglePainationAllButtons(data);
-    modalOpenOnClick();
+  //проверка отправка респонса с тестовым значением инпута
+  const ressTest = await fetchPhotoTest();
+  console.log('resstest,', ressTest);
+  
+  //проверка респонса на длинну массива
+  if (ressTest.results.length === 0) {
+      showErrorText();
+      console.log(('пусто'));
+      setTimeout(hideErrorText, 2000)
+      options.pageNumber = options.pageNumberTest
+      currentFetchTest = 'search';
+      console.log('restest = 0')
+      formInput.value = ''
+      console.log('options.query',options.query)
+      console.log('options.queryTest',options.queryTest)
+      console.log()
+      // options.query
+    //проверка респонса на длинну массива с пустым инпутом
+      if (options.query === '') {
+        console.log('query pysto aaaaaa')
+        console.log('currentFetchTest',currentFetchTest)
+        console.log('currentFetch', currentFetch)
+        if (currentFetch === 'genres') {
+          ress= await discoverGenres()
+        }
+        if (currentFetch === 'tranding') {
+          ress= await fetchTrandingMovie()
+        }
+        if (currentFetch === 'year') {
+          ress= await discoverYear()
+        }
+        return
+      }
+      ress = await fetchPhoto()
+    options.queryTest = ''
+    
   } else {
-    removeAllChekedGenres();
-
+    // если все ок то записываем значение queryTest в query 
+    console.log('currentFetchДо',currentFetch);
+    console.log('currentFetchTestДо',currentFetchTest);
+    
+      currentFetch = 'search'
+      options.genresId = []
+      options.query = options.queryTest
+      removeAllChekedGenres();
+    ress = await fetchPhoto()
+    console.log(options.genresId);
+    console.log('currentFetchПосле',currentFetch);
+    console.log('currentFetchTestПосле',currentFetchTest);
+      
   }
+  
   console.log('search', ress);
   console.log('currentFetch ', currentFetch);
   console.log('query ', options.query);
 }
+
+
 async function onClickGenres(e) {
   hideErrorText();
   currentFetch = 'genres';
@@ -212,6 +271,7 @@ async function onClickGenres(e) {
   console.log(options.genresId);
   console.log(options.yearId);
 }
+
 
 async function onClickTopDayTrands(e) {
   e.target.classList.toggle('btn_active');
