@@ -244,9 +244,6 @@ function modalOpenOnClick() {
         });
     };
     
-
-
-    console.log(watchedArray)
     
 
     

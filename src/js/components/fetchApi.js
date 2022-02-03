@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const options = {
+  queryTest: '',
   query: '',
+  pageNumberTest: 1,
   pageNumber: 1,
   pageItemCount: 20,
   allGenresList: [],
@@ -74,4 +76,21 @@ async function fetchTeaser(idMovie) {
   }
 }
 
-export { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie, fetchTeaser };
+export { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie, fetchTeaser,fetchPhotoTest};
+
+
+async function fetchPhotoTest() {
+  const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?`;
+  const params = {
+    params: {
+      api_key: '6dae1a863e182d2e5c972909bcd1e575',
+      language: `en-US`,
+      query: options.queryTest,
+      page: options.pageNumber,
+    },
+
+  };
+  const { data } = await axios.get(SEARCH_URL, params);
+  return data;
+
+}

@@ -44,7 +44,7 @@ function markupPages(array) {
 async function togglePainationAllButtons(array) {
   refs.paginationList.classList.remove('visually-hidden')
   if (array.total_pages <= 1) {
-    refs.paginationList.classList.add('visually-hidden')
+    // refs.paginationList.classList.add('visually-hidden')
     // console.log(array.results.length)
     console.log(refs.paginationList)
   }
@@ -133,6 +133,11 @@ async function onClickNumberPageBtn(e) {
     console.log('genres',response)
   }  
 
+  if (currentFetch === 'error') {
+    console.log('eror my eror')
+    return 
+  }
+  options.pageNumberTest = options.pageNumber
   localStorage.setItem('MoviesOnPage', JSON.stringify(response));
   galleryArrayMarkup(response)
   markupPages(response)
@@ -157,6 +162,7 @@ async function onClickPrevPageBtn(e) {
   
   if (options.pageNumber > 1) {
     options.pageNumber -= 1;
+    
     let response
   if (currentFetch === 'tranding') {
     response = await fetchTrandingMovie()
@@ -174,7 +180,7 @@ async function onClickPrevPageBtn(e) {
     response = await discoverYear()
     console.log('genres',response)
     }  
-    
+    options.pageNumberTest = options.pageNumber
     localStorage.setItem('MoviesOnPage', JSON.stringify(response));
     galleryArrayMarkup(response)
     markupPages(response)
@@ -218,7 +224,7 @@ let response
     response = await discoverYear()
     console.log('genres',response)
       }
-      
+      options.pageNumberTest = options.pageNumber
       localStorage.setItem('MoviesOnPage', JSON.stringify(response));
       galleryArrayMarkup(response)
       markupPages(response)
@@ -248,6 +254,7 @@ async function onClickMorePageBtn(e) {
       options.pageNumber = options.maxPage
     } else {
       options.pageNumber += 3;
+      options.pageNumberTest = options.pageNumber
     }
 let response
   if (currentFetch === 'tranding') {
@@ -289,8 +296,10 @@ async function onClickLessPageBtn(e) {
   if (options.pageNumber <= options.maxPage) {
     if (options.pageNumber <= 3) {
       options.pageNumber = 1
+      options.pageNumberTest = options.pageNumber
     } else {
       options.pageNumber -= 3;
+      options.pageNumberTest = options.pageNumber
     }
 let response
   if (currentFetch === 'tranding') {
