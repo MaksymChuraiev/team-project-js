@@ -343,7 +343,7 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster" href="https://image.tmdb.org/t/p/w500/${poster_path}">
-                        <<img src="${ggg(poster_path)}" alt="${original_title}" width = "396" />
+                        <img src="${ggg(poster_path)}" alt="${original_title}" width = "396" />
                     </div>
                     </div>
                     <div class="gallery-list__description">
