@@ -1,0 +1,17 @@
+.slider__section {
+    display: none;
+    @media screen and (min-width: 768px) {
+        display: block;
+
+    }
+}
+.slider-image {
+    @media screen and (min-width: 768px) {
+        width: 180px;
+        height: 220px;
+    }
+    @media screen and (min-width: 1024px) {
+        width: 200px;
+        height: 300px;
+    }
+}
