@@ -33,7 +33,8 @@ import teaser from './teaser';
 import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import { hideEndCollectionText } from './pagination';
+
+import { sliderMarkup } from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 
 export {
@@ -73,7 +74,9 @@ let currentFetchTest = 'tranding';
 
 genresMarkup();
 onLoadTranding();
+
 addTestPaginationListeners();
+
 
 const formInput = refs.form.elements.query;
 
@@ -104,7 +107,9 @@ if (window.innerWidth < 768) {
   }
   refs.paginationList.classList.remove('mobile')
 
+
  
+
 
 async function checkFetchLink(e) {
   
@@ -322,6 +327,7 @@ async function onLoadTranding() {
   ress = await fetchTrandingMovie();
   options.maxPage = ress.total_pages;
   galleryArrayMarkup(ress);
+  // sliderMarkup(ress);
   markupPages(ress);
   ratingAddIshidden();
   modalOpenOnClick();
