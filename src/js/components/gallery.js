@@ -71,10 +71,13 @@ const refs = {
 let currentFetch = 'tranding';
 let currentFetchTest = 'tranding';
 // let previousFetch = JSON.parse(localStorage.getItem('MoviesOnPage'));
+
 genresMarkup();
 onLoadTranding();
 
 addTestPaginationListeners();
+
+
 const formInput = refs.form.elements.query;
 
 refs.form.addEventListener('submit', checkFetchLink);
@@ -98,6 +101,15 @@ if (!localStorage.getItem('watched')) {
 if (!localStorage.getItem('queue')) {
   localStorage.setItem('queue', JSON.stringify(data));
 }
+if (window.innerWidth < 768) {
+    refs.paginationList.classList.add('mobile')
+    return
+  }
+  refs.paginationList.classList.remove('mobile')
+
+
+ 
+
 
 async function checkFetchLink(e) {
   

@@ -1,4 +1,3 @@
-
 export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
 import {modalOpenOnClick,addListenersOnEachGalleryCard} from './modal'
@@ -22,22 +21,46 @@ const refs = {
     morePage: document.querySelector("[data-page='more']"),
     pages: document.querySelector('.pages'),
     paginationList: document.querySelector('.pagination'), 
-    // endCollectionText: document.querySelector('.end-collection-text'),
+    startPage:document.querySelector('[data-page="start"]'),
+    endPage: document.querySelector('[data-page="end"]'),
     
 }
 console.log(refs);
 console.log(options);
 // console.log(refs.endCollectionText);
-
 function markupPages(array) {
-  const pagesBtnMarkup = `
+  let pagesBtnMarkup =`     <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page - 2}>${array.page - 2}</a>
+      </li>
+      <li class="page_item ${(array.page - 1 <= 0) ?'visually-hidden':'' }">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a>
+      </li>
+      <li class="page_item disabled">
+        <a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a>
+      </li>
+      <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
+      </li>
+      <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page + 2}>${array.page + 2}</a>
+      </li>`
+  
+  if(window.innerWidth >767) {
+    pagesBtnMarkup = `
       <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
               <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a></li>
               <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
               </li>`
- 
-  refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
   
+    markupStartEndPages(array)
+    refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
+    return
+  }
+  refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
+  refs.paginationList.children[1].classList.add('visually-hidden')
+  refs.paginationList.children[2].classList.add('visually-hidden')
+  refs.paginationList.children[4].classList.add('visually-hidden')
+  refs.paginationList.children[5].classList.add('visually-hidden')
 }
 
 
@@ -56,7 +79,8 @@ async function addTestPaginationListeners() {
   refs.morePage.addEventListener('click', onClickMorePageBtn)
   refs.lessPage.addEventListener('click', onClickLessPageBtn)
   refs.pages.addEventListener('click', onClickNumberPageBtn)
- 
+  refs.startPage.addEventListener('click', onClickStartPageBtn)
+  refs.endPage.addEventListener('click', onClickEndPageBtn)
 }
 
 function togglePaginationBtn() {
@@ -64,25 +88,31 @@ function togglePaginationBtn() {
     refs.lessPage.parentNode.classList.remove('btn_disabled')
     refs.nextPage.parentNode.classList.remove('btn_disabled')
     refs.morePage.parentNode.classList.remove('btn_disabled')
+    refs.startPage.parentNode.classList.remove('btn_disabled')
+    refs.endPage.parentNode.classList.remove('btn_disabled')
+
     // refs.endCollectionText.classList.add('visually-hidden');
 
   
   if (options.pageNumber <= 1) {
     refs.prevPage.parentNode.classList.add('btn_disabled')
     refs.lessPage.parentNode.classList.add('btn_disabled')
+    refs.startPage.parentNode.classList.add('btn_disabled')
   }
   if (options.pageNumber >= options.maxPage) {
     refs.nextPage.parentNode.classList.add('btn_disabled')
     refs.morePage.parentNode.classList.add('btn_disabled')
+    refs.endPage.parentNode.classList.add('btn_disabled')
     // refs.endCollectionText.classList.remove('visually-hidden');
   }
 }
 
 
 function hideFirstPageBtn() {
-  if (refs.pages.firstElementChild.firstElementChild.dataset.page === '0') {
+  if (refs.pages.firstElementChild.firstElementChild.dataset.page <= '0') {
     refs.pages.firstElementChild.classList.add('visually-hidden');
   }
+
 }
 
 function hideLastPageBtn() {
@@ -147,6 +177,7 @@ async function onClickNumberPageBtn(e) {
   hideLastPageBtn()
   togglePaginationBtn()
   scrollUp(e)
+  markupStartEndPages(response)
   console.log(e.target)
   
   
@@ -190,6 +221,7 @@ async function onClickPrevPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()  
     scrollUp(e)
+    markupStartEndPages(response)
 
   }
 }
@@ -235,6 +267,7 @@ let response
       hideLastPageBtn()
       togglePaginationBtn()
       scrollUp(e)
+      markupStartEndPages(response)
 
     }
 }
@@ -283,6 +316,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    markupStartEndPages(response)
 
   }
 }
@@ -328,6 +362,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    markupStartEndPages(response)
 
   }
 }
@@ -335,4 +370,93 @@ let response
 function scrollUp(e) {
     e.preventDefault();
     window.scroll(0, 0)
+}
+  
+async function onClickStartPageBtn(e) {
+  console.log('start');
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('more')
+  console.log(e.target)
+  console.log(options.pageNumber)
+  console.log(options.maxPage)
+  options.pageNumber = 1
+  options.pageNumberTest = options.pageNumber
+  let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
   }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+    }
+    
+    localStorage.setItem('MoviesOnPage', JSON.stringify(response));
+    galleryArrayMarkup(response)
+    markupPages(response)
+    modalOpenOnClick()
+    ratingAddIshidden()
+    hideFirstPageBtn()
+    hideLastPageBtn()
+    togglePaginationBtn()
+    scrollUp(e)
+    markupStartEndPages(response)
+
+}
+  
+async function onClickEndPageBtn(e) {
+  console.log('end');
+  refs.gallery.innerHTML = ''
+  refs.pages.innerHTML = ''
+  e.preventDefault();
+  console.log('more')
+  console.log(e.target)
+  console.log(options.pageNumber)
+  console.log(options.maxPage)
+  options.pageNumber = options.maxPage
+  options.pageNumberTest = options.pageNumber
+  let response
+  if (currentFetch === 'tranding') {
+    response = await fetchTrandingMovie()
+    console.log('tranding',response)
+  }
+  if (currentFetch === 'search') {
+    response = await fetchPhoto()
+    console.log('search',response)
+  }
+  if (currentFetch === 'genres') {
+    response = await discoverGenres()
+    console.log('genres',response)
+  }
+  if (currentFetch === 'year') {
+    response = await discoverYear()
+    console.log('genres',response)
+    }
+    
+    localStorage.setItem('MoviesOnPage', JSON.stringify(response));
+    galleryArrayMarkup(response)
+    markupPages(response)
+    modalOpenOnClick()
+    ratingAddIshidden()
+    hideFirstPageBtn()
+    hideLastPageBtn()
+    togglePaginationBtn()
+    scrollUp(e)
+    markupStartEndPages(response)
+
+}
+
+function markupStartEndPages(array) {
+  refs.startPage.textContent=1
+  refs.endPage.textContent=array.total_pages
+}
