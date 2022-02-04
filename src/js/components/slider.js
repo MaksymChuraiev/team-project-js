@@ -36,5 +36,3 @@ const ress = await fetchTrandingMovie();
     console.log(sliderMarkup)
 
 }
-
-sliderMarkup()
