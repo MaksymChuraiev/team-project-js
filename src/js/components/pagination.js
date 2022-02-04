@@ -28,7 +28,7 @@ const refs = {
 console.log(refs);
 console.log(options);
 // console.log(refs.endCollectionText);
-async function markupPages(array) {
+function markupPages(array) {
   let pagesBtnMarkup =`     <li class="page_item">
         <a href="#" class="page_link pagination_btn" data-page=${array.page - 2}>${array.page - 2}</a>
       </li>
