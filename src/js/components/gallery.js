@@ -73,9 +73,6 @@ let currentFetchTest = 'tranding';
 // let previousFetch = JSON.parse(localStorage.getItem('MoviesOnPage'));
 
 genresMarkup();
-onLoadTranding();
-
-addTestPaginationListeners();
 
 
 const formInput = refs.form.elements.query;
@@ -101,14 +98,11 @@ if (!localStorage.getItem('watched')) {
 if (!localStorage.getItem('queue')) {
   localStorage.setItem('queue', JSON.stringify(data));
 }
-if (window.innerWidth < 768) {
-    refs.paginationList.classList.add('mobile')
-    return
-  }
-  refs.paginationList.classList.remove('mobile')
 
+onLoadTranding();
 
- 
+addTestPaginationListeners();
+
 
 
 async function checkFetchLink(e) {
@@ -327,7 +321,6 @@ async function onLoadTranding() {
   ress = await fetchTrandingMovie();
   options.maxPage = ress.total_pages;
   galleryArrayMarkup(ress);
-  // sliderMarkup(ress);
   markupPages(ress);
   ratingAddIshidden();
   modalOpenOnClick();
