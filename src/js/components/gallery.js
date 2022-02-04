@@ -33,7 +33,8 @@ import teaser from './teaser';
 import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import { hideEndCollectionText } from './pagination';
+
+import { sliderMarkup } from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 
 export {
@@ -71,6 +72,9 @@ let currentFetch = 'tranding';
 let currentFetchTest = 'tranding';
 // let previousFetch = JSON.parse(localStorage.getItem('MoviesOnPage'));
 genresMarkup();
+onLoadTranding();
+
+addTestPaginationListeners();
 const formInput = refs.form.elements.query;
 
 refs.form.addEventListener('submit', checkFetchLink);
@@ -94,10 +98,6 @@ if (!localStorage.getItem('watched')) {
 if (!localStorage.getItem('queue')) {
   localStorage.setItem('queue', JSON.stringify(data));
 }
-
-onLoadTranding();
-
-addTestPaginationListeners();
 
 async function checkFetchLink(e) {
   
@@ -315,6 +315,7 @@ async function onLoadTranding() {
   ress = await fetchTrandingMovie();
   options.maxPage = ress.total_pages;
   galleryArrayMarkup(ress);
+  // sliderMarkup(ress);
   markupPages(ress);
   ratingAddIshidden();
   modalOpenOnClick();
