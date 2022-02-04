@@ -1,4 +1,3 @@
-
 export { markupPages, togglePainationAllButtons, addTestPaginationListeners, togglePaginationBtn, hideFirstPageBtn, hideLastPageBtn, onClickPrevPageBtn, onClickNextPageBtn, onClickNumberPageBtn, onClickLessPageBtn, onClickMorePageBtn, }
 
 import {modalOpenOnClick,addListenersOnEachGalleryCard} from './modal'
@@ -23,25 +22,45 @@ const refs = {
     pages: document.querySelector('.pages'),
     paginationList: document.querySelector('.pagination'), 
     startPage:document.querySelector('[data-page="start"]'),
-    endPage:document.querySelector('[data-page="end"]')
-    // endCollectionText: document.querySelector('.end-collection-text'),
+    endPage: document.querySelector('[data-page="end"]'),
     
 }
 console.log(refs);
 console.log(options);
 // console.log(refs.endCollectionText);
-
-function markupPages(array) {
-  const pagesBtnMarkup = `
+async function markupPages(array) {
+  let pagesBtnMarkup =`     <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page - 2}>${array.page - 2}</a>
+      </li>
+      <li class="page_item ${(array.page - 1 <= 0) ?'visually-hidden':'' }">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a>
+      </li>
+      <li class="page_item disabled">
+        <a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a>
+      </li>
+      <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
+      </li>
+      <li class="page_item">
+        <a href="#" class="page_link pagination_btn" data-page=${array.page + 2}>${array.page + 2}</a>
+      </li>`
+  
+  if(window.innerWidth >767) {
+    pagesBtnMarkup = `
       <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a></li>
               <li class="page_item disabled"><a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a></li>
               <li class="page_item"><a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
               </li>`
- 
+  
+    markupStartEndPages(array)
+    refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
+    return
+  }
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
-  markupStartEndPages(array)
-  console.log('startPage',refs.startPage);
-  console.log('endPage',refs.endPage);
+  refs.paginationList.children[1].classList.add('visually-hidden')
+  refs.paginationList.children[2].classList.add('visually-hidden')
+  refs.paginationList.children[4].classList.add('visually-hidden')
+  refs.paginationList.children[5].classList.add('visually-hidden')
 }
 
 
@@ -62,7 +81,6 @@ async function addTestPaginationListeners() {
   refs.pages.addEventListener('click', onClickNumberPageBtn)
   refs.startPage.addEventListener('click', onClickStartPageBtn)
   refs.endPage.addEventListener('click', onClickEndPageBtn)
- 
 }
 
 function togglePaginationBtn() {
@@ -72,7 +90,7 @@ function togglePaginationBtn() {
     refs.morePage.parentNode.classList.remove('btn_disabled')
     refs.startPage.parentNode.classList.remove('btn_disabled')
     refs.endPage.parentNode.classList.remove('btn_disabled')
-  
+
     // refs.endCollectionText.classList.add('visually-hidden');
 
   
@@ -91,9 +109,10 @@ function togglePaginationBtn() {
 
 
 function hideFirstPageBtn() {
-  if (refs.pages.firstElementChild.firstElementChild.dataset.page === '0') {
+  if (refs.pages.firstElementChild.firstElementChild.dataset.page <= '0') {
     refs.pages.firstElementChild.classList.add('visually-hidden');
   }
+
 }
 
 function hideLastPageBtn() {
