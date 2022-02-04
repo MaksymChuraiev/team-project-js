@@ -104,7 +104,7 @@ if (window.innerWidth < 768) {
   }
   refs.paginationList.classList.remove('mobile')
 
-
+ 
 
 async function checkFetchLink(e) {
   
