@@ -26,6 +26,7 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.5.2",
     "axios": "^0.25.0",
     "basiclightbox": "^5.0.4",
     "handlebars": "^4.7.7",
