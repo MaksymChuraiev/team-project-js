@@ -1,26 +1,25 @@
-export { modalWindowMarkup }
+export { modalWindowMarkup };
 
-import { galleryGenresMarkup } from './genres'
-import { wText } from './fn_searchGalleryTargetInLS'
-
-
-
+import { galleryGenresMarkup } from './genres';
+import { wText } from './fn_searchGalleryTargetInLS';
 
 const refs = {
-    gallery: document.querySelector('.gallery-list'),
-    modal: document.querySelector('.modal__wrapper'),
+  gallery: document.querySelector('.gallery-list'),
+  modal: document.querySelector('.modal__wrapper'),
+};
 
-}
-
-
-
-
-
-function modalWindowMarkup({ poster_path, original_title, vote_average, vote_count, popularity, genre_ids, overview }) {
-    
-    const markupFilm = `
+function modalWindowMarkup({
+  poster_path,
+  original_title,
+  vote_average,
+  vote_count,
+  popularity,
+  genre_ids,
+  overview,
+}) {
+  const markupFilm = `
             <div class="modal__image-wrapper">
-                <a class="" href="">
+                <a class="js-teaser" href="#">
                     <img class="modal__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="original_title" width="394"/>
                 </a>
             </div>
@@ -59,8 +58,7 @@ function modalWindowMarkup({ poster_path, original_title, vote_average, vote_cou
                             class="add-button-queue-text"></span></button>
                 </div>
             </div>
-        </div>`
-    refs.modal.innerHTML = ''
-    refs.modal.insertAdjacentHTML("beforeend",markupFilm)
-    
+        </div>`;
+  refs.modal.innerHTML = '';
+  refs.modal.insertAdjacentHTML('beforeend', markupFilm);
 }
