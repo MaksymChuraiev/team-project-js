@@ -34,7 +34,7 @@ import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { sliderMarkup } from './slider';
+import { sliderMarkup,onLoadMainPageShowSlider} from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 
 export {
@@ -67,6 +67,7 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
   textError: document.querySelector('.js-header__text-error'),
   endCollectionText: document.querySelector('.end-collection-text'),
+  slider: document.querySelector('.slider__section'),
 };
 let currentFetch = 'tranding';
 let currentFetchTest = 'tranding';
@@ -102,6 +103,7 @@ if (!localStorage.getItem('queue')) {
 onLoadTranding();
 
 addTestPaginationListeners();
+onLoadMainPageShowSlider()
 
 
 
@@ -329,10 +331,6 @@ async function onLoadTranding() {
   hideLastPageBtn();
   togglePaginationBtn();
   removeAllChekedGenres();
-  await fetchTrandingMovieForSlider()
-  console.log('options.pageNumber',options.pageNumber)
-  console.log('options.listofFilmforSlider',options.listofFilmforSlider)
-  await sliderMarkup()
   togglePainationAllButtons(ress);
   if (ress.results.length !== 0) {
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
@@ -364,7 +362,9 @@ function galleryArrayMarkup(array) {
                           genre_ids,
                         )} | <span class="gallery-list__text-aftertext">${new Date(
         release_date,
-      ).getFullYear()}</span> </p>
+      ).getFullYear()?new Date(
+        release_date,
+      ).getFullYear():'no information'}</span> </p>
 
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
