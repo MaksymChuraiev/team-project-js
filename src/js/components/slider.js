@@ -16,7 +16,7 @@ const refs = {
 const sliderOptions = {
     type: 'carousel',
     startAt: 0,
-    perView: 4,
+    perView: 6,
     autoplay: 1500,
     gap: 10,
     hoverpause: true,
