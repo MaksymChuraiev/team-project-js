@@ -8,7 +8,9 @@ import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './
 
 import { options } from './fetchApi';
 
-import  { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { addPageInLS, readPageInLs } from './fn_addLSPageKey'
+
+var throttle = require('lodash.throttle');
 
 const refs = {
     form: document.querySelector('#search-form'),
@@ -77,11 +79,11 @@ async function addTestPaginationListeners() {
   refs.pages.addEventListener('click', onClickNumberPageBtn)
   refs.startPage.addEventListener('click', onClickStartPageBtn)
   refs.endPage.addEventListener('click', onClickEndPageBtn)
-  window.addEventListener('resize',togglePaginationBtn)
+  window.addEventListener('resize',throttle(togglePaginationBtn,300))
 }
 
 function togglePaginationBtn() {
-  
+
     refs.prevPage.parentNode.classList.remove('btn_disabled')
     refs.prevPage.parentNode.classList.remove('visually-hidden')
     refs.lessPage.parentNode.classList.remove('btn_disabled')
@@ -94,14 +96,7 @@ function togglePaginationBtn() {
     refs.startPage.parentNode.classList.remove('visually-hidden')
     refs.endPage.parentNode.classList.remove('btn_disabled')
     refs.endPage.parentNode.classList.remove('visually-hidden')
-  if (window.innerWidth < 768) {
-      refs.paginationList.children[1].classList.add('visually-hidden')
-      refs.paginationList.children[2].classList.add('visually-hidden')
-      refs.paginationList.children[4].classList.add('visually-hidden')
-      refs.paginationList.children[5].classList.add('visually-hidden')
-    }
-
-    // refs.endCollectionText.classList.add('visually-hidden');
+  
 
   
   if (options.pageNumber <= 1) {
@@ -121,6 +116,13 @@ function togglePaginationBtn() {
     refs.endPage.parentNode.classList.add('btn_disabled')
     refs.endPage.parentNode.classList.add('visually-hidden')
     // refs.endCollectionText.classList.add('visually-hidden');
+  }
+  if (window.innerWidth < 768) {
+      refs.paginationList.children[1].classList.add('visually-hidden')
+      refs.paginationList.children[2].classList.add('visually-hidden')
+      refs.paginationList.children[4].classList.add('visually-hidden')
+      refs.paginationList.children[5].classList.add('visually-hidden')
+
   }
 }
 
@@ -201,6 +203,7 @@ async function onClickNumberPageBtn(e) {
   togglePaginationBtn()
   scrollUp(e)
   markupStartEndPages(response)
+  addPageInLS()
   console.log(e.target)
   
   
@@ -244,6 +247,7 @@ async function onClickPrevPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()  
     scrollUp(e)
+    addPageInLS()
     markupStartEndPages(response)
 
   }
@@ -290,6 +294,7 @@ let response
       hideLastPageBtn()
       togglePaginationBtn()
       scrollUp(e)
+      addPageInLS()
       markupStartEndPages(response)
 
     }
@@ -339,6 +344,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    addPageInLS()
     markupStartEndPages(response)
 
   }
@@ -385,6 +391,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    addPageInLS()
     markupStartEndPages(response)
 
   }
@@ -433,6 +440,7 @@ async function onClickStartPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    addPageInLS()
     markupStartEndPages(response)
 
 }
@@ -475,6 +483,7 @@ async function onClickEndPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
+    addPageInLS()
     markupStartEndPages(response)
 
 }
