@@ -47,6 +47,7 @@ export {
   toggleGenres,
   removeAllChekedGenres,
   ratingAddIshidden,
+  posterFolder
 };
 const throttle = require('lodash.throttle');
 
