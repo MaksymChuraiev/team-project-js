@@ -12,11 +12,13 @@ async function showFetchLoader() {
     console.log(headerForm);
     console.dir(headerForm.elements[1]);
     headerbtn.classList.add('fetchLoader')
+    headerIcon.classList.add('visually-hidden')
     // headerForm.insertAdjacentHTML('beforeend',`<div class="fetchLoader"></div>`)
 }
 async function hideFetchLoader() {
     // const r = document.querySelector('.fetchLoader')
     headerbtn.classList.remove('fetchLoader')
+    headerIcon.classList.remove('visually-hidden')
     // console.log(headerForm);
     // console.dir(headerForm);
     // r.outerHTML=''

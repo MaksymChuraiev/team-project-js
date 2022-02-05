@@ -1,10 +1,10 @@
-export { sliderMarkup} 
+export {onLoadMainPageShowSlider} 
 import Glide from '@glidejs/glide';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import '@glidejs/glide/dist/css/glide.theme.min.css';
 
 
-import {options, } from './fetchApi';
+import {options,fetchTrandingMovieForSlider } from './fetchApi';
 
 const sliderOptions = {
     type: 'carousel',
@@ -42,5 +42,13 @@ async function sliderMarkup() {
   console.log(sliderOptions.perView);
   new Glide('.glide', sliderOptions).mount()
     // console.log(sliderMarkup)
-
+}
+async function onLoadMainPageShowSlider() {
+  if (window.innerWidth < 768) {
+  return
+  }
+  await fetchTrandingMovieForSlider()
+  console.log('options.pageNumber', options.pageNumber)
+  console.log('options.listofFilmforSlider', options.listofFilmforSlider)
+  await sliderMarkup()
 }
