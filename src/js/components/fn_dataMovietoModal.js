@@ -23,7 +23,7 @@ function modalWindowMarkup({
             <div class="modal__image-wrapper">
                 <a class="js-teaser" href="#">
 
-                    <img class="modal__image" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="original_title" width="396"/>
+                    <img class="modal__image" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="original_title" width="396 "/>
 
                 </a>
             </div>
@@ -33,8 +33,8 @@ function modalWindowMarkup({
                     <tr class="modal__param">
                         <td class="modal__param-titel">Vote / Votes</td>
                         <td class="modal__param-value">
-                            <div class="modal__film-votes"><span class="param__value-vote">${vote_average?vote_average:'0'}</span> / <span
-                                    class="param__value-votes">${vote_count?vote_count:'0'}</span></div>
+                            <div class="modal__film-votes"><span class="param__value-vote">${vote_average?vote_average:'&#129335;&#8205;&#9794;&#65039;'}</span> / <span
+                                    class="param__value-votes">${vote_count?vote_count:'&#129335;&#8205;&#9792;&#65039;'}</span></div>
                         </td>
                     </tr>
 
