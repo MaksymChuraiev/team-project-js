@@ -10,6 +10,7 @@ const refs = {
   paginationList: document.querySelector('.pagination'),
   topTrands: document.querySelector('.top-trands'),
   endCollectionText: document.querySelector('.end-collection-text'),
+  slider: document.querySelector('.slider__section'),
 
   watched: document.querySelector('.js-button-watched'),
   queue: document.querySelector('.js-button-queue'),
@@ -27,6 +28,7 @@ function onLibraryLinkClick(e) {
 
     // refs.endCollectionText.classList.add('visually-hidden');
     refs.filterEl.classList.add('hidden')
+    refs.slider.classList.add('visually-hidden')
     
   }
 }

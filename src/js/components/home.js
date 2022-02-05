@@ -17,7 +17,8 @@ const refs = {
   genres: document.querySelector('.genres'),
   paginationList: document.querySelector('.pagination'),
   topTrands: document.querySelector('.top-trands'),
-  filterEl: document.querySelector('.filter')
+  filterEl: document.querySelector('.filter'),
+  slider: document.querySelector('.slider__section')
 };
 
 function homeMarkup() {
@@ -27,6 +28,7 @@ function homeMarkup() {
   refs.genres.style.display = 'flex';
   refs.topTrands.style.display = 'flex';
   refs.filterEl.classList.remove('hidden')
+  refs.slider.classList.remove('visually-hidden')
   try {
     const ress = JSON.parse(localStorage.getItem('MoviesOnPage'));
     console.log(ress)

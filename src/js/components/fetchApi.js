@@ -11,6 +11,7 @@ export const options = {
   yearId: [],
   maxPage: 0,
   trand: 'day',
+  listofFilmforSlider:[]
 };
 
 async function fetchPhoto() {
@@ -52,6 +53,30 @@ async function fetchTrandingMovie() {
 }
 
 
+async function fetchTrandingMovieForSlider() {
+  try {
+    for (let pageNum = 0; pageNum <= 3, pageNum += 1;) {
+      if (options.pageNumber >= 4) {
+        options.pageNumber = 1
+        return
+      }
+      options.pageNumber +=1
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/trending/movie/${options.trand}?api_key=6dae1a863e182d2e5c972909bcd1e575&&page=${options.pageNumber}`,
+      );
+      options.listofFilmforSlider = [...options.listofFilmforSlider, ...data.results]
+      
+      console.log('options.pageNumber',options.pageNumber)
+      console.log('options.listofFilmforSlider',options.listofFilmforSlider)
+       
+    }
+   return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 // ===================old discover year =================
 async function discoverGenres() {
   try {
@@ -76,7 +101,7 @@ async function fetchTeaser(idMovie) {
   }
 }
 
-export { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie, fetchTeaser,fetchPhotoTest};
+export { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie,fetchTrandingMovieForSlider, fetchTeaser,fetchPhotoTest};
 
 
 async function fetchPhotoTest() {

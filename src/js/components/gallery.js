@@ -1,4 +1,4 @@
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie,fetchPhotoTest } from './fetchApi';
+import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie,fetchTrandingMovieForSlider,fetchPhotoTest } from './fetchApi';
 
 import {
   markupPages,
@@ -193,6 +193,7 @@ async function checkFetchLink(e) {
     togglePainationAllButtons(ress);
     modalOpenOnClick();
     await hideFetchLoader()
+    
   } catch (e) {
     console.log(e);
   }
@@ -328,7 +329,10 @@ async function onLoadTranding() {
   hideLastPageBtn();
   togglePaginationBtn();
   removeAllChekedGenres();
-
+  await fetchTrandingMovieForSlider()
+  console.log('options.pageNumber',options.pageNumber)
+  console.log('options.listofFilmforSlider',options.listofFilmforSlider)
+  await sliderMarkup()
   togglePainationAllButtons(ress);
   if (ress.results.length !== 0) {
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));

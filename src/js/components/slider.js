@@ -1,38 +1,46 @@
+export { sliderMarkup} 
 import Glide from '@glidejs/glide';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import '@glidejs/glide/dist/css/glide.theme.min.css';
 
-import {fetchTrandingMovie } from './fetchApi';
 
+import {options, } from './fetchApi';
 
-new Glide('.glide', {
+const sliderOptions = {
     type: 'carousel',
     startAt: 0,
     perView: 4,
     autoplay: 1500,
-    gap: 20,
+    gap: 10,
     hoverpause: true,
     bound: true,
-  }).mount()
+  }
 
-  const slider = document.querySelector('.glide');
+async function sliderMarkup() {
   const sliderList = document.querySelector('.glide__slides');
-  console.log(sliderList)
-  console.log(slider)
+  let indexOfallUl=0
+  sliderList.innerHTML = ''
+  
 
-
-export default async function sliderMarkup (){
-const ress = await fetchTrandingMovie();
-    // console.log('RESS', ress)
-
-    const sliderMarkup = ress.results
-    .map( ({ poster_path, vote_average }) => {
-        return `<li class="glide__slide">
-        <img class='slider-image' src="${poster_path}" width="200" height="280" />
+  const sliderMarkup = options.listofFilmforSlider.map(({ poster_path, vote_average },idx) => {
+    if (vote_average > 8) {
+      indexOfallUl +=1
+      return `<li class="glide__slide" style="width: 136px; margin-left: 10px; margin-right: 10px;" data-idx="${idx}">
+        <img class='slider-image' src="https://image.tmdb.org/t/p/w500${poster_path}"/>
       </li>`
-    }).join('');
-    sliderList.insertAdjacentHTML('beforeend', sliderMarkup);
-
-    console.log(sliderMarkup)
+    }
+  }).join('');
+  console.log('sliderMarkup',indexOfallUl);
+  
+  sliderList.insertAdjacentHTML('beforeend', sliderMarkup);
+  if (indexOfallUl <= sliderOptions.perView) {
+    if (indexOfallUl === 1) {
+      sliderOptions.perView = indexOfallUl
+    }
+    sliderOptions.perView = indexOfallUl -1
+  }
+  console.log(sliderOptions.perView);
+  new Glide('.glide', sliderOptions).mount()
+    // console.log(sliderMarkup)
 
 }
