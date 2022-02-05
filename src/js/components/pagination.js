@@ -8,7 +8,7 @@ import { fetchPhoto, discoverYear, discoverGenres, fetchTrandingMovie } from './
 
 import { options } from './fetchApi';
 
-import { addPageInLS, readPageInLs } from './fn_addLSPageKey'
+
 
 var throttle = require('lodash.throttle');
 
@@ -203,7 +203,7 @@ async function onClickNumberPageBtn(e) {
   togglePaginationBtn()
   scrollUp(e)
   markupStartEndPages(response)
-  addPageInLS()
+  
   console.log(e.target)
   
   
@@ -247,7 +247,7 @@ async function onClickPrevPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()  
     scrollUp(e)
-    addPageInLS()
+    
     markupStartEndPages(response)
 
   }
@@ -294,7 +294,7 @@ let response
       hideLastPageBtn()
       togglePaginationBtn()
       scrollUp(e)
-      addPageInLS()
+     
       markupStartEndPages(response)
 
     }
@@ -344,7 +344,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
-    addPageInLS()
+    
     markupStartEndPages(response)
 
   }
@@ -391,7 +391,7 @@ let response
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
-    addPageInLS()
+    
     markupStartEndPages(response)
 
   }
@@ -440,7 +440,7 @@ async function onClickStartPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
-    addPageInLS()
+    
     markupStartEndPages(response)
 
 }
@@ -483,7 +483,7 @@ async function onClickEndPageBtn(e) {
     hideLastPageBtn()
     togglePaginationBtn()
     scrollUp(e)
-    addPageInLS()
+    
     markupStartEndPages(response)
 
 }
