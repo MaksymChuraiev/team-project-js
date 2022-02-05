@@ -1,6 +1,7 @@
 export { onLoadMainPageShowSlider } 
 import { options, fetchTrandingMovieForSlider } from './fetchApi';
 import { galleryGenresMarkup, modalGenresMarkup } from './genres';
+import folder from '../../images/placeholder.bmp'
 
 import Glide from '@glidejs/glide';
 import '@glidejs/glide/dist/css/glide.core.min.css';
@@ -35,20 +36,23 @@ async function sliderMarkup() {
     if (vote_average > 8) {
       indexOfallUl +=1
       return `<li class="glide__slide" style="width: 136px; margin-left: 10px; margin-right: 10px;" data-idx="${id}">
-        <img class='slider-image' src="${posterFolder(poster_path)}"/>
+        <img class='slider-image' src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}"/>
       </li>`
     }
   }).join('');
-  console.log('sliderMarkup',indexOfallUl);
+  console.log('sliderMarkup до' ,indexOfallUl);
+  console.log('sliderOptions.perView до',sliderOptions.perView);
   
   sliderList.insertAdjacentHTML('beforeend', sliderMarkup);
-  if (indexOfallUl <= sliderOptions.perView) {
-    if (indexOfallUl === 1) {
-      sliderOptions.perView = indexOfallUl
-    }
-    sliderOptions.perView = indexOfallUl -1
-  }
-  console.log(sliderOptions.perView);
+  // if (indexOfallUl <= sliderOptions.perView) {
+  //   if (indexOfallUl === 1) {
+  //     sliderOptions.perView = indexOfallUl
+  //   }
+  //   sliderOptions.perView = 1
+  // }
+  // console.log(sliderOptions.perView);
+  // console.log('sliderMarkup после ',indexOfallUl);
+  // console.log('sliderOptions.perView после',sliderOptions.perView);
   new Glide('.glide', sliderOptions).mount()
     // console.log(sliderMarkup)
 }
