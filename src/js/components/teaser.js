@@ -27,9 +27,9 @@ function onCardClick() {
     'beforeend',
     `
     <div class="backdrop js-youtube">
-    <iframe style="position:absolute;top:50%;left:50%; transform: translate(-50%,-50%)"
-    width="560"
-    height="315"
+    <iframe class="modal-iframe" style="position:absolute;top:50%;left:50%; transform: translate(-50%,-50%)"
+    // width="560"
+    // height="315"
     src="https://www.youtube.com/embed/${video.key}"
     title="YouTube video player"
     frameborder="0"

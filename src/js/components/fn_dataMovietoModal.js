@@ -21,7 +21,9 @@ function modalWindowMarkup({
   const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="js-teaser" href="#">
-                    <img class="modal__image" src="${posterFolder(poster_path)}" alt="original_title" width="394"/>
+                
+                    <img class="modal__image" src="${posterFolder(poster_path)}" alt="original_title" width="396"/>
+
                 </a>
             </div>
             <div class="modal__info-wrapper">
