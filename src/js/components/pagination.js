@@ -29,21 +29,21 @@ console.log(refs);
 console.log(options);
 // console.log(refs.endCollectionText);
 function markupPages(array) {
-  let pagesBtnMarkup =`     <li class="page_item">
+  let pagesBtnMarkup =`     <div class="page_item">
         <a href="#" class="page_link pagination_btn" data-page=${array.page - 2}>${array.page - 2}</a>
-      </li>
-      <li class="page_item ${(array.page - 1 <= 0) ?'visually-hidden':'' }">
+      </div>
+      <div class="page_item ${(array.page - 1 <= 0) ?'visually-hidden':'' }">
         <a href="#" class="page_link pagination_btn" data-page=${array.page - 1}>${array.page - 1}</a>
-      </li>
-      <li class="page_item disabled">
+      </div>
+      <div class="page_item disabled">
         <a href="#" class="page_link pagination_btn btn_active btn_disabled" data-page=${array.page}>${array.page}</a>
-      </li>
-      <li class="page_item">
+      </div>
+      <div class="page_item">
         <a href="#" class="page_link pagination_btn" data-page=${array.page + 1}>${array.page + 1}</a>
-      </li>
-      <li class="page_item">
+      </div>
+      <div class="page_item">
         <a href="#" class="page_link pagination_btn" data-page=${array.page + 2}>${array.page + 2}</a>
-      </li>`
+      </div>`
   
   if(window.innerWidth >767) {
     pagesBtnMarkup = `
@@ -57,10 +57,6 @@ function markupPages(array) {
     return
   }
   refs.pages.insertAdjacentHTML('beforeend', pagesBtnMarkup)
-  refs.paginationList.children[1].classList.add('visually-hidden')
-  refs.paginationList.children[2].classList.add('visually-hidden')
-  refs.paginationList.children[4].classList.add('visually-hidden')
-  refs.paginationList.children[5].classList.add('visually-hidden')
 }
 
 
@@ -81,43 +77,70 @@ async function addTestPaginationListeners() {
   refs.pages.addEventListener('click', onClickNumberPageBtn)
   refs.startPage.addEventListener('click', onClickStartPageBtn)
   refs.endPage.addEventListener('click', onClickEndPageBtn)
+  window.addEventListener('resize',togglePaginationBtn)
 }
 
 function togglePaginationBtn() {
+  
     refs.prevPage.parentNode.classList.remove('btn_disabled')
+    refs.prevPage.parentNode.classList.remove('visually-hidden')
     refs.lessPage.parentNode.classList.remove('btn_disabled')
+    refs.lessPage.parentNode.classList.remove('visually-hidden')
     refs.nextPage.parentNode.classList.remove('btn_disabled')
+    refs.nextPage.parentNode.classList.remove('visually-hidden')
     refs.morePage.parentNode.classList.remove('btn_disabled')
+    refs.morePage.parentNode.classList.remove('visually-hidden')
     refs.startPage.parentNode.classList.remove('btn_disabled')
+    refs.startPage.parentNode.classList.remove('visually-hidden')
     refs.endPage.parentNode.classList.remove('btn_disabled')
+    refs.endPage.parentNode.classList.remove('visually-hidden')
+  if (window.innerWidth < 768) {
+      refs.paginationList.children[1].classList.add('visually-hidden')
+      refs.paginationList.children[2].classList.add('visually-hidden')
+      refs.paginationList.children[4].classList.add('visually-hidden')
+      refs.paginationList.children[5].classList.add('visually-hidden')
+    }
 
     // refs.endCollectionText.classList.add('visually-hidden');
 
   
   if (options.pageNumber <= 1) {
+    console.log('options.pageNumber paginator',options.pageNumber)
     refs.prevPage.parentNode.classList.add('btn_disabled')
+    refs.prevPage.parentNode.classList.add('visually-hidden')
     refs.lessPage.parentNode.classList.add('btn_disabled')
+    refs.lessPage.parentNode.classList.add('visually-hidden')
     refs.startPage.parentNode.classList.add('btn_disabled')
+    refs.startPage.parentNode.classList.add('visually-hidden')
   }
   if (options.pageNumber >= options.maxPage) {
     refs.nextPage.parentNode.classList.add('btn_disabled')
+    refs.nextPage.parentNode.classList.add('visually-hidden')
     refs.morePage.parentNode.classList.add('btn_disabled')
+    refs.morePage.parentNode.classList.add('visually-hidden')
     refs.endPage.parentNode.classList.add('btn_disabled')
-    // refs.endCollectionText.classList.remove('visually-hidden');
+    refs.endPage.parentNode.classList.add('visually-hidden')
+    // refs.endCollectionText.classList.add('visually-hidden');
   }
 }
 
 
 function hideFirstPageBtn() {
-  if (refs.pages.firstElementChild.firstElementChild.dataset.page <= '0') {
+  if (refs.pages.firstElementChild.firstElementChild.dataset.page <= 1) {
     refs.pages.firstElementChild.classList.add('visually-hidden');
   }
+  // refs.paginationList.children[0].classList.add('visually-hidden')
+  // refs.paginationList.children[1].classList.add('visually-hidden')
+  // refs.paginationList.children[2].classList.add('visually-hidden')
 
 }
 
 function hideLastPageBtn() {
   if (refs.pages.lastElementChild.firstElementChild.dataset.page-1 >= options.maxPage) {
     refs.pages.lastElementChild.classList.add('visually-hidden');
+    // refs.paginationList.children[4].classList.add('visually-hidden')
+    // refs.paginationList.children[5].classList.add('visually-hidden')
+    // refs.paginationList.children[6].classList.add('visually-hidden')  
     // ===================================== скрываю текст конец коллекции
       // refs.endCollectionText.classList.remove('visually-hidden');
   }

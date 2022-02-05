@@ -26,6 +26,15 @@
   }
 }
 
+.modal-iframe {
+  width: 240px;
+
+  @media screen and (min-width: 768px) {
+    width: 560px;
+    height: 315px;
+  }
+}
+
 .modal-close {
   position: absolute;
   top: 10px;
@@ -87,6 +96,8 @@
 }
 
 .modal__image-wrapper {
+  border-radius: 5px;
+  overflow: hidden;
   margin-bottom: 20px;
   @media screen and (min-width: 768px) {
     margin: 0;

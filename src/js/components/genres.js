@@ -4,7 +4,7 @@ import {
 import { options } from './fetchApi';
 
 
-export { genresMarkup, galleryGenresMarkup, toggleGenres, toggleYear, removeAllChekedGenres, toggleTrands }
+export { genresMarkup, galleryGenresMarkup,modalGenresMarkup, toggleGenres, toggleYear, removeAllChekedGenres, toggleTrands }
 
 const refs = {
   genres: document.querySelector('.genres'),
@@ -37,6 +37,19 @@ function galleryGenresMarkup(array) {
    ressult.push('Other')
   return ressult.join(', ')
   }
+  return ress.join(', ')
+}
+//======================= жанры на модалке ===================================
+function modalGenresMarkup(array) {
+//   console.log(array)
+  let ress = array.map(elem => {
+    for (const el of options.allGenresList) {
+      if (elem === el.id) {
+        // console.log('name ', el.name)
+        return el.name
+      }
+    }
+  })
   return ress.join(', ')
 }
 
