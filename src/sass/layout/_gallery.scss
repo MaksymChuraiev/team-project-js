@@ -18,6 +18,15 @@
     width: 100%;
     margin-bottom: 20px;
     // rgba(255, 107, 8, 0.28)
+    // @media screen and (min-width: 768px) {
+    //   margin-bottom: 30px;
+    //   flex-basis: calc(100% / 2 - 30px);
+    //   margin-left: 30px;
+    // }
+    // @media screen and (min-width: 1024px) {
+    //   flex-basis: calc(100% / 3 - 30px);
+    //   margin-left: 30px;
+    // }
     @media screen and (min-width: 768px) {
       margin-bottom: 30px;
       flex-basis: calc(100% / 2 - 30px);
@@ -61,7 +70,14 @@
   &__img {
     display: block;
     width: 100%;
-    // height: 398px;
+    // min-height: 420px;
+    height: 420px;
+    @media screen and (min-width: 768px) {
+      height: 441px;
+    }
+    @media screen and (min-width: 1024px) {
+      height: 411px;
+    }
   }
   &__description {
     padding-top: 10px;

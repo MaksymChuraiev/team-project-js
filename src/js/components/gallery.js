@@ -353,16 +353,14 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster">
-                        <img class="gallery-list__img" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="${original_title}" width = "396" />
+                        <img class="gallery-list__img" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="${original_title}"  loading="lazy" />
                     </div>
                     </div>
                     <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
 
-                        <p class="gallery-list__text">${galleryGenresMarkup(
-                          genre_ids,
-                        )} | <span class="gallery-list__text-aftertext">${new Date(
+                        <p class="gallery-list__text">${galleryGenresMarkup(genre_ids)?galleryGenresMarkup(genre_ids):'no information'} | <span class="gallery-list__text-aftertext">${new Date(
         release_date,
       ).getFullYear()?new Date(
         release_date,
