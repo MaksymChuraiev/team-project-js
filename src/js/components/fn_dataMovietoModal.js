@@ -3,6 +3,7 @@ export { modalWindowMarkup };
 import { galleryGenresMarkup, modalGenresMarkup } from './genres';
 import { posterFolder } from './gallery';
 import { wText } from './fn_searchGalleryTargetInLS';
+import folder from '../../images/placeholder.bmp'
 
 const refs = {
   gallery: document.querySelector('.gallery-list'),
@@ -21,8 +22,8 @@ function modalWindowMarkup({
   const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="js-teaser" href="#">
-                
-                    <img class="modal__image" src="${posterFolder(poster_path)}" alt="original_title" width="396"/>
+
+                    <img class="modal__image" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="original_title" width="396"/>
 
                 </a>
             </div>

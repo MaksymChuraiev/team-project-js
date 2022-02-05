@@ -55,8 +55,8 @@ async function fetchTrandingMovie() {
 
 async function fetchTrandingMovieForSlider() {
   try {
-    for (let pageNum = 0; pageNum <= 3, pageNum += 1;) {
-      if (options.pageNumber >= 4) {
+    for (let pageNum = 0; pageNum <= 5, pageNum += 1;) {
+      if (options.pageNumber >= 5) {
         options.pageNumber = 1
         return
       }
@@ -64,10 +64,13 @@ async function fetchTrandingMovieForSlider() {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/trending/movie/${options.trand}?api_key=6dae1a863e182d2e5c972909bcd1e575&&page=${options.pageNumber}`,
       );
-      options.listofFilmforSlider = [...options.listofFilmforSlider, ...data.results]
       
-      console.log('options.pageNumber',options.pageNumber)
-      console.log('options.listofFilmforSlider',options.listofFilmforSlider)
+      options.listofFilmforSlider = [...options.listofFilmforSlider, ...data.results]
+      localStorage.setItem('listofFilmforSliderLS', JSON.stringify(options.listofFilmforSlider))
+      
+      // console.log('pageNum',pageNum)
+      // console.log('options.pageNumber',options.pageNumber)
+      // console.log('options.listofFilmforSlider',options.listofFilmforSlider)
        
     }
    return data;

@@ -36,6 +36,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { sliderMarkup,onLoadMainPageShowSlider} from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
+import folder from '../../images/placeholder.bmp'
 
 export {
   currentFetch,
@@ -352,7 +353,7 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster">
-                        <img class="gallery-list__img" src="${posterFolder(poster_path)}" alt="${original_title}" width = "396" />
+                        <img class="gallery-list__img" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="${original_title}" width = "396" />
                     </div>
                     </div>
                     <div class="gallery-list__description">
