@@ -37,6 +37,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { sliderMarkup,onLoadMainPageShowSlider} from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 import folder from '../../images/placeholder.bmp'
+import { addPageInLS, readPageInLs } from './fn_addLSPageKey'
 
 export {
   currentFetch,
@@ -334,11 +335,12 @@ async function onLoadTranding() {
   togglePaginationBtn();
   removeAllChekedGenres();
   togglePainationAllButtons(ress);
+  
   if (ress.results.length !== 0) {
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
   }
 
-  options.pageNumber += 1;
+  // options.pageNumber += 1;
   console.log(options.allGenresList);
   await hideFetchLoader()
   return await fetchTrandingMovie();
