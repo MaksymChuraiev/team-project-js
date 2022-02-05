@@ -25,6 +25,19 @@ body {
   height: 13px;
   margin-left: 5px;
   margin-right: 5px;
+  animation: heartbeat .75s infinite;
+};
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.25);
+  }
+  40% {
+    transform: scale(1.5);
+  }
 }
 .footer__text {
   color: currentColor;
