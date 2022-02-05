@@ -362,7 +362,9 @@ function galleryArrayMarkup(array) {
                           genre_ids,
                         )} | <span class="gallery-list__text-aftertext">${new Date(
         release_date,
-      ).getFullYear()}</span> </p>
+      ).getFullYear()?new Date(
+        release_date,
+      ).getFullYear():'no information'}</span> </p>
 
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>

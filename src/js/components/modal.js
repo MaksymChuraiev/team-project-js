@@ -8,7 +8,7 @@
 // function toggleModal() {
 //     refs.modal.classList.toggle('is-hidden');
 // };
-export { modalOpenOnClick,}
+export { modalOpenOnClick}
 
 import {currentFilm, getGalleryTargetMovieFromLS} from './fn_searchGalleryTargetInLS'
 
@@ -49,12 +49,12 @@ function modalOpenOnClick() {
         
         
 
-    event.preventDefault()
+        event.preventDefault()
         modalCloseBtn.addEventListener('click', onClickCloseModal)
         console.log(event.currentTarget);
         console.dir(event.currentTarget);
         
-    modal.classList.toggle('visually-hidden');
+        modal.classList.toggle('visually-hidden');
         
         
         
