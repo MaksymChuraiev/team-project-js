@@ -5,6 +5,7 @@ export const options = {
   query: '',
   pageNumberTest: 1,
   pageNumber: 1,
+  pageNumberSlider: 1,
   pageItemCount: 20,
   allGenresList: [],
   genresId: [],
@@ -56,13 +57,13 @@ async function fetchTrandingMovie() {
 async function fetchTrandingMovieForSlider() {
   try {
     for (let pageNum = 0; pageNum <= 5, pageNum += 1;) {
-      if (options.pageNumber >= 5) {
-        options.pageNumber = 1
+      if (options.pageNumberSlider >= 5) {
+        options.pageNumberSlider = 1
         return
       }
-      options.pageNumber +=1
+      options.pageNumberSlider +=1
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/${options.trand}?api_key=6dae1a863e182d2e5c972909bcd1e575&&page=${options.pageNumber}`,
+        `https://api.themoviedb.org/3/trending/movie/${options.trand}?api_key=6dae1a863e182d2e5c972909bcd1e575&&page=${options.pageNumberSlider}`,
       );
       
       options.listofFilmforSlider = [...options.listofFilmforSlider, ...data.results]
