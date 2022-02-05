@@ -37,7 +37,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { sliderMarkup,onLoadMainPageShowSlider} from './slider';
 import {showFetchLoader,hideFetchLoader} from './fetchLoader'
 import folder from '../../images/placeholder.bmp'
-import { addPageInLS, readPageInLs } from './fn_addLSPageKey'
+
 
 export {
   currentFetch,
