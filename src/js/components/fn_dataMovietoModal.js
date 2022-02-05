@@ -1,6 +1,7 @@
 export { modalWindowMarkup };
 
-import { galleryGenresMarkup,modalGenresMarkup } from './genres';
+import { galleryGenresMarkup, modalGenresMarkup } from './genres';
+import { posterFolder } from './gallery';
 import { wText } from './fn_searchGalleryTargetInLS';
 
 const refs = {
@@ -20,7 +21,7 @@ function modalWindowMarkup({
   const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="js-teaser" href="#">
-                    <img class="modal__image" src="https://image.tmdb.org/t/p/w500${posterFolder(poster_path)}" alt="original_title" width="394"/>
+                    <img class="modal__image" src="${posterFolder(poster_path)}" alt="original_title" width="394"/>
                 </a>
             </div>
             <div class="modal__info-wrapper">

@@ -1,11 +1,13 @@
-export {onLoadMainPageShowSlider} 
+export { onLoadMainPageShowSlider } 
+import { options, fetchTrandingMovieForSlider } from './fetchApi';
+import { galleryGenresMarkup, modalGenresMarkup } from './genres';
+
 import Glide from '@glidejs/glide';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import '@glidejs/glide/dist/css/glide.theme.min.css';
 
 
-import { options, fetchTrandingMovieForSlider } from './fetchApi';
-import { galleryGenresMarkup,modalGenresMarkup } from './genres';
+
 
 
 const refs = {
@@ -16,7 +18,7 @@ const refs = {
 const sliderOptions = {
     type: 'carousel',
     startAt: 0,
-    perView: 4,
+    perView: 6,
     autoplay: 1500,
     gap: 10,
     hoverpause: true,
@@ -33,7 +35,7 @@ async function sliderMarkup() {
     if (vote_average > 8) {
       indexOfallUl +=1
       return `<li class="glide__slide" style="width: 136px; margin-left: 10px; margin-right: 10px;" data-idx="${id}">
-        <img class='slider-image' src="https://image.tmdb.org/t/p/w500${poster_path}"/>
+        <img class='slider-image' src="${posterFolder(poster_path)}"/>
       </li>`
     }
   }).join('');
@@ -75,7 +77,7 @@ function onClickSlide() {
     const modal = document.querySelector('[data-modal]');
     const watchedArray = JSON.parse(localStorage.getItem('watched'))
     const queueArray = JSON.parse(localStorage.getItem('queue'))
-    const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
+    // const clickedMovieCard = document.querySelectorAll(".gallery-list__item");
     const modalCloseBtn = document.querySelector('[data-modal-close]');
 
     const mainBody = document.querySelector('body');
@@ -319,6 +321,7 @@ function onClickSlide() {
         bodyScrollLock[scrollLockMethod](document.body);
     };
 
+    
   
   }))
 
@@ -327,7 +330,14 @@ function onClickSlide() {
 
 
 
-
+function posterFolder(poster) {
+  if (poster === null) {
+    return `https://via.placeholder.com/550`
+    // return `https://via.placeholder.com/550`
+    // return `https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg`
+  }
+  return `https://image.tmdb.org/t/p/w500${poster}`
+}
 
 
 function sliderModal({
@@ -343,7 +353,7 @@ function sliderModal({
   const markupFilm = `
             <div class="modal__image-wrapper">
                 <a class="js-teaser" href="#">
-                    <img class="modal__image" src="https://image.tmdb.org/t/p/w500${posterFolder(poster_path)}" alt="original_title" width="394"/>
+                    <img class="modal__image" src="${posterFolder(poster_path)}" alt="original_title" width="394"/>
                 </a>
             </div>
             <div class="modal__info-wrapper">
