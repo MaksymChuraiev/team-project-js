@@ -1,4 +1,5 @@
 export default teaser;
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { fetchTeaser } from './fetchApi';
 
@@ -19,6 +20,7 @@ async function teaser(id) {
 function onCardClick() {
   event.preventDefault();
   if (!video) {
+    Notify.failure('The official teaser is not yet available on YouTube.');
     return;
   }
   // this.href = `https://www.youtube.com/watch?v=${video.key}`;
