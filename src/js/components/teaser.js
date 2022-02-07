@@ -1,5 +1,6 @@
 export default teaser;
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import youtobe from '../../images/youtube_64dp.png';
 
 import { fetchTeaser } from './fetchApi';
 
@@ -14,6 +15,17 @@ async function teaser(id) {
       video.site === 'YouTube',
   )[0];
   href = document.querySelector('.js-teaser');
+  if (video) {
+    href.style.position = 'relative';
+    href.style.display = 'block';
+    href.insertAdjacentHTML(
+      'beforeend',
+      `<div
+    style="position:absolute;top:50%;left:50%; transform: translate(-50%,-50%);width:50px">
+    <img class="modal__image" src="${youtobe}" alt="YouTobe" width="20 "/>
+    </div>`,
+    );
+  }
   href.addEventListener('click', onCardClick);
 }
 
